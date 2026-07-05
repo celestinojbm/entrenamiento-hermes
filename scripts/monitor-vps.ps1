@@ -25,6 +25,14 @@ $resultados = @()
 $hayCritico = $false
 $hayAlerta = $false
 
+function Test-Placeholder {
+    # Un valor es placeholder si esta vacio o empieza por TODO (config sin rellenar).
+    param($Valor)
+    if (-not $Valor) { return $true }
+    if ($Valor -match '^\s*TODO') { return $true }
+    return $false
+}
+
 function Add-Resultado {
     param($Componente, $Chequeo, $Objetivo, $Estado, $Detalle)
     $script:resultados += [pscustomobject]@{
@@ -95,7 +103,7 @@ foreach ($vps in @($config.vps)) {
 
 # --- 4. Endpoints HTTP ---
 foreach ($ep in @($config.endpoints_http)) {
-    if (-not $ep.url) { continue }
+    if (Test-Placeholder $ep.url) { continue }
     $timeout = 10
     if ($ep.timeout_segundos) { $timeout = [int]$ep.timeout_segundos }
     try {
@@ -114,7 +122,7 @@ foreach ($ep in @($config.endpoints_http)) {
 }
 
 # --- 5. Market Castilla (chequeo superficial; el funcional es del pipeline 03) ---
-if ($config.market_castilla -and $config.market_castilla.endpoint_salud) {
+if ($config.market_castilla -and -not (Test-Placeholder $config.market_castilla.endpoint_salud)) {
     try {
         $resp = Invoke-WebRequest -Uri $config.market_castilla.endpoint_salud -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop
         Add-Resultado "market_castilla" "salud" $config.market_castilla.endpoint_salud "OK" "status $([int]$resp.StatusCode)"
