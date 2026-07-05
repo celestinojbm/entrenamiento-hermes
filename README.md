@@ -44,6 +44,18 @@ Hay **un solo Hermes**: el agente de Nous Research que el usuario utiliza **desd
 
 No confundir con `Dona-agent\hermes-poc` (el "segundo cerebro" de captura de pantalla): es un proyecto en el que Hermes trabajó, no el agente mismo.
 
+## Repo público y datos sensibles
+
+Este repositorio es **público** para que Hermes (panel web) pueda clonarlo sin token y para que sea revisable. Por eso hay una frontera estricta:
+
+| Público (en el repo) | Solo local (git-ignored) |
+|---|---|
+| Specs de pipeline, scripts, plan, tablero, bitácora | `config/ecosistema.json` (IPs Tailscale, hosts) |
+| Config de **ejemplo** con datos ficticios | `estado/*.json` (monitoreo real) |
+| Skill de integración | `reportes/*.md` (reportes con datos reales) |
+
+**Regla de oro:** ninguna IP, hostname ni secreto real entra en un archivo versionado. En la bitácora, refiérete a los nodos por nombre (`hermes-dona-vps`), nunca por IP. Si algún día necesitas versionar el inventario real, vuelve el repo privado primero.
+
 ## Principio rector
 
 Los "logros" (autonomía, variedad de herramientas, volumen) **no se persiguen directamente: son el subproducto de trabajo real**. Este repositorio está diseñado para que cada sesión de Hermes sea larga, multi-herramienta y autónoma *porque el trabajo lo exige*, no porque se infle artificialmente.

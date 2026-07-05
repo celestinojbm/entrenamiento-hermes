@@ -1,7 +1,16 @@
 # Estado interno de plugins/herramientas locales
 .omc/
 
-# Nota: config/ecosistema.json SE VERSIONA a proposito (repo privado):
-# es el inventario que Hermes necesita leer desde su sandbox.
-# La regla del proyecto es que NUNCA contenga secretos (solo nombres
-# de variables de entorno). Los secretos van fuera del repo.
+# ============================================================
+# DATOS OPERATIVOS - NUNCA se versionan (este repo es PUBLICO)
+# ============================================================
+# El inventario real y las salidas del monitor contienen IPs de
+# Tailscale, hosts, puertos y el estado de la infraestructura.
+# En un repo publico eso NO puede salir: vive solo en este PC.
+# Hermes recibe el inventario por otra via (chat / puente), nunca
+# desde el repo publico.
+config/ecosistema.json
+estado/*
+!estado/.gitkeep
+reportes/*
+!reportes/.gitkeep
