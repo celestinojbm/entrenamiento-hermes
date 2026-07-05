@@ -41,6 +41,18 @@ $md += ""
 
 $criticos = @($status.resultados | Where-Object { $_.estado -eq "CRITICO" })
 $alertas  = @($status.resultados | Where-Object { $_.estado -eq "ALERTA" })
+$omitidos = @($status.resultados | Where-Object { $_.estado -eq "OMITIDO" })
+
+if ($omitidos.Count -gt 0) {
+    $md += "## ⚪ Pendiente de inventario / acceso"
+    $md += ""
+    $md += "Hay **$($omitidos.Count)** chequeos omitidos. No son incidencias, pero indican que el OK global todavia es parcial porque faltan datos o credenciales."
+    $md += ""
+    $md += "| Componente | Chequeo | Detalle |"
+    $md += "|---|---|---|"
+    foreach ($r in $omitidos) { $md += "| $($r.componente) | $($r.chequeo) | $($r.detalle) |" }
+    $md += ""
+}
 
 if ($criticos.Count -gt 0) {
     $md += "## 🔴 Incidencias criticas (accion requerida)"

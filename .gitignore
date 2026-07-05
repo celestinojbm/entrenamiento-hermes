@@ -1,5 +1,6 @@
 # Estado interno de plugins/herramientas locales
 .omc/
+.claude/
 
 # ============================================================
 # DATOS OPERATIVOS - NUNCA se versionan (este repo es PUBLICO)
