@@ -27,7 +27,8 @@
 ## ⏰ Programados
 
 - **[H-009] Playbooks de reparación automática** — pipeline 04 — P2
-  Reinicio de servicio, reintento de scraper, limpieza de disco. *Bloqueada hasta tener monitor estable (H-007).*
+  ✅ Scripts creados y validados (parser 0 errores): `scripts/playbooks/reiniciar-servicio.ps1` y `scripts/playbooks/limpiar-disco.ps1` (dry-run por defecto; borrar exige `-Confirmar`).
+  ⬜ Probar contra un VPS real. *Bloqueada hasta que el usuario autorice SSH a los nodos (ver bitácora, adenda 5).*
 - **[H-010] Dashboard centralizado** — pipeline 05 — P3
   *Bloqueada hasta acumular histórico en `estado/` (≥ 1 semana).*
 
