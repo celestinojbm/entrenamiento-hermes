@@ -7,8 +7,6 @@
 
 ## 🔍 Triage
 
-- **[H-011] Dar a Hermes (panel web) acceso al centro de orquestación** — integración — P1
-  Hermes trabaja en un sandbox remoto sin acceso a este PC. Rutas posibles (decisión del usuario, no excluyentes): **(a)** subir este repo a GitHub privado para que Hermes lo clone/lea/escriba desde su sandbox — encaja con el puente `apply-hermes-scout`; **(b)** darle SSH a un VPS para operar infraestructura desde su terminal; **(c)** empezar a usar la app de escritorio + instalar la skill de `integracion\`. Sin esto, Hermes solo trabaja sobre lo que se le pegue en el chat.
 - **[H-001] Inventariar el ecosistema** — Fase 0 — P1
   Copiar `config/ecosistema.example.json` → `config/ecosistema.json` y rellenar VPS (IPs Tailscale), servicios, Market Castilla, scrapers, dashboards y APIs. *Requiere datos del usuario.*
 - **[H-002] Verificar acceso a todos los nodos** — Fase 0 — P1
@@ -29,7 +27,11 @@
 
 ## 🔄 En Curso
 
-*(vacío)*
+- **[H-011] Dar a Hermes acceso al centro de orquestación** — integración — P1
+  Rutas elegidas por el usuario (2026-07-04): GitHub privado + adoptar app de escritorio.
+  ✅ Repo privado creado y subido: `https://github.com/celestinojbm/entrenamiento-hermes`.
+  ⬜ **Usuario**: crear un fine-grained PAT limitado a ese repo (Contents: read/write) y dárselo a Hermes en su sandbox para que pueda clonar/push.
+  ⬜ **Usuario**: instalar la skill en la app de escritorio (un comando, ver `integracion\README.md`) — el clasificador de permisos exige que lo ejecute el humano.
 
 ## ⏰ Programados
 
