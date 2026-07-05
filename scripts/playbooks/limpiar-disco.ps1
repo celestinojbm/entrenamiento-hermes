@@ -9,11 +9,14 @@
 param(
     [Parameter(Mandatory=$true)][string]$Nodo,
     [switch]$Confirmar,
-    [string]$ConfigPath = (Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) "config\ecosistema.json")
+    [string]$ConfigPath = ""
 )
 
 $ErrorActionPreference = "Stop"
-$raiz = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+# $PSScriptRoot puede llegar vacio dentro de param() en PS 5.1: calcular aqui.
+$dirScript = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+$raiz = Split-Path (Split-Path $dirScript -Parent) -Parent
+if (-not $ConfigPath) { $ConfigPath = Join-Path $raiz "config\ecosistema.json" }
 $config = Get-Content $ConfigPath -Raw | ConvertFrom-Json
 $vps = @($config.vps) | Where-Object { $_.nombre -eq $Nodo }
 

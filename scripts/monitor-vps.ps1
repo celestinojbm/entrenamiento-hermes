@@ -81,8 +81,11 @@ foreach ($vps in @($config.vps)) {
         try {
             $destino = "$($vps.ssh_usuario)@$($vps.host)"
             $cmdRemoto = 'df -P / | tail -1 | awk ''{print $5}''; free -m 2>/dev/null | awk ''/^Mem:/{print int($7*100/$2)}'''
-            $salida = ssh -o ConnectTimeout=10 -o BatchMode=yes $destino $cmdRemoto
+            $salida = ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=accept-new $destino $cmdRemoto
             $lineas = @($salida -split "`n" | Where-Object { $_ -ne "" })
+            if ($lineas.Count -eq 0) {
+                Add-Resultado $vps.nombre "ssh" $vps.host "ALERTA" "SSH sin salida (exit $LASTEXITCODE): revisar known_hosts o Tailscale SSH"
+            }
             if ($lineas.Count -ge 1) {
                 $discoPct = [int]($lineas[0] -replace '%','')
                 $estadoDisco = if ($discoPct -gt 95) {"CRITICO"} elseif ($discoPct -gt 85) {"ALERTA"} else {"OK"}
@@ -95,6 +98,36 @@ foreach ($vps in @($config.vps)) {
             }
         } catch {
             Add-Resultado $vps.nombre "ssh" $vps.host "ALERTA" "SSH fallo: $($_.Exception.Message)"
+        }
+
+        # --- 3b. Servicios systemd declarados (via SSH) ---
+        foreach ($svcSys in @($vps.servicios_systemd)) {
+            if (-not $svcSys) { continue }
+            try {
+                $estadoSvc = ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=accept-new $destino "systemctl is-active $svcSys"
+                if ("$estadoSvc" -match 'active') {
+                    Add-Resultado $vps.nombre "systemd:$svcSys" $svcSys "OK" "activo"
+                } else {
+                    Add-Resultado $vps.nombre "systemd:$svcSys" $svcSys "CRITICO" "estado: $estadoSvc"
+                }
+            } catch {
+                Add-Resultado $vps.nombre "systemd:$svcSys" $svcSys "ALERTA" "no se pudo consultar via SSH"
+            }
+        }
+
+        # --- 3c. Procesos declarados (via SSH, pgrep -f) ---
+        foreach ($proc in @($vps.procesos)) {
+            if (-not $proc) { continue }
+            try {
+                ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=accept-new $destino "pgrep -f $proc >/dev/null" | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    Add-Resultado $vps.nombre "proceso:$proc" $proc "OK" "corriendo"
+                } else {
+                    Add-Resultado $vps.nombre "proceso:$proc" $proc "CRITICO" "no encontrado"
+                }
+            } catch {
+                Add-Resultado $vps.nombre "proceso:$proc" $proc "ALERTA" "no se pudo consultar via SSH"
+            }
         }
     } else {
         Add-Resultado $vps.nombre "recursos" "ssh" "OMITIDO" "ssh_habilitado=false en config"

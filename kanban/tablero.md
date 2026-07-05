@@ -9,16 +9,14 @@
 
 ## 📋 Todo
 
-- **[H-004] Auditoría de scrapers existentes** — pipeline 02 — P2
-  Por cada scraper: última ejecución, tasa de éxito, errores en logs, frescura de datos. Informe en `reportes/`. *Depende de H-001.*
-- **[H-005] Chequeo de salud de Market Castilla** — pipeline 03 — P2
-  Verificar panel, API y flujos críticos; integrar el chequeo al monitor. *Depende de H-001.*
+- **[H-004] Auditoría de scrapers/automatizaciones** — pipeline 02 — P2
+  El descubrimiento SSH no encontró scrapers en crons de root; sí 2 automatizaciones Dona en `openclaw-vps` (inventariadas). Auditar sus logs/resultados y preguntar al usuario si existen scrapers en otro lado (pm2, otros usuarios, proyectos locales).
+- **[H-005] Chequeo funcional de Market Castilla** — pipeline 03 — P2
+  ✅ Chequeo superficial integrado al monitor (panel responde 200; URL en inventario local).
+  ⬜ Flujos críticos (login, listado): requiere decidir cómo probarlos sin escribir datos reales. *La API propia, si existe, falta inventariar.*
 
 ## 🔄 En Curso
 
-- **[H-001] Inventariar el ecosistema** — Fase 0 — P1
-  ✅ `config/ecosistema.json` creado (local, git-ignored) con los 2 VPS descubiertos vía Tailscale (`hermes-dona-vps`, `openclaw-vps`) + SSH:22.
-  ⬜ **Usuario/Hermes**: completar los `TODO` del archivo — usuarios SSH reales, puertos HTTP/servicios de cada VPS, URLs de Market Castilla, scrapers y APIs externas.
 - **[H-011] Dar a Hermes acceso al centro de orquestación** — integración — P1
   ✅ Skill instalada y verificada en la app local (`~/.hermes/skills/entrenamiento-hermes`) junto a `personas`.
   ✅ Repo público clonado/actualizado: `https://github.com/celestinojbm/entrenamiento-hermes`.
@@ -27,13 +25,17 @@
 ## ⏰ Programados
 
 - **[H-009] Playbooks de reparación automática** — pipeline 04 — P2
-  ✅ Scripts creados y validados (parser 0 errores): `scripts/playbooks/reiniciar-servicio.ps1` y `scripts/playbooks/limpiar-disco.ps1` (dry-run por defecto; borrar exige `-Confirmar`).
-  ⬜ Probar contra un VPS real. *Bloqueada hasta que el usuario autorice SSH a los nodos (ver bitácora, adenda 5).*
+  ✅ Scripts creados y validados. ✅ SSH autorizado por el usuario a ambos VPS. ✅ `limpiar-disco` probado en dry-run real contra `openclaw-vps` (midió 40M liberables y se negó a borrar sin `-Confirmar`). Corregido bug de `$PSScriptRoot` vacío en `param()` (PS 5.1).
+  ⬜ Probar `reiniciar-servicio` con un servicio no crítico cuando haya ocasión (reiniciar el gateway de Hermes interrumpiría al agente: elegir momento con el usuario).
 - **[H-010] Dashboard centralizado** — pipeline 05 — P3
   *Bloqueada hasta acumular histórico en `estado/` (≥ 1 semana).*
 
 ## ✅ Hecho
 
+- **[H-001] Inventariar el ecosistema** — 2026-07-04
+  Completado por descubrimiento autorizado (SSH root vía Tailscale + GitHub): 2 VPS con recursos y servicios reales (gateway de Hermes como systemd, gateway de OpenClaw como proceso, 2 automatizaciones Dona), 4 endpoints cloud (Market Castilla, Dona, Dona Founders, Manos Venezuela) y proyectos cloud inventariados. Todo en `config/ecosistema.json` (local). Pendientes menores: API de Market Castilla, URL de Fluvia, APIs externas.
+- **[H-012] Monitor ampliado a servicios y procesos** — 2026-07-04
+  El monitor ahora vigila servicios systemd (`systemctl is-active`) y procesos (`pgrep -f`) vía SSH, con `accept-new` para host keys del tailnet y alerta explícita si SSH no responde. **Barrido completo: 15/15 OK.**
 - **[H-007] Programar monitor recurrente** — 2026-07-04
   Task Scheduler creado en Windows: `EntrenamientoHermes\MonitorInfraestructura`, cada 15 minutos. Verificado con ejecución manual: último resultado `0` y nuevo `estado/status-2026-07-04-2324.json` generado.
 - **[H-006] Primer reporte ejecutivo** — 2026-07-04
