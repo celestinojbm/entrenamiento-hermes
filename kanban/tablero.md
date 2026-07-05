@@ -7,17 +7,11 @@
 
 ## 🔍 Triage
 
-- **[H-001] Inventariar el ecosistema** — Fase 0 — P1
-  Copiar `config/ecosistema.example.json` → `config/ecosistema.json` y rellenar VPS (IPs Tailscale), servicios, Market Castilla, scrapers, dashboards y APIs. *Requiere datos del usuario.*
-- **[H-002] Verificar acceso a todos los nodos** — Fase 0 — P1
-  Ping Tailscale + SSH + HTTP a cada componente inventariado. Evidencia en `estado/`.
 - **[H-008] Definir umbrales de alerta** — pipeline 01 — P3
   ¿Qué es "caído"? ¿Cuánto disco es "crítico"? Documentar en la spec del pipeline 01.
 
 ## 📋 Todo
 
-- **[H-003] Primer barrido del monitor** — pipeline 01 — P1
-  Ejecutar `scripts/monitor-vps.ps1` con la config real y corregir lo que falle. *Depende de H-001.*
 - **[H-004] Auditoría de scrapers existentes** — pipeline 02 — P2
   Por cada scraper: última ejecución, tasa de éxito, errores en logs, frescura de datos. Informe en `reportes/`. *Depende de H-001.*
 - **[H-005] Chequeo de salud de Market Castilla** — pipeline 03 — P2
@@ -27,11 +21,14 @@
 
 ## 🔄 En Curso
 
+- **[H-001] Inventariar el ecosistema** — Fase 0 — P1
+  ✅ `config/ecosistema.json` creado (local, git-ignored) con los 2 VPS descubiertos vía Tailscale (`hermes-dona-vps`, `openclaw-vps`) + SSH:22.
+  ⬜ **Usuario/Hermes**: completar los `TODO` del archivo — usuarios SSH reales, puertos HTTP/servicios de cada VPS, URLs de Market Castilla, scrapers y APIs externas.
 - **[H-011] Dar a Hermes acceso al centro de orquestación** — integración — P1
-  Rutas elegidas por el usuario (2026-07-04): GitHub privado + adoptar app de escritorio.
-  ✅ Repo privado creado y subido: `https://github.com/celestinojbm/entrenamiento-hermes`.
-  ⬜ **Usuario**: crear un fine-grained PAT limitado a ese repo (Contents: read/write) y dárselo a Hermes en su sandbox para que pueda clonar/push.
+  Rutas elegidas por el usuario (2026-07-04): GitHub + adoptar app de escritorio.
+  ✅ **Repo PÚBLICO** subido: `https://github.com/celestinojbm/entrenamiento-hermes` — Hermes puede clonarlo sin token. Datos operativos (inventario/estado/reportes) quedan git-ignored, solo en el PC.
   ⬜ **Usuario**: instalar la skill en la app de escritorio (un comando, ver `integracion\README.md`) — el clasificador de permisos exige que lo ejecute el humano.
+  ⬜ **Usuario**: en el panel web, decir a Hermes que clone el repo público y trabaje el tablero según `integracion/hermes-skill/SKILL.md`.
 
 ## ⏰ Programados
 
@@ -44,5 +41,9 @@
 
 ## ✅ Hecho
 
+- **[H-003] Primer barrido del monitor** — 2026-07-04
+  `scripts/monitor-vps.ps1` ejecutado contra los VPS reales por Tailscale: **ambos OK** (ping + SSH:22). Reporte ejecutivo generado. Bug corregido en el camino (falsos CRÍTICO con valores placeholder).
+- **[H-002] Verificar acceso a los nodos** — 2026-07-04
+  Ping + puerto SSH confirmados en `hermes-dona-vps` y `openclaw-vps`. (Pendiente el acceso SSH autenticado para chequeos de recursos — requiere `ssh_habilitado:true` + clave.)
 - **[H-000] Scaffold del sistema** — 2026-07-04
   Estructura del repo, carta operativa, plan maestro, specs de pipelines, scripts de monitor y reporte, config de ejemplo.
