@@ -9,6 +9,8 @@
 
 ## 📋 Todo
 
+- **[H-013] Auditoría del proyecto Fluvia** — pipeline 06 — P2
+  Clonar `celestinojbm/Fluvia` (público), ejecutar las 6 fases del pipeline 06 y entregar `reportes/auditoria-fluvia-<fecha>.md` + tarjetas de hallazgos críticos/altos en Triage. Extra: averiguar y añadir al inventario la URL de despliegue.
 - **[H-004] Auditoría de scrapers/automatizaciones** — pipeline 02 — P2
   El descubrimiento SSH no encontró scrapers en crons de root; sí 2 automatizaciones Dona en `openclaw-vps` (inventariadas). Auditar sus logs/resultados y preguntar al usuario si existen scrapers en otro lado (pm2, otros usuarios, proyectos locales).
 - **[H-005] Chequeo funcional de Market Castilla** — pipeline 03 — P2
