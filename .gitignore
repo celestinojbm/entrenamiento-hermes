@@ -1,0 +1,7 @@
+# Estado interno de plugins/herramientas locales
+.omc/
+
+# Nota: config/ecosistema.json SE VERSIONA a proposito (repo privado):
+# es el inventario que Hermes necesita leer desde su sandbox.
+# La regla del proyecto es que NUNCA contenga secretos (solo nombres
+# de variables de entorno). Los secretos van fuera del repo.

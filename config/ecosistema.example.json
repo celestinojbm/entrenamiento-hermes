@@ -1,0 +1,51 @@
+{
+  "$comentario": "Copiar este archivo a config/ecosistema.json y rellenar. NO poner secretos aqui: tokens y contrasenas van en variables de entorno; este archivo solo referencia sus NOMBRES.",
+  "tailscale": {
+    "tailnet": "ejemplo.ts.net",
+    "nodos_criticos": ["vps-principal"]
+  },
+  "vps": [
+    {
+      "nombre": "vps-principal",
+      "host": "100.64.0.1",
+      "ssh_usuario": "root",
+      "ssh_habilitado": false,
+      "servicios": [
+        { "nombre": "nginx", "puerto": 80 },
+        { "nombre": "ssh", "puerto": 22 }
+      ],
+      "rutas_limpieza_segura": ["/var/log/*.gz", "/tmp"]
+    }
+  ],
+  "endpoints_http": [
+    {
+      "nombre": "panel-ejemplo",
+      "url": "https://ejemplo.midominio.com/health",
+      "timeout_segundos": 10
+    }
+  ],
+  "market_castilla": {
+    "panel_url": "",
+    "api_url": "",
+    "endpoint_salud": "",
+    "flujos_criticos": ["login", "listado-productos"],
+    "entorno_pruebas_disponible": false
+  },
+  "scrapers": [
+    {
+      "nombre": "scraper-ejemplo",
+      "ubicacion": "vps-principal:/opt/scrapers/ejemplo",
+      "programacion": "cron 0 6 * * *",
+      "ruta_log": "/var/log/scrapers/ejemplo.log",
+      "salida_datos": "/opt/scrapers/ejemplo/data"
+    }
+  ],
+  "dashboards": [],
+  "apis_externas": [
+    {
+      "nombre": "api-ejemplo",
+      "base_url": "",
+      "variable_entorno_token": "API_EJEMPLO_TOKEN"
+    }
+  ]
+}
