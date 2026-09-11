@@ -1,0 +1,93 @@
+### Dona-agent: pytest (tercera pasada, resumen limpio; stderr descartado)
+comando: python -m pytest -q --tb=no -rEf -p no:cacheprovider
+  RuntimeError: Event loop is closed
+  
+  During handling of the above exception, another exception occurred:
+  
+  Traceback (most recent call last):
+    File "/usr/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+      self._context.run(self.run)
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    File "/usr/lib/python3.14/threading.py", line 1024, in run
+      self._target(*self._args, **self._kwargs)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/home/celestinojbm/h014-work/venv-dona/lib/python3.14/site-packages/aiosqlite/core.py", line 75, in _connection_worker_thread
+      future.get_loop().call_soon_threadsafe(set_exception, future, e)
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.14/asyncio/base_events.py", line 872, in call_soon_threadsafe
+      self._check_closed()
+      ~~~~~~~~~~~~~~~~~~^^
+    File "/usr/lib/python3.14/asyncio/base_events.py", line 550, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/test_internal_assets.py::TestAuth::test_sin_header_401 - RuntimeE...
+ERROR tests/test_internal_assets.py::TestAuth::test_firma_invalida_401 - Runt...
+ERROR tests/test_internal_assets.py::TestAuth::test_firma_de_otro_secret_401
+ERROR tests/test_internal_assets.py::TestAuth::test_body_modificado_tras_firmar_401
+ERROR tests/test_internal_assets.py::TestPayload::test_no_json_400 - RuntimeE...
+ERROR tests/test_internal_assets.py::TestPayload::test_array_no_objeto_400 - ...
+ERROR tests/test_internal_assets.py::TestPayload::test_sin_subscription_id_400
+ERROR tests/test_internal_assets.py::TestPayload::test_subscription_id_vacio_400
+ERROR tests/test_internal_assets.py::TestSubInexistente::test_sub_inexistente_404
+ERROR tests/test_internal_assets.py::TestListado::test_sub_sin_activos_lista_vacia
+ERROR tests/test_internal_assets.py::TestListado::test_sub_con_activos_forma_sanitizada
+ERROR tests/test_internal_assets.py::TestListado::test_filtro_tipo_solo_ese_tipo
+ERROR tests/test_internal_assets.py::TestListado::test_tipo_desconocido_devuelve_todos
+ERROR tests/test_internal_assets.py::TestListado::test_limite_acota_cantidad
+ERROR tests/test_internal_assets.py::TestIDOR::test_sub_no_ve_activos_de_otro_telefono
+ERROR tests/test_internal_assets.py::TestReadOnly::test_no_modifica_db - Runt...
+ERROR tests/test_internal_stripe_topup_dispatch.py::TestDispatchTopup::test_topup_acredita_y_devuelve_200
+ERROR tests/test_internal_stripe_topup_dispatch.py::TestDispatchTopup::test_topup_idempotente_por_event_id
+ERROR tests/test_internal_stripe_topup_dispatch.py::TestDispatchTopup::test_topup_sin_metadata_creditos_no_acredita
+ERROR tests/test_internal_stripe_topup_dispatch.py::TestDispatchSubscriptionIntacto::test_subscription_no_va_al_path_topup
+ERROR tests/test_internal_stripe_topup_dispatch.py::TestAuthGate::test_topup_sin_firma_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaInvalida::test_sin_header_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaInvalida::test_header_vacio_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaInvalida::test_firma_invalida_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaInvalida::test_firma_de_otro_secret_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaInvalida::test_firma_correcta_pero_body_modificado_devuelve_401
+ERROR tests/test_main_internal_stripe.py::TestFirmaValidaProcesa::test_checkout_valido_devuelve_200_y_crea_suscripcion
+ERROR tests/test_main_internal_stripe.py::TestFirmaValidaProcesa::test_invoice_acredita_via_endpoint
+ERROR tests/test_main_internal_stripe.py::TestJsonInvalido::test_body_no_es_json_devuelve_400
+ERROR tests/test_main_internal_stripe.py::TestJsonInvalido::test_body_json_pero_no_objeto_devuelve_400
+ERROR tests/test_main_internal_stripe.py::TestJsonInvalido::test_body_vacio_devuelve_400
+ERROR tests/test_main_internal_stripe.py::TestDuplicateEvent::test_evento_duplicado_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestInvoiceYaAcreditado::test_invoice_acreditado_dos_veces_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestRaceInvoiceCheckout::test_invoice_sin_suscripcion_devuelve_500
+ERROR tests/test_main_internal_stripe.py::TestRaceInvoiceCheckout::test_subscription_updated_sin_persistida_NO_retryable
+ERROR tests/test_main_internal_stripe.py::TestRaceInvoiceCheckout::test_subscription_deleted_sin_persistida_NO_retryable
+ERROR tests/test_main_internal_stripe.py::TestNoRetryable::test_missing_telefono_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestNoRetryable::test_plan_invalido_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestNoRetryable::test_missing_event_id_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestNoRetryable::test_tipo_no_soportado_devuelve_200
+ERROR tests/test_main_internal_stripe.py::TestNoRetryable::test_checkout_mode_payment_va_a_path_topup
+ERROR tests/test_main_internal_usuario_resumen.py::TestAuth::test_sin_header_devuelve_401
+ERROR tests/test_main_internal_usuario_resumen.py::TestAuth::test_header_vacio_devuelve_401
+ERROR tests/test_main_internal_usuario_resumen.py::TestAuth::test_firma_invalida_devuelve_401
+ERROR tests/test_main_internal_usuario_resumen.py::TestAuth::test_firma_de_otro_secret_devuelve_401
+ERROR tests/test_main_internal_usuario_resumen.py::TestAuth::test_body_modificado_tras_firmar_devuelve_401
+ERROR tests/test_main_internal_usuario_resumen.py::TestJsonInvalido::test_body_no_es_json
+ERROR tests/test_main_internal_usuario_resumen.py::TestJsonInvalido::test_body_es_array_no_objeto
+ERROR tests/test_main_internal_usuario_resumen.py::TestJsonInvalido::test_body_vacio
+ERROR tests/test_main_internal_usuario_resumen.py::TestPayloadInvalido::test_body_sin_subscription_id
+ERROR tests/test_main_internal_usuario_resumen.py::TestPayloadInvalido::test_subscription_id_vacio
+ERROR tests/test_main_internal_usuario_resumen.py::TestPayloadInvalido::test_subscription_id_solo_whitespace
+ERROR tests/test_main_internal_usuario_resumen.py::TestSubInexistente::test_subscription_inexistente_devuelve_404
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_sub_sin_saldo_sin_trans
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_sub_con_saldo_y_transacciones
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_solo_devuelve_ultimas_10
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstadosSuscripcion::test_canceled_no_puede_cancelar
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstadosSuscripcion::test_past_due_no_puede_cancelar
+ERROR tests/test_main_internal_usuario_resumen.py::TestReadOnly::test_endpoint_no_modifica_db
+ERROR tests/test_main_internal_usuario_resumen.py::TestLegacyEndpointsIntactos::test_internal_stripe_event_acepta_request
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstructuraEsperada::test_telefono_presente_en_respuesta
+FAILED tests/test_observability_y_catalog.py::TestRequestId::test_contextvar_independiente_entre_tareas_async
+1 failed, 2360 passed, 40 warnings, 61 errors in 283.63s (0:04:43)
+EXIT=1 DURACION=288s
