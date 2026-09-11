@@ -1,0 +1,42 @@
+# PROPUESTA de configuración de gitleaks para Dona-agent (NO aplicada).
+# Vive en el centro de coordinación porque la auditoría H-014 no modifica los
+# repos auditoriados; este archivo es el artefacto revisable que Dona debería
+# incorporar como `.gitleaks.toml`.
+#
+# Objetivo del cambio: dejar el gate de secretos en VERDE sin cegarlo.
+#
+# Por qué la config actual NO funciona, medido (ver evidencia):
+#   - Sus `regexes` apuntan a formas que los hallazgos reales no tienen
+#     (`sk-ant-...`), así que no suprimen nada: el gate sigue en rojo.
+#   - Sus patrones genéricos (`(?i)dummy[_-]?(secret|key|token|auth)`) sí son
+#     peligrosos, pero por forma, no por valor: silencian cualquier cosa que se
+#     llame "test…"/"fake…" en cualquier archivo.
+#
+# Diseño elegido: SUPRESIÓN POR VALOR LITERAL, sin `paths` y sin patrones de
+# forma. Se silencian exactamente cinco cadenas, que son fixtures sintéticos ya
+# publicados en este repo público. Cualquier secreto nuevo — aunque viva en el
+# mismo archivo de test y se llame "test_…" — SIGUE fallando. Demostrado con dos
+# secretos sembrados a propósito dentro del mismo archivo (ver evidencia).
+#
+# Nota deliberada: NO se añade allowlist por ruta para `.next/` ni `__pycache__/`
+# aunque generen ruido local. Esas rutas ya están en `.gitignore` y no se
+# versionan, y el CI ejecuta gitleaks sobre el historial/diff de git, donde no
+# existen. Preferimos reportar ese ruido como lo que es (artefacto local del
+# entorno de auditoría) antes que introducir una supresión por ruta que sí podría
+# ocultar contenido versionado en el futuro.
+
+[extend]
+useDefault = true
+
+# --- Supresión mínima: cinco valores literales, ninguno explotable -------------
+# `regexTarget = "line"` ancla la coincidencia al contenido de la línea escaneada.
+[[allowlists]]
+description = "Fixtures sinteticos no explotables en tests de redaccion de PII y del Action Center (valores ya publicados en este repo publico)"
+regexTarget = "line"
+regexes = [
+  '''dona-secret123''',
+  '''sk-AAA\.\.\.2345''',
+  '''whsec_AAAABBBBCCCC1234567890''',
+  '''dona-abc123def456''',
+  '''dona-fedcba987654''',
+]

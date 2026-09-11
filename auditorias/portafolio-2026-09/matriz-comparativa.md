@@ -69,18 +69,47 @@ equiparables es lo que hoy dispersa la energía.
 | Dona | Producción suspendida + `ENVIRONMENT` fail-closed: la demo pública requiere infraestructura con secretos reales | Alta |
 | Nova Context | Nunca desplegado; sin infraestructura los modos "en vivo" no se pueden mostrar con datos reales | Media |
 | Fluvia | Requiere levantar Postgres+Redis y migrar (documentado y reproducible) | Baja |
-| EvolveOS | Ninguno relevante: la consola corre con una base Postgres | Baja |
+| EvolveOS | **No hay interfaz que mostrar**: `app/` solo expone `GET /health`. Cualquier demo hoy es de CLI y de base de datos | Alta |
 | Donalabs | Requiere Docker + ~8 GB RAM para el stack completo | Baja |
 
-### 3.3 Bloquea cobrar
+### 3.3 Bloqueos comerciales — tres categorías que no son la misma
 
-| Producto | Bloqueo de cobro | Gravedad |
+Mezclarlas lleva a conclusiones equivocadas (era el error de la v1). De aquí en
+adelante se separan siempre:
+
+**(a) Bloquea demo / alpha**
+
+| Producto | Bloqueo | Gravedad |
 |---|---|---|
-| Dona | **Rotación de secretos pendiente**; quiet hours TCPA y detección STOP con hallazgos abiertos (riesgo legal directo al mensajear en EEUU); auth web provisional; `cryptography` con CVE sin poder actualizar por el techo de versión | **Alta** |
-| Nova Context | Sin LICENSE y sin cadena de título verificada; sin despliegue real; sin evidencia de mercado | Alta |
+| Dona | Producción suspendida + arranque fail-closed: la demo pública exige infraestructura con secretos reales. **Y el flujo del dashboard no está cerrado** (no verificado visualmente) | Alta |
+| Nova Context | Nunca desplegado; sin infraestructura no hay alpha con datos reales | Media |
+| Fluvia | Levantar Postgres+Redis y migrar (reproducible; se ejecutó en esta auditoría) | Baja |
+| EvolveOS | Ninguno relevante… salvo que **no hay UI** que mostrar | Alta |
+| Donalabs | Requiere Docker + ~8 GB RAM | Baja |
+
+**(b) Bloquea vender suscripciones (SaaS)**
+
+| Producto | Bloqueo | Gravedad |
+|---|---|---|
+| Dona | **Rotación de secretos pendiente**; quiet hours TCPA y STOP con hallazgos abiertos (riesgo legal directo al mensajear en EEUU); auth web provisional; `cryptography` y `next` con CVEs; sin panel de métricas de negocio (no se puede **medir** si el precio funciona) | **Alta** |
+| Nova Context | **Cobro no implementado** (no hay pasarela en el código). La ausencia de `LICENSE` es una **pregunta de diligencia, no un bloqueo operativo**: sin licencia aplica el régimen por defecto de todos los derechos reservados, y el titular no necesita licenciarse a sí mismo para operar su software | Media |
 | Fluvia | Sin proveedor real (Fase 5 bloqueada) y matriz de jurisdicción sin verificación legal | **Alta** (por diseño: es sandbox) |
-| EvolveOS | No aplica hoy: su propio spec prohíbe mover dinero antes de la ratificación fundacional | — |
-| Donalabs | No aplica: plataforma interna, no se vende | — |
+| EvolveOS | No aplica: su spec prohíbe mover dinero antes de la ratificación fundacional | — |
+| Donalabs | No aplica: plataforma interna | — |
+
+**(c) Bloquea vender o transferir el activo (adquisición)**
+
+Aquí — y solo aquí — aplican los riesgos R-01/R-13/R-05/R-03 de nova-context:
+cadena de título no verificada (P0, capa el score en ≤70), postura de licencia sin
+decidir, transferibilidad de proveedores y bus factor 1. Detalle en
+`informes/nova-context.md` §4c.
+
+**(d) Riesgo transversal omitido en la v1: los cinco repos son públicos.**
+Código, hallazgos de seguridad y arquitectura son visibles para cualquiera,
+incluidos competidores. En Fluvia hay documentación de diseño de un ledger
+financiero; en Dona, el aparato de cobro y anti-abuso. Y **Dona declara MIT**,
+cuyo efecto — cualquiera puede explotar comercialmente el código — convive con
+cuatro repos sin licencia. Es una decisión estratégica que debería ser consciente.
 
 ### 3.4 Deuda antes de producción vs. deuda posponible
 
@@ -102,8 +131,8 @@ productos". Situación real por producto:
 | Producto | Superficie frontend | Estado | Distancia a "premium demostrable" |
 |---|---|---|---|
 | Dona | `landing/` (Next.js 16 + NextAuth): landing, dashboard con chat, checkout, legales | Rediseño de hero sin mergear; auth provisional; env de Vercel vacías | **Media** — hay base (shadcn/Radix) y falta cerrar el flujo demostrable |
-| Nova Context | `apps/web`, `apps/extension` (MV3), `apps/browser-shell` (Electron) | Funcional, orientado a alpha con 25 usuarios conocidos | **Media** — falta pulido de producto, no construcción |
-| Fluvia | `apps/checkout` (Next.js 15, i18n, WCAG AA), `apps/dashboard` | El más maduro del portafolio en accesibilidad y contrato de UI | **Baja** — lo que falta es contenido de demo, no interfaz |
+| Nova Context | `apps/web`, `apps/extension` (MV3), `apps/browser-shell` (Electron) | Todo detrás del gate de login: **visualmente hoy es una pantalla de login**. 0 violaciones axe, sin `h1` (*V14*), estilizada por el navegador (*V15*) | **Alta** — hay que dar identidad; el resto no es auditable sin sesión |
+| Fluvia | `apps/checkout` (Next.js 15, i18n, WCAG AA) y `apps/dashboard` | **Checkout**: WCAG AA verificado en su CI. **Dashboard**: 0 violaciones axe en 13 rutas **pero sin sistema de diseño** — la navegación son enlaces azules subrayados del navegador y las tarjetas son planas (*V17*) | **Alta** en el dashboard (hay que **diseñar**, no pulir); **baja** en checkout |
 | EvolveOS | **No existe UI todavía.** `app/` es un esqueleto que expone `GET /health`; la consola Next.js está declarada para Fase 1 | Sin interfaz | **Alta** — hay que construirla, no rediseñarla |
 | Donalabs | `design-system/apps/showcase` | Tokens OKLCH + componentes shadcn documentados | **Baja** — ya es el sistema, no un producto |
 

@@ -25,13 +25,15 @@ Objetivo del mes: Dona deja de tener motivos para no cobrar.
 | 1.6 | `arq`/Redis como camino por defecto; `inproc` solo explícito | Dona | S | 1.1 | Test de supervivencia a restart |
 | 1.7 | Limpiar `ruff`: aplicar las 446 correcciones automáticas y decidir las 12 restantes | Dona | S | — | `ruff check .` sin hallazgos |
 | 1.8 | Corregir el test de observabilidad roto en Python 3.14 y fijar la matriz de CI (3.11/3.12/3.13 + 3.14 opcional) | Dona | S | — | Suite verde en la matriz declarada |
-| 1.9 | **Fase A del sistema de diseño**: promover los tokens de `Donalabs/design-system` a paquete consumible; añadir los grupos que faltan (estado, radios, elevación, movimiento) | Donalabs → todos | M | — | Paquete instalable desde los otros repos; showcase actualizado |
-| 1.10 | Levantar los cinco frontends con datos de demo y producir el mapa de pantallas + lista de faltantes por producto | todos | M | — | Un documento de auditoría visual por producto |
+| 1.9 | **Fase A del sistema de diseño**: publicar el **contrato de tokens copiable** (no un paquete: `@donalabs/ui` es `private` con deps `workspace:*`) y añadir los grupos que faltan (estado, radios, elevación, movimiento) | Donalabs → todos | M | — | `tokens.css` versionado copiado en Dona/Fluvia/Nova; showcase actualizado |
+| 1.10 | ~~Levantar los frontends y producir el mapa de pantallas~~ **HECHO en esta auditoría** (65 capturas, axe-core, móvil y escritorio). Queda: corregir los 4 defectos de accesibilidad del sistema de diseño (V2–V5) **antes** de propagarlo | Donalabs | S | 1.9 | 0 violaciones axe en el showcase |
+| 1.12 | Cerrar el flujo demostrable del dashboard de Dona (I1) — **prerequisito para reactivar producción**, no posterior | Dona | L | — | Demo grabable < 5 min |
 | 1.11 | Cerrar/actualizar los 24 PRs abiertos de Dona (mayoría Dependabot) y podar ramas remotas | Dona | S | — | PRs abiertos < 5; ramas remotas < 15 |
 
 **Avance visible al día 30:** workflow `Security` de Dona completamente verde,
-`ruff` limpio, y los cinco frontends levantados localmente con la lista exacta de
-lo que les falta.
+`ruff` limpio, el sistema de diseño sin defectos de accesibilidad, y el flujo del
+dashboard de Dona cerrado y grabable. La auditoría visual ya está hecha: no hay
+que levantarlos, hay que corregir lo que se midió.
 
 ---
 
@@ -43,7 +45,7 @@ reales.
 | # | Tarea | Producto | Esfuerzo | Depende de | Criterio de aceptación |
 |---|---|---|---|---|---|
 | 2.1 | **B4 — Auth web endurecido**, sustituyendo el provisional sin cambiar el contrato de sesión | Dona | L | 1.1 | Suite de auth web verde + revisión de seguridad sin hallazgos P1 |
-| 2.2 | Reactivar producción: Render (backend) + Vercel (landing) con env vars y webhook Stripe verificado | Dona | M | 1.1–1.6, 2.1 | Smoke test end-to-end contra producción real |
+| 2.2 | Reactivar producción: Render (backend) + Vercel (landing) con env vars y webhook Stripe verificado. **Condición de entrada: 1.12 (flujo del dashboard) cerrado** | Dona | M | 1.1–1.6, 1.12, 2.1 | Smoke test end-to-end contra producción real |
 | 2.3 | Verificar el cobro end-to-end en producción (checkout → webhook → créditos → acción pagada) | Dona | S | 2.2 | Al menos un pago real registrado con su fila en `transacciones_credito` |
 | 2.4 | **Fase C-bis del sistema de diseño**: cerrar el flujo demostrable del dashboard de Dona con los componentes base (AppShell, DataTable, StatusBadge, ApprovalCard, estados) | Dona | L | 1.9, 1.10 | Demo grabable del flujo principal en < 5 min |
 | 2.5 | Decidir la fusión del rediseño de hero pendiente (`design/landing-hero-v2`) | Dona | XS | 1.9 | Decisión registrada (fusionar o descartar) |

@@ -91,12 +91,38 @@ Contenido real y documentado (`design-system/docs/`):
 
 ## 4. Riesgos técnicos
 
-### (a) Funciona hoy — verificado
+### (a) Funciona hoy — con el alcance exacto de lo verificado
 
 El design system instala, tipa, lintea y compila; el CI está verde. Los scripts de
 infraestructura existen y están documentados; la documentación de consumo
 (`docs/consuming.md`) y de seguridad (`docs/security.md`) es concreta y
-accionable (y la verificación documental se hizo: ver §2).
+accionable (ver §2).
+
+**Corrección de calificación (ronda 2): Donalabs NO está verificado de extremo a
+extremo y no se clasifica como "verde".**
+
+- **No tiene suite de comportamiento**: `design-system/package.json` declara
+  `dev`, `build`, `lint`, `format` y `typecheck`, pero **no `test`**. `typecheck`
+  y `lint` no verifican comportamiento.
+- **La infraestructura Docker quedó sin ejecutar**: sin Docker ni root en el
+  entorno, `start.sh`, `health.sh`, `backup.sh` y `restore.sh` son **No
+  verificado**.
+- **El showcase se recorrió con navegador real** (7 rutas, escritorio y móvil) y
+  tiene **4 defectos de accesibilidad propios**, medidos con axe-core:
+
+  | # | Hallazgo | Ruta | Detalle |
+  |---|---|---|---|
+  | V1 | Desborde horizontal en escritorio: `scrollWidth` 1696 px sobre 1440 px | `/marketing` | 256 px de desborde |
+  | V2 | Contraste insuficiente en la etiqueta del token `--muted` (*serious*) | `/foundations` | `<span class="font-mono text-xs">--muted</span>` |
+  | V3 | Contraste insuficiente en **12 nodos** de la variante `destructive` del botón (*serious*) | `/components` | `<button data-variant="destructive">` |
+  | V4 | Contraste insuficiente en el badge `destructive` (*serious*) | `/dashboard` | `<span data-slot="badge" data-variant="destructive">` |
+  | V5 | ARIA inválido: `aria-label` sobre un `div` sin `role` (*serious*) | `/evaluated` | `<div aria-label="Default user avatar">` |
+
+  **Por qué importa más aquí que en ningún otro sitio:** V2, V3 y V4 son
+  contraste insuficiente **en el propio sistema de diseño**. Si se propaga este
+  sistema a Dona, Fluvia y Nova, el defecto se multiplica por cuatro. Corregirlo
+  en el origen es la **condición previa** para cualquier trabajo de tokens
+  compartidos (`../sistema-diseno-compartido.md` §3.1).
 
 ### (b) Bloquea una demostración
 

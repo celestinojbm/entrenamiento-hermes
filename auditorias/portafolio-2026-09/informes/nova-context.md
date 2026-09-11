@@ -119,17 +119,67 @@ y contrasta con su estado comercial: hay producto técnico sin mercado.
    approves" (`README.md`). Es correcta y también el bloqueo de la demo con datos
    reales.
 
-### (c) Bloquea cobrar
+### (c) Bloqueos comerciales — hay que separar tres cosas que no son la misma
 
-1. **Sin `LICENSE`** (confirmado en el árbol). `docs/acquisition/ACQUISITION_READINESS.md`
-   §5 lo lista como ausente y R-13 lo rastrea. Postura sin definir: es una
-   pregunta de diligencia en sí misma.
-2. **Cadena de título no verificada.** R-01 explicita: propiedad personal
-   `operator_attested`, sin paquete documental ni revisión profesional. Es el
-   **bloqueador P0 de adquisición** y capa el score (≤70).
-3. **Sin evidencia de mercado** (R-04): cero usuarios, cero waitlist, cero LOIs.
-4. **Transferibilidad de proveedores** (R-05): términos y cuentas de
-   Anthropic/OpenAI/Notion/Fly.
+La fuente de estos riesgos es `docs/acquisition/ACQUISITION_READINESS.md` y su
+`RISK_REGISTER.md`, que son un paquete de **acquisition readiness**. Ese paquete
+evalúa **vender o transferir el activo**, no operar el producto. Mezclarlas lleva a
+conclusiones equivocadas, así que aquí quedan separadas.
+
+**(c.1) Bloquea la demo / la alpha privada**
+
+- **Infraestructura real nunca ejecutada.** El propio repo lo dice sin adornos:
+  M14 fue un *dress rehearsal* en modo producción sin credenciales cloud
+  (`docs/ALPHA_RUN.md`) y M18 se describe como "no provisioning, no costs".
+  Sin despliegue no hay alpha con datos reales.
+- **Regla dura autodeclarada:** "no real user data until the operator explicitly
+  approves" (`README.md`). Correcta, y también el freno de la demo.
+- **Ninguno de los dos es un problema de licencia ni de cadena de título.**
+
+**(c.2) Bloquea vender suscripciones (SaaS)**
+
+- **Ausencia de `LICENSE`.** Con matiz importante y citable: sin licencia aplica
+  el régimen por defecto de *todos los derechos reservados*. Para **vender un
+  servicio** eso no es un bloqueo: el titular no necesita licenciarse a sí mismo
+  para operar su propio software. Es una **pregunta de diligencia y de postura
+  declarada**, no un impedimento operativo.
+- **Cobro no implementado.** No hay pasarela ni flujo de pago en el código
+  revisado. Esto sí bloquea cobrar, y es trabajo, no papeleo.
+- **Sin evidencia de demanda** (R-04): cero usuarios, cero waitlist, cero LOIs.
+  Bloquea *decidir* cobrar, no *poder* cobrar.
+
+**(c.3) Bloquea vender o transferir el activo (adquisición)**
+
+Aquí — y solo aquí — los hallazgos del paquete de adquisición son bloqueadores:
+
+- **R-01, cadena de título no verificada (P0).** Propiedad personal
+  `operator_attested`, sin paquete documental ni revisión profesional. El propio
+  documento advierte: *"do not treat attestation as documentary evidence"*. Capa el
+  score de adquisición en ≤70 y puede bloquear una compra por sí solo.
+- **R-13, postura de licencia sin decidir.** Distinto de la propiedad: es qué
+  licencia se concede al comprador. Sin decidir es una pregunta de diligencia.
+- **R-05, transferibilidad de proveedores** (Anthropic/OpenAI/Notion/Fly):
+  bloqueador condicional de transferencia.
+- **R-03, bus factor 1** en cuentas, claves y decisiones.
+
+**(c.4) Riesgo omitido en la versión anterior de este informe: repositorios
+públicos.** Los cinco repos auditados son **públicos** (`isPrivate: false` en la
+API de GitHub, verificado en la línea base). Consecuencias que esta auditoría debe
+nombrar y no nombraba:
+
+- El código, los hallazgos de seguridad y la arquitectura son visibles para
+  cualquiera, incluidos competidores. En Fluvia hay documentación de diseño de un
+  ledger financiero; en Dona, el aparato de cobro y anti-abuso.
+- **`gitleaks` corriendo en un repo público no es higiene: es control de daño
+  activo.** Un secreto filtrado en un repo público se considera comprometido de
+  inmediato, y el gate de Dona lleva tres semanas en rojo (§4c del informe de Dona).
+- Para Nova Context, el paquete de adquisición exige *"no exponer secretos ni datos
+  sensibles"*: hoy no los hay, pero la superficie pública hace que cualquier error
+  futuro sea irreversible.
+- **Mitigación concreta:** mantener públicos solo los repos que aporten valor de
+  portafolio o contratación, y hacer privados los que contengan diseño financiero
+  sensible (Fluvia) o lógica anti-abuso (Dona) si no hay una razón de negocio para
+  exponerlos. Decisión del propietario; coste cero.
 
 ### (d) Deuda antes de producción
 
@@ -204,6 +254,37 @@ del portafolio donde el motion tiene función pedagógica real).
 diagramas del Context Moment + un motion corto de 5–10 s que muestre
 "capturo → se redacta → se convierte en acción". **Sin** metáforas de cerebro,
 nubes o redes neuronales: el producto es infraestructura medible.
+
+## 5.1 Estado visual medido con navegador (ronda 2)
+
+Las 4 rutas capturadas (`/login`, `/reset`, `/`, `/approvals`) **renderizan todas
+la misma pantalla de login**: no existe superficie pública. Detalle en
+[`../auditoria-visual.md`](../auditoria-visual.md) §4.
+
+| # | Hallazgo | Evidencia |
+|---|---|---|
+| V14 | **No hay `h1` en ninguna página**: el encabezado "Sign in to Nova" es un **`<h2>`**, así que el documento no tiene H1 | volcado de DOM |
+| V15 | La pantalla es **visualmente genérica**: formulario centrado con bordes por defecto, sin sistema de diseño ni marca más allá del texto "Nova Context", enlace azul subrayado del navegador | captura `nova__login__desktop.png` |
+| V16 | **Idioma del producto en inglés** (`lang="en"`) mientras Dona, Fluvia y Donalabs están en español | métrica `lang` |
+
+**Lo que está bien y está medido:** 0 violaciones axe en las 4 rutas, 0 errores de
+consola, sin desbordes horizontales en escritorio ni móvil, y un mensaje de
+privacidad honesto y específico ("your captured context is private to your
+account: sessions expire, and you can revoke any device from Settings").
+
+### Corrección de un falso positivo propio
+
+En la primera medición reporté **"3 inputs sin etiqueta"** en `/login` y `/reset`.
+**Era un falso positivo de mi heurística**: solo comprobaba `label[for]`,
+`aria-label` y `placeholder`, pero los campos usan **`<label>` envolvente**, que
+sí produce nombre accesible ("Email", "Password", "Account email"). axe-core, que
+calcula el nombre accesible real, **no reportó ninguna violación**, y tenía razón.
+Se deja constancia porque la primera medición estaba mal.
+
+**Limitación de alcance:** la timeline, proyectos, aprobaciones, tareas,
+auditoría y settings **no son auditables visualmente** sin sesión, y el propio
+repo exige aprobación explícita del operador antes de usar datos reales
+(`README.md`). Queda como **no verificado**, no como "sin problemas".
 
 ## 6. Viabilidad de lanzamiento
 

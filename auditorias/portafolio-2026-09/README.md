@@ -26,11 +26,28 @@ Productos auditados: **Dona-agent, nova-context, Fluvia, EvolveOS, Donalabs**.
 8. **[evidencia/comandos-y-resultados.md](evidencia/comandos-y-resultados.md)** —
    registro reproducible de comandos, resultados y duración, más los logs crudos.
 
+### Documentos añadidos en la ronda 2 (respuesta a la revisión del PR)
+
+| Documento | Qué responde |
+|---|---|
+| [auditoria-visual.md](auditoria-visual.md) | La prioridad de frontend **medida con navegador**: 65 capturas, axe-core, escritorio y móvil, 22 hallazgos numerados |
+| [matriz-actualizacion.md](matriz-actualizacion.md) | Versión actual vs. estable, breaking changes, CVE/EOL, coste y decisión de actualización por repo |
+| [estimaciones-y-precios.md](estimaciones-y-precios.md) | Qué es medido y qué es estimado, con supuestos, confianza e hipótesis de precio falsificables |
+| [evidencia-gitleaks.md](evidencia-gitleaks.md) | Cómo dejar el gate de secretos en verde **sin cegarlo**, con prueba de secreto sembrado |
+| [propuestas/gitleaks-dona.toml](propuestas/gitleaks-dona.toml) | La configuración propuesta, aplicable tal cual |
+| [evidencia-visual/](evidencia-visual/) | Capturas, JSON con métricas por ruta y los scripts de captura |
+| [informes/evolveos-wireframe-console.svg](informes/evolveos-wireframe-console.svg) | El wireframe de la pantalla prioritaria de EvolveOS (no implementada) |
+
 ## Principio de esta auditoría
 
 **Cero datos inventados.** Toda cifra técnica proviene de ejecución real sobre
 clones limpios. Donde algo no se pudo verificar, se dice explícitamente y se
 explica por qué, en lugar de estimarse.
+
+**Lo medido y lo estimado están separados y etiquetados.** Plazos, esfuerzos y
+precios son estimaciones: llevan supuestos, confianza declarada y la condición
+que las invalida, en [estimaciones-y-precios.md](estimaciones-y-precios.md). El
+resto son resultados de comandos con su log.
 
 ## Condiciones de la ejecución
 

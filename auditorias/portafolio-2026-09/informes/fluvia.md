@@ -146,6 +146,50 @@ funciona: los hallazgos se cierran con evidencia, no con prosa.
 
 ## 5. Frontend y producto
 
+### 5.0 Estado visual medido con navegador (ronda 2 — corrige la evaluación anterior)
+
+Se ejecutó el **recorrido autenticado completo** por navegador real:
+
+```
+POST /api/signup                       -> 201
+POST /api/session                      -> 200
+POST /api/onboarding/organization      -> 201
+POST /api/orgs/<id>/onboarding/merchant-> 201
+```
+
+y con la sesión resultante se capturaron **las 13 rutas del dashboard** en
+escritorio (1440×900) y 2 en móvil (390×844). Detalle completo en
+[`../auditoria-visual.md`](../auditoria-visual.md) §5.
+
+**Lo bueno, ahora demostrado y no afirmado:** **0 violaciones axe en las 13
+rutas**, `h1` único y correcto en todas ("Panel de operación", "Pagos (payment
+intents)", "Reembolsos"…), **sin desbordes horizontales** en escritorio
+(1440/1440) ni en móvil (390/390), y la banda **"SANDBOX — dinero simulado"**
+persistente y visible. Es el mejor detalle de producto del portafolio: el usuario
+no puede confundir el entorno con producción.
+
+**La corrección:** la evaluación anterior decía que este frontend estaba a
+distancia "**Baja**" del objetivo y que "lo que falta es contenido de demo, no
+interfaz". **Era incorrecto.** El dashboard **no tiene sistema de diseño**: la
+navegación es una pared de enlaces azules subrayados (estilo por defecto del
+navegador) en dos líneas, las tarjetas son rectángulos blancos planos, no hay
+sidebar, ni jerarquía tipográfica, ni badges de estado, ni formato monetario, ni
+estados vacíos diseñados (solo el texto "Sin registros."). Accesibilidad y
+identidad visual son **dos ejes distintos** y se habían promediado en uno.
+
+Hallazgos adicionales del recorrido:
+
+| # | Hallazgo | Evidencia |
+|---|---|---|
+| V17 | El dashboard no tiene sistema de diseño: navegación de enlaces azules por defecto, tarjetas planas | captura `fluvia__org-overview.png` |
+| V19 | El selector de país del onboarding **no tiene ninguna opción** (0 `<option>`) y el paso se completa con 201 | volcado de DOM |
+| V20 | `pattern="[a-z0-9][a-z0-9-]{1,48}"` del slug es **regex inválida** en el flag `/v` → el navegador ignora el patrón: **la validación del slug no ocurre** | error de consola capturado |
+| V21 | El **guard CSRF** deriva el origen permitido de `request.url` (normaliza a `localhost`), así que acceder por `127.0.0.1` rompe **todas** las mutaciones con `403 origin_not_allowed` | reproducido con `curl`: `127.0.0.1` → 403 · `localhost` → 201 |
+| V22 | Ese 403 es **indistinguible de un fallo real** para el usuario: "No se pudo crear la cuenta. Inténtalo de nuevo." | captura + respuesta de la API |
+
+El guard falla cerrado — que es lo correcto. El defecto es de
+**diagnosticabilidad y de experiencia de desarrollo**, no de seguridad.
+
 **`apps/checkout`** — Next.js 15 App Router, React 19, i18n es/en, WCAG AA,
 tests jsdom + axe en CI y E2E de navegador local.
 Rutas: `/c/[id]` (checkout hospedado) y `/l/[id]` (payment link), con route

@@ -48,9 +48,17 @@ Lectura correcta de ese resultado:
   que falla en `asyncio.get_event_loop()` con
   `RuntimeError: There is no current event loop in thread 'MainThread'`.
 
-Ambas son incompatibilidades con **Python 3.14** (API eliminada), no defectos de
-producto. En la matriz declarada por el repo (3.11+) y según el CI, la suite está
-verde: workflow `Tests` en `main`, últimos 3 runs → **success**.
+**Control positivo ejecutado (cierra la duda, ya no es hipótesis):** el mismo HEAD
+`958b525` en **Python 3.12.14** → **2422 passed, 0 failed, 0 errors, exit 0**
+(309 s). Evidencia: `../evidencia/Dona-agent-python312.log`.
+
+Por tanto: en el runtime declarado por el repo la suite está **completamente
+verde**, y los 62 ítems no verdes de 3.14 se explican por APIs de `asyncio`
+eliminadas. El enunciado correcto del resultado en 3.14 es **"2360 tests pasaron
+dentro de una ejecución globalmente fallida"**, no "2360 tests verdes". El CI
+`Tests` en `main` está verde (últimos 3 runs → success) y su matriz **no cubre
+3.12, 3.13 ni 3.14**: ese es el hueco a cerrar
+(`../matriz-actualizacion.md` §3).
 
 Comando de reproducción del fallo aislado:
 
@@ -126,21 +134,49 @@ de webhooks verificada; tokens OAuth cifrados con Fernet; redacción de PII en l
 ### (c) Bloquea cobrar — el riesgo más serio del producto
 
 1. **Techo de versión que impide un parche de seguridad.** Workflow `Security`
-   (job `pip-audit`) → exit 1:
+   (job `pip-audit`) → exit 1, y `pip-audit -r requirements.txt` sobre Python 3.12
+   da **4 vulnerabilidades en 2 paquetes**:
 
-   ```
-   Name         Version ID              Fix Versions
-   cryptography 49.0.0  PYSEC-2026-3552 50.0.0
-   ```
+   | Paquete | Actual | Fix | CVE |
+   |---|---|---|---|
+   | `cryptography` | 49.0.0 | **50.0.0** | PYSEC-2026-3552 — oráculo de Bleichenbacher en `pkcs7_decrypt_*` |
+   | `pytest` | 8.4.2 | **9.0.3** | PYSEC-2026-1845 — `/tmp/pytest-of-{user}`, DoS/escalada local |
 
    `requirements.txt` declara `cryptography>=49.0.0,<50.0.0`: el techo **impide
-   aplicar el fix**. Riesgo directo sobre el cifrado de tokens OAuth.
-2. **`gitleaks` rojo permanente**: 6 hallazgos, todos regla `generic-api-key`,
-   todos en **archivos de test** con valores sintéticos (fixtures de redacción de
-   PII y `sub_SECRET…`). Falsos positivos que enmascaran hallazgos reales.
+   aplicar el fix**. Riesgo directo sobre el cifrado de tokens OAuth. Además el
+   propio workflow comenta *"cryptography ya esta parchada (>=46.0.7)"*, que a día
+   de hoy es **falso** y explica por qué el gate lleva tres semanas rojo.
+2. **`gitleaks` rojo permanente.** Medido localmente con gitleaks 8.30.1: los
+   hallazgos en fuentes trackeadas son **5**, todos regla `generic-api-key` en
+   tests de redacción de PII y del Action Center, con valores sintéticos. El
+   arreglo propuesto (supresión **por valor literal**, no por archivo ni por
+   forma) está en `../propuestas/gitleaks-dona.toml` y demostrado en
+   `../evidencia-gitleaks.md`: los 5 fixtures se suprimen y **un secreto sembrado
+   a propósito sigue fallando el gate**.
 3. **Rotación de secretos pendiente** — `docs/CURRENT_STATE.md` §Seguridad.
 4. **Quiet hours TCPA incompletas y detección STOP por set cerrado** —
    `docs/CURRENT_STATE.md` §Riesgos. Es el riesgo **legal** del canal WhatsApp.
+5. **Dona declara MIT y su repositorio es público.** Es una decisión estratégica
+   con consecuencias que la auditoría debe nombrar, no solo registrar:
+   - **Cualquiera puede usar, modificar y explotar comercialmente el código**,
+     incluido el backend completo con su Action Center, su billing con créditos y
+     su aparato anti-abuso. El foso competitivo queda, como mínimo, discutido.
+   - **MIT concede el copyright, no la marca.** El nombre y el logo "Dona" no
+     quedan licenciados por el archivo `LICENSE`; su protección es una cuestión de
+     marca registrada, hoy no verificada.
+   - **No hay concesión de patentes explícita** (MIT no la incluye), así que
+     tampoco aporta protección ofensiva.
+   - **Es inconsistente con el resto del portafolio**, donde Fluvia, nova-context,
+     EvolveOS y Donalabs no tienen licencia (es decir, *todos los derechos
+     reservados* por defecto). Conviven en el mismo portafolio dos regímenes
+     opuestos, y probablemente eso no fue una decisión: fue deriva.
+   - **No es un bloqueo de lanzamiento**, pero sí una **decisión que debería ser
+     consciente antes de crecer**: qué se quiere que sea el código de Dona —
+     producto propietario, o contribución abierta para captar comunidad. Ambas son
+     válidas; lo que no es válido es no haberlo decidido.
+   - **Contexto de riesgo añadido:** el repo es público mientras su gate de
+     `gitleaks` lleva tres semanas en rojo (§ arriba). En un repo público, un
+     secreto filtrado se considera comprometido al instante.
 
 ### (d) Deuda antes de producción
 

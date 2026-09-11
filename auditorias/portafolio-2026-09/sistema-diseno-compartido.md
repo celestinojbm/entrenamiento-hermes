@@ -19,7 +19,18 @@ sin una capa visual común:
   (`Dona-agent/landing/`), sin relación formal con el de Donalabs.
 - **Fluvia** tiene checkout y dashboard propios (Next.js 15, i18n es/en, WCAG AA).
 - **nova-context** tiene web app + extensión MV3 + browser-shell Electron.
-- **EvolveOS** tiene el console (Next.js) con foco en tablas de gobernanza.
+- **EvolveOS no tiene interfaz.** `app/src/index.ts` solo expone `GET /health` y
+  `docs/DEVELOPMENT.md` dice literalmente "No UI (Next.js enters in Phase 1)".
+  Su consola es una **declaración de alcance futuro**: cuando se construya debe
+  nacer ya sobre estos fundamentos. Wireframe en
+  [`informes/evolveos-wireframe-console.svg`](informes/evolveos-wireframe-console.svg).
+
+Estado visual real medido con navegador, axe-core y capturas en
+[`auditoria-visual.md`](auditoria-visual.md): Donalabs tiene un sistema real pero
+**con 4 defectos de accesibilidad propios (V2–V5)** que hay que corregir en el
+origen antes de propagar nada; Dona tiene dirección de arte con 4 defectos
+puntuales; **Nova Context y el dashboard de Fluvia tienen accesibilidad correcta
+y cero identidad visual** (los estiliza el navegador, no un sistema).
 
 El objetivo no es unificar la *identidad* — cada producto debe seguir siendo
 reconociblemente suyo — sino unificar **fundamentos**: tokens, escala tipográfica,
@@ -67,8 +78,21 @@ layout reconocible). Ningún producto debe parecer una copia de otro.
 
 Base: adoptar el sistema ya existente en
 `Donalabs/design-system/packages/ui/src/styles/globals.css` (OKLCH + `@theme`
-inline de Tailwind v4) como capa de tokens canónica del portafolio, y publicarla
-como paquete consumible en lugar de reimplementarla cuatro veces.
+inline de Tailwind v4) como capa de tokens canónica del portafolio.
+
+**Mecanismo de distribución: contrato copiable, no paquete.** Publicar
+`@donalabs/ui` como dependencia **no es viable como está**: es `private: true` y
+sus dependencias son `workspace:*`, que solo resuelven dentro del workspace de
+Donalabs. Se copia un `tokens.css` versionado en cada producto (cero
+acoplamiento de build, rollback trivial: borrar el archivo), y solo se promueve a
+paquete **cuando existan dos consumidores validados en producción** — ahí el
+paquete sí compra algo (evita el drift de tres copias). Detalle y criterio en
+[`backlog-priorizado.md`](backlog-priorizado.md) §"Contrato de tokens copiable".
+
+**Requisito previo:** corregir primero los 4 defectos de accesibilidad del propio
+sistema (V2–V5 de [`auditoria-visual.md`](auditoria-visual.md)). Propagar un
+sistema con contraste insuficiente en `destructive` y `muted` multiplica el
+defecto por cuatro.
 
 Conjunto mínimo obligatorio por producto:
 

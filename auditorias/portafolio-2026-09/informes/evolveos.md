@@ -152,6 +152,15 @@ nada; no existe `page.tsx` ni `route.ts`; el único endpoint es `GET /health`.
 La consola Next.js está declarada para Fase 1 (`docs/MVP_SCOPE.md` §5) y su
 construcción depende de ADR-008 (ya ratificado) y de la ratificación fundacional.
 
+**Wireframe de la pantalla prioritaria:**
+[`evolveos-wireframe-console.svg`](evolveos-wireframe-console.svg). Se entrega
+**solo el wireframe**, rotulado como no implementado, tal como pidió la revisión.
+Representa la cola de gates de la revisión semanal — la métrica de éxito que el
+propio `docs/MVP_SCOPE.md` §6 identifica — con el registro del venture, el
+checklist de análisis, las kill criteria preregistradas, la base de conocimiento
+pendiente de validación humana y el event log verificable. Cuando se construya,
+debe nacer sobre el contrato de tokens compartido ya corregido.
+
 **Mapa de experiencia actual:** inexistente.
 
 **Flujo principal que debe poder demostrarse (cuando exista la consola):**

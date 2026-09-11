@@ -12,10 +12,18 @@ limpios; el detalle y los comandos están en
 ## 1. La conclusión en una línea
 
 **El portafolio no tiene un problema de construcción: tiene un problema de foco y
-de cierre.** Los cinco repos compilan, instalan y pasan sus suites (o pasarían,
-si el entorno tuviera los servicios que piden); lo que falta es decidir el orden,
-cerrar la deuda que impide cobrar en el único producto que ya tiene usuarios, y
-dar coherencia visual a cinco frontends que existen por separado.
+de cierre.** Cuatro de los cinco repos compilan, instalan y ejecutan sus suites
+cuando el entorno tiene los servicios que piden; el quinto no tiene suite y sí una
+interfaz sin auditar. Lo que falta es decidir el orden, cerrar la deuda que impide
+cobrar en el único producto con usuarios, y dar coherencia a cuatro frontends que
+hoy viven por separado (y construir el quinto, que no existe).
+
+Precisión obligada sobre el alcance de la verificación: **Dona-agent no quedó
+"verde"**. En el entorno ejecutado (Python 3.14) su suite produjo *1 fallo, 2360
+tests que pasaron dentro de una ejecución globalmente fallida y 61 errores*. La
+atribución a 3.14 es una **hipótesis fuerte pendiente de control positivo** (§2.5).
+Y **Donalabs no está verificado de extremo a extremo**: no tiene suite de
+comportamiento y su infraestructura Docker quedó sin ejecutar (§2.6).
 
 ---
 
@@ -41,35 +49,42 @@ conocida y reversible**:
 
 **Lectura:** nada de esto exige reescribir. Todo esto exige ejecutar.
 
-### 2.2 Cuando el entorno tiene los servicios, cuatro de cinco repos son verdes
+### 2.2 Cuando el entorno tiene los servicios, tres repos quedan verdes de verdad
 
 Era crítico no confundir fallo de infraestructura con fallo de código:
 
-| Repo | Sin servicios | Con servicios reales |
-|---|---|---|
-| Fluvia | 9 passed / 80 skipped (`ECONNREFUSED 5432`) | **verde completo** con PostgreSQL 16 + Redis |
-| EvolveOS | `Connection terminated unexpectedly` | **432 passed / 0 failed** + checks de spec **PASS** |
-| nova-context | unit verde; integración no ejecutable | **245 passed / 0 failed** con PostgreSQL 18 + pgvector + Redis |
-| Donalabs | verde | verde |
+| Repo | Sin servicios | Con servicios reales | ¿Verificado de extremo a extremo? |
+|---|---|---|---|
+| Fluvia | 9 passed / 80 skipped (`ECONNREFUSED 5432`) | **verde completo** con PostgreSQL 16 + Redis | Sí (suite completa) |
+| EvolveOS | `Connection terminated unexpectedly` | **432 passed / 0 failed** + checks de spec **PASS** | Sí (suite + checks) |
+| nova-context | unit verde; integración no ejecutable | **245 passed / 0 failed** con PostgreSQL 18 + pgvector + Redis | Sí (unit + integración) |
+| Dona-agent | no aplica (no usa servicios externos para la suite) | 1 fallo / 2360 pasan / 61 errores en Python 3.14 | **No** — pendiente control positivo (§2.5) |
+| Donalabs | verde en design system | **la infraestructura Docker no se ejecutó** | **No** — sin suite de comportamiento y sin arranque del stack (§2.6) |
 
-**Lectura:** Fluvia y EvolveOS no tienen suites rotas; tienen suites que nadie
-estaba ejecutando con sus dependencias reales. Ese es un hallazgo de proceso, no
-de código.
+**Lectura:** Fluvia, EvolveOS y nova-context no tienen suites rotas; tienen suites
+que nadie estaba ejecutando con sus dependencias reales. Ese es un hallazgo de
+proceso, no de código. Dona-agent y Donalabs **no pueden** clasificarse como verdes
+y en este documento no se clasifican como tales.
 
-### 2.3 Los frontends existen; lo que falta es coherencia y cierre de flujo
+### 2.3 Hay cuatro frontends, no cinco, y ninguno tiene una quinta capa que unificar
 
-- **Donalabs** tiene el **único sistema de tokens real** del portafolio
+- **Donalabs** tiene el único sistema de tokens real del portafolio
   (`design-system/packages/ui/src/styles/globals.css`, OKLCH + Tailwind v4,
-  documentado en `docs/design-tokens.md`).
+  documentado en `docs/design-tokens.md`), más un showcase de 7 rutas.
 - **Fluvia** es el frontend más maduro en accesibilidad (checkout con i18n es/en
-  y WCAG AA).
-- **Dona**, **nova-context** y **EvolveOS** tienen frontends funcionales sin
-  relación formal con esa base.
+  y WCAG AA, verificado con axe en su CI).
+- **Dona** y **nova-context** tienen frontends funcionales sin relación formal con
+  esa base.
+- **EvolveOS no tiene frontend.** `app/src/index.ts` solo expone `GET /health` y
+  `docs/DEVELOPMENT.md` dice literalmente "No UI (Next.js enters in Phase 1)". La
+  consola Next.js es una **declaración de alcance futuro**, no código existente.
 
-**Lectura:** "empezar a ver frontends de alta calidad" no requiere cinco
-proyectos de diseño. Requiere **una** capa de fundamentos compartidos y cerrar el
-flujo demostrable de cada producto. Propuesta completa en
-[`sistema-diseno-compartido.md`](sistema-diseno-compartido.md).
+**Lectura:** "empezar a ver frontends de alta calidad" no requiere cinco proyectos
+de diseño ni "levantar los cinco frontends" (una tarea imposible: uno no existe).
+Requiere **una** capa de fundamentos compartidos, cerrar el flujo demostrable de
+tres productos y **construir** la interfaz de EvolveOS más adelante, sobre esa base.
+Propuesta completa en [`sistema-diseno-compartido.md`](sistema-diseno-compartido.md)
+y el estado visual real medido en §2.7.
 
 ### 2.4 Higiene de repositorio despareja
 
@@ -155,3 +170,7 @@ flujo demostrable de cada producto. Propuesta completa en
 | [`sistema-diseno-compartido.md`](sistema-diseno-compartido.md) | Tokens, tipografía, movimiento, imágenes y componentes base |
 | [`backlog-priorizado.md`](backlog-priorizado.md) | Backlog P0/P1/P2 con esfuerzo, dependencias y criterio de aceptación |
 | [`evidencia/comandos-y-resultados.md`](evidencia/comandos-y-resultados.md) | Registro reproducible de comandos y resultados |
+| [`auditoria-visual.md`](auditoria-visual.md) | Auditoría visual medida con navegador: 65 capturas, axe-core, escritorio y móvil |
+| [`matriz-actualizacion.md`](matriz-actualizacion.md) | Versiones, breaking changes, CVE/EOL y decisión de actualización por repo |
+| [`estimaciones-y-precios.md`](estimaciones-y-precios.md) | Qué es medido y qué es estimado; hipótesis de precio falsificables |
+| [`evidencia-gitleaks.md`](evidencia-gitleaks.md) | Cómo dejar el gate de secretos en verde sin cegarlo (con prueba) |
