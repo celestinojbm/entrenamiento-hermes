@@ -87,6 +87,21 @@ Comando de reproducción del fallo aislado:
 python -m pytest "tests/test_observability_y_catalog.py::TestRequestId::test_contextvar_independiente_entre_tareas_async" -q --tb=short
 ```
 
+#### Estructura de migraciones verificada
+
+`alembic/versions/` contiene **3 archivos**, pero solo 2 ejecutan DDL:
+
+- `001_estado_inicial.py` — `upgrade()` y `downgrade()` con cuerpo **`pass`**
+  (stamp vacío, sin DDL).
+- `002_suscripcion_stripe.py` — crea `evento_stripe_procesado` y
+  `suscripcion_stripe` con sus índices.
+- `003_bienvenida_enviada.py` — añade la columna `bienvenida_enviada`.
+
+El resto del esquema se crea con `Base.metadata.create_all()` en el lifespan de
+`agent/main.py`. Los propios docstrings de las migraciones declaran la redundancia
+y la marcan como pendiente (T4.3); `grep -rn "create_all"` lo confirma en
+`agent/main.py` y en los docstrings de `002` y `003`.
+
 #### CI real del repositorio (consultado con `gh run list`, no inferido)
 
 | Workflow | Rama | Último resultado |

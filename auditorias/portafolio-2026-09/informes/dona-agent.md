@@ -85,10 +85,25 @@ Estructura real (`README.md` §Estructura del repo, verificado en el árbol):
 por tests; el frontend habla con el backend por un contrato firmado, no por acceso
 directo a la base.
 
-**Puntos frágiles reales:** (a) doble fuente de esquema — `create_all()` en el
-lifespan convive con 3 migraciones Alembic; (b) `inproc` como default de la cola,
-que pierde jobs sin `REDIS_URL`; (c) provider Twilio declarado en env vars pero
-sin módulo, con aborto de arranque si se selecciona.
+**Puntos frágiles reales:**
+
+(a) **Doble fuente de esquema, y el problema es peor de lo que sugiere el conteo
+de migraciones.** `alembic/versions/` tiene 3 archivos, pero el primero
+(`001_estado_inicial.py`) tiene `upgrade()` y `downgrade()` con cuerpo **`pass`**:
+es un *stamp* vacío, no DDL real. Solo `002_suscripcion_stripe.py` (crea
+`evento_stripe_procesado` y `suscripcion_stripe` con sus índices) y
+`003_bienvenida_enviada.py` (añade la columna) ejecutan cambios. El resto del
+esquema nace de `Base.metadata.create_all()` en el lifespan de `agent/main.py`.
+Los propios docstrings de las migraciones reconocen la redundancia y la marcan
+como trabajo pendiente (T4.3), p. ej. `002_suscripcion_stripe.py`: *"«
+metadata.create_all()` en `agent/main.py:lifespan` también las crea"*. Consecuencia
+práctica: **una base nueva no se construye desde Alembic**, se construye desde el
+ORM; y cualquier tabla creada solo por ORM no tiene migración que la respalde.
+
+(b) `inproc` como default de la cola, que pierde jobs sin `REDIS_URL`.
+
+(c) Provider Twilio declarado en env vars pero sin módulo, con aborto de arranque
+si se selecciona.
 
 ## 4. Riesgos técnicos
 
@@ -129,7 +144,10 @@ de webhooks verificada; tokens OAuth cifrados con Fernet; redacción de PII en l
 
 ### (d) Deuda antes de producción
 
-- **Doble fuente de esquema**: Alembic (3 migraciones) vs `metadata.create_all()`.
+- **Doble fuente de esquema**: `metadata.create_all()` en el lifespan de
+  `agent/main.py` **es** la fuente real del esquema. Alembic solo aporta 3
+  archivos, de los cuales `001_estado_inicial.py` es un `pass` (stamp vacío) — así
+  que las migraciones reales son 2, y el resto del esquema no tiene migración.
 - **`inproc` pierde jobs** si no hay `REDIS_URL`.
 - **Auth web provisional** (`landing/app/login` + `api/auth`), no apto para
   producción sin endurecimiento.

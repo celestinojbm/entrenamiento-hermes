@@ -87,8 +87,12 @@ desordenado"**. La antigüedad y el desorden, por sí solos, no son evidencia.
 
 - **Qué significa aquí, concretamente:**
   1. **Esquema:** Alembic pasa a ser fuente única; `metadata.create_all()` se
-     retira del lifespan y `migration.py` se depreca tras verificar equivalencia
-     (Alembic ya está en el repo y hay migraciones).
+     retira del lifespan y `migration.py` se depreca tras verificar equivalencia.
+     Punto de partida real: Alembic está en el repo pero **solo tiene 2 migraciones
+     efectivas** (`001_estado_inicial.py` tiene `upgrade()` con `pass`, es un stamp
+     vacío) y el esquema real nace del ORM. Es el incremento con más trabajo de
+     esta secuencia: exige un snapshot autogenerado del esquema actual y una
+     prueba de equivalencia antes de retirar `create_all()`.
   2. **Cola:** `arq`/Redis pasa a camino por defecto; `inproc` queda como modo de
      desarrollo explícito, nunca silencioso.
   3. **Auth web:** se sustituye el auth provisional por el endurecido, detrás del
