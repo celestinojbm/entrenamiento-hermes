@@ -54,32 +54,45 @@ fallidos recientes.
 
 Estructura real (verificada en el árbol):
 
-- `apps/web` — Next.js: timeline de memoria, proyectos, aprobaciones, tareas,
-  auditoría, export, settings, status.
-- `apps/extension` — Chromium MV3: `sidepanel/` con `App.tsx`, `Connect.tsx`,
-  `LivePanel.tsx`, `Onboarding.tsx`.
-- `apps/browser-shell` — spike de Electron, deliberadamente **no** un navegador
-  (sin pestañas, historial ni sync).
-- `services/api` — Fastify + PostgreSQL + migraciones.
-- `services/worker` — enriquecimiento (Redis).
-- `packages/context-engine`, `packages/memory-…`, `packages/model-router`,
-  `packages/schema`, `packages/config`.
+- `packages/context-engine` — **existe de verdad**, y es la pieza más rica:
+  `capture-mode.ts`, `consent.ts`, `live-buffer.ts`, `local-enrichment.ts`,
+  `media-gate.ts`, `object-store.ts`, `redaction.ts`, `visual-redaction.ts`,
+  `secret-box.ts`, `suggest.ts`, `notion-mapping.ts`, `notion-page.ts`,
+  `data-url.ts` (la mayoría con su `.test.ts` al lado).
+- `packages/model-router` — **existe parcialmente**: `intent/`, `embedding/`,
+  `enrichment/`, `live/`, `transcription/`, `types.ts`.
+- `packages/schema`, `packages/config` — reales.
+- `services/api` — Fastify + PostgreSQL + migraciones + `auth/`, `media/`,
+  `backup/`, `integrations/`, `ops/`, analítica y rutas `routes-m1…m4`.
+- `services/worker` — `enrich.ts`, `actions.ts`, `notion-client.ts`,
+  `media-reader.ts`, `heartbeat.ts`.
 - `tools/validation-gate` — orquestador `validate:pr` con semántica go/no-go y
   reportes JSON/Markdown/JUnit.
+- `apps/web`, `apps/extension` (MV3), `apps/browser-shell` (Electron).
 
 **Fortaleza:** el design-first está disciplinado — cuatro "engines" declaradas
 (contexto, memoria, inteligencia, acción) con contratos escritos antes que código,
 y el API como contrato (`docs/API_AND_SDK_SPEC.md`).
 
-**Punto frágil real — y el más importante de este informe:** existe una **brecha
-significativa entre el volumen de diseño documentado y el código ejecutable**. Se
-declaran `MEMORY_ENGINE`, `INTELLIGENCE_ENGINE`, `CONTEXT_ENGINE` y
-`ACTION_ENGINE` como subsistemas, pero el propio repo declara estado de
-"walking-skeleton" (`README.md` §Contributing) y el `MVP_SCOPE.md` §5 deja fuera
-knowledge graph, consensus routing, marketplace, API pública y apps móviles. El
-riesgo no es que falte código: es que la documentación se lea como estado. Este
-informe no confunde una cosa con la otra y trata los engines como **diseño con
-implementación parcial**.
+**Punto frágil real — y el más importante de este informe.** Existe una brecha
+**verificable** entre la arquitectura documentada y los límites reales del código:
+
+- Se documentan **cuatro engines**: Context, Memory, Intelligence y Action
+  (`docs/CONTEXT_ENGINE.md`, `MEMORY_ENGINE.md`, `INTELLIGENCE_ENGINE.md`,
+  `ACTION_ENGINE.md`, y el diagrama de `README.md`).
+- El código solo tiene **dos paquetes** que correspondan a esa idea:
+  `packages/context-engine` y `packages/model-router`. **No existen
+  `packages/memory-*` ni `packages/action-*`** (verificado con `ls packages`).
+  La memoria y las acciones viven dentro de `services/api` (`routes-m1…m4`,
+  `media/`, `auth/`, `integrations/`) y `services/worker` (`actions.ts`,
+  `enrich.ts`), no como subsistemas con límite propio.
+
+Además, el propio repo declara estado de "walking-skeleton" (`README.md`
+§Contributing) y `MVP_SCOPE.md` §5 deja fuera knowledge graph, consensus routing,
+marketplace, API pública y apps móviles. **El riesgo no es que falte código: es que
+la documentación se lea como estado.** Este informe no confunde una cosa con la
+otra: la línea base de §2 prueba que lo que existe funciona, y esta sección acota
+lo que no existe todavía.
 
 ## 4. Riesgos técnicos
 
