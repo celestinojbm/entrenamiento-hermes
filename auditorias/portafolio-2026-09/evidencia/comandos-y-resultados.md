@@ -236,7 +236,12 @@ En `evidencia/` se conservan los logs crudos de las ejecuciones descritas:
 - `Dona-agent.log` — install, ruff y pytest de Dona-agent.
 - `Dona-agent-pytest-final.log` — resumen limpio de pytest (short test summary).
 - `nova-context.log` — install, typecheck, build y unit tests.
-- `nova-context-integration-2.log` — suite de integración con PG18+pgvector+Redis.
+- `nova-context-integration-intento-1.log` — **primer intento** de la suite de
+  integración: 6 fallos / 239 pasan / 17 saltados, todos por
+  `pg_dump: command not found` (problema de `PATH` del arnés). Se conserva para
+  que el fallo y su causa sean verificables, no solo afirmados.
+- `nova-context-integration-2.log` — suite de integración con PG18+pgvector+Redis,
+  verde (245 pasan / 0 fallos) tras poner `pg_dump` en `PATH`.
 - `Fluvia.log` — install, build, lint y test sin servicios.
 - `Fluvia-postgres-redis.log` — suite completa con PG16 + Redis reales.
 - `EvolveOS.log` — install, build y test sin servicios.

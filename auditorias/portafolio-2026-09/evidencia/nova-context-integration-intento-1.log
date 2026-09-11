@@ -1,0 +1,74 @@
+### nova-context: suite de integracion con PostgreSQL 18 + pgvector + Redis reales
+--- pnpm db:migrate
+
+> nova-context@ db:migrate /home/celestinojbm/h014-work/repos/nova-context
+> pnpm --filter @nova/api db:migrate
+
+
+> @nova/api@0.0.1 db:migrate /home/celestinojbm/h014-work/repos/nova-context/services/api
+> tsx src/db/migrate.ts
+
+Applied migrations: 0000_init.sql, 0001_dev_seed.sql, 0002_m1_intent_tasks.sql, 0003_m2_enrichment.sql, 0004_m4_product_events.sql, 0005_m5_auth.sql, 0006_m6_notion.sql, 0007_m7_visual_redaction.sql, 0008_m8_media_pipeline.sql, 0009_m9_media_ops.sql, 0010_m10_lifecycle.sql, 0011_m11_alpha_ops.sql, 0012_m13_alpha_feedback.sql
+EXIT=0 DURACION=2s
+--- pnpm test:integration
+@nova/api:test:integration:      75|   }, 60_000);
+@nova/api:test:integration: 
+@nova/api:test:integration: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+@nova/api:test:integration: 
+@nova/api:test:integration:  FAIL  test/integration/m18a-backup-sh.test.ts > M18A.1: scripts/backup.sh fail-closed media handling > fs db-only, publish off → 'Local sealed backup prepared' + 'Local-only backup complete' (NOT durable off-box) (M18A.3 §4)
+@nova/api:test:integration: AssertionError: expected 127 to be +0 // Object.is equality
+@nova/api:test:integration: 
+@nova/api:test:integration: - Expected
+@nova/api:test:integration: + Received
+@nova/api:test:integration: 
+@nova/api:test:integration: - 0
+@nova/api:test:integration: + 127
+@nova/api:test:integration: 
+@nova/api:test:integration:  ❯ test/integration/m18a-backup-sh.test.ts:87:18
+@nova/api:test:integration:      85|       dest(),
+@nova/api:test:integration:      86|     );
+@nova/api:test:integration:      87|     expect(code).toBe(0);
+@nova/api:test:integration:        |                  ^
+@nova/api:test:integration:      88|     expect(out).toContain("Local sealed backup prepared");
+@nova/api:test:integration:      89|     expect(out).toContain("no media present");
+@nova/api:test:integration: 
+@nova/api:test:integration: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+@nova/api:test:integration: 
+@nova/api:test:integration:  FAIL  test/integration/m18a-backup-sh.test.ts > M18A.1: scripts/backup.sh fail-closed media handling > fs db-only + NOVA_BACKUP_REQUIRE_OFFBOX=yes but publish off → fails closed, no completion (M18A.3 §4)
+@nova/api:test:integration: AssertionError: expected '→ Postgres dump (private workspace)\n…' to contain 'NOVA_BACKUP_REQUIRE_OFFBOX=yes but of…'
+@nova/api:test:integration: 
+@nova/api:test:integration: - Expected
+@nova/api:test:integration: + Received
+@nova/api:test:integration: 
+@nova/api:test:integration: - NOVA_BACKUP_REQUIRE_OFFBOX=yes but off-box publish is not enabled
+@nova/api:test:integration: + → Postgres dump (private workspace)
+@nova/api:test:integration: +
+@nova/api:test:integration: + scripts/backup.sh: line 60: pg_dump: command not found
+@nova/api:test:integration: +
+@nova/api:test:integration: 
+@nova/api:test:integration:  ❯ test/integration/m18a-backup-sh.test.ts:107:17
+@nova/api:test:integration:     105|     );
+@nova/api:test:integration:     106|     expect(code).not.toBe(0);
+@nova/api:test:integration:     107|     expect(out).toContain("NOVA_BACKUP_REQUIRE_OFFBOX=yes but off-box …
+@nova/api:test:integration:        |                 ^
+@nova/api:test:integration:     108|     expect(out).not.toContain("backup complete"); // no completion sta…
+@nova/api:test:integration:     109|   }, 60_000);
+@nova/api:test:integration: 
+@nova/api:test:integration: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+@nova/api:test:integration: 
+@nova/api:test:integration:  Test Files  3 failed | 32 passed | 4 skipped (39)
+@nova/api:test:integration:       Tests  6 failed | 239 passed | 17 skipped (262)
+@nova/api:test:integration:    Start at  14:39:40
+@nova/api:test:integration:    Duration  70.36s (transform 504ms, setup 0ms, collect 9.12s, tests 56.70s, environment 5ms, prepare 1.37s)
+@nova/api:test:integration: 
+@nova/api:test:integration:  ELIFECYCLE  Command failed with exit code 1.
+@nova/api#test:integration:  ERROR  command (/home/celestinojbm/h014-work/repos/nova-context/services/api) /home/celestinojbm/.local/share/pnpm/.tools/pnpm/10.33.0/bin/pnpm run test:integration exited (1)
+
+ Tasks:    5 successful, 6 total
+Cached:    0 cached, 6 total
+  Time:    1m13.365s 
+Failed:    @nova/api#test:integration
+
+ ERROR  run failed: command  exited (1)
+ ELIFECYCLE  Command failed with exit code 1.
+EXIT=1 DURACION=75s
