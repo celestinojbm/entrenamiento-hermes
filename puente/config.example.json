@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "pausa": false,
+  "intervalo_minutos": 5,
+  "transporte": "auto",
+  "repos_vigilados": ["celestinojbm/entrenamiento-hermes"],
+  "issues_permitidos": {
+    "celestinojbm/entrenamiento-hermes": [3]
+  },
+  "acciones_permitidas": ["ping"],
+  "comentario_estado": null,
+  "limites": {
+    "max_ordenes_por_dia": 20,
+    "max_duracion_ejecucion_s": 60,
+    "presupuesto_usd": null,
+    "worker_llm_habilitado": false,
+    "worker_pausado_motivo": "El worker de trabajo con LLM queda EN PAUSA hasta publicar el mecanismo de límite y recibir un presupuesto explícito (issue #3, punto 8). El lector no usa LLM."
+  },
+  "notas": [
+    "pausa: true detiene el sondeo por completo. También se puede crear el fichero PAUSA en ~/.hermes/bridge/.",
+    "acciones_permitidas se intersecta con un enumerado cerrado de acciones inocuas: hoy solo 'ping'.",
+    "presupuesto_usd: null deja el worker con LLM deshabilitado. No habilitar sin límite verificable.",
+    "El lector NUNCA ejecuta texto del comentario: el contenido es dato, no código."
+  ]
+}
