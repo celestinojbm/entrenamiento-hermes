@@ -28,6 +28,9 @@ import time
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from presupuesto import dia_actual as dia_presupuesto  # noqa: E402
+
 RAIZ = Path(__file__).resolve().parents[2]
 LECTOR = RAIZ / "puente" / "lector.py"
 TMP = Path("/tmp/puente-test")
@@ -113,18 +116,28 @@ def p3_limite() -> None:
     home = preparar(
         "p3",
         config={"limites": {"max_ordenes_por_dia": 1, "presupuesto_usd": None,
-                            "worker_llm_habilitado": False}},
+                            "worker_llm_habilitado": False},
+                # Se desactiva la firma SOLO en esta prueba para poder aislar la
+                # rama del límite diario: en el flujo real la autenticación se
+                # comprueba antes y una orden sin firma se rechaza antes de llegar
+                # aquí (lo cubre la prueba A2/A3 de la batería del ejecutor).
+                "auth": {"requerida": False}},
         estado={"ultimo_comentario_id": {CLAVE: 5640853000},
                 "inicializados": [CLAVE], "procesados": [],
-                "ordenes": {}, "contadores": {date.today().isoformat(): 1},
+                "ordenes": {}, "contadores": {dia_presupuesto(): 1},
                 "bloqueos": []},
     )
     c = correr(home, ["--verbose", "--dry-run"])
     est = json.loads((home / "estado.json").read_text(encoding="utf-8"))
     bloqueado = any("límite diario" in b.get("motivo", "") for b in est["bloqueos"])
-    no_ejecutada = len(est["ordenes"]) == 0
-    registrar("P3 límite diario bloquea sin ejecutar", bloqueado and no_ejecutada,
-              f"bloqueos={len(est['bloqueos'])} ordenes={len(est['ordenes'])}")
+    # En v2 una orden que supera el límite NO se descarta: queda en cola y por
+    # tanto SÍ aparece en `ordenes` (con estado `pendiente`). El criterio correcto
+    # de "no se ejecutó" es que ninguna haya llegado a `entregado`.
+    no_ejecutada = not any(o.get("estado") == "entregado" for o in est["ordenes"].values())
+    encoladas = len(est.get("cola", {}))
+    registrar("P3 límite diario bloquea sin ejecutar y encola",
+              bloqueado and no_ejecutada and encoladas > 0,
+              f"bloqueos={len(est['bloqueos'])} entregadas=0 encoladas={encoladas}")
 
 
 # ---------------------------------------------------- P4 no procesa histórico

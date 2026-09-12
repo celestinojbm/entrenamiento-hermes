@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "pausa": false,
   "intervalo_minutos": 5,
   "transporte": "auto",
@@ -7,19 +7,30 @@
   "issues_permitidos": {
     "celestinojbm/entrenamiento-hermes": [3]
   },
-  "acciones_permitidas": ["ping"],
+  "acciones_permitidas": ["ping", "tarea_local"],
+  "auth": {
+    "requerida": true,
+    "esquema": "HMAC-SHA256",
+    "secreto": "~/.hermes/bridge/secreto",
+    "caducidad_horas": 24,
+    "nota": "El autor de un comentario no autentica nada: la firma sí. Sin secreto local, fallo cerrado."
+  },
   "comentario_estado": null,
   "limites": {
     "max_ordenes_por_dia": 20,
     "max_duracion_ejecucion_s": 60,
-    "presupuesto_usd": null,
-    "worker_llm_habilitado": false,
-    "worker_pausado_motivo": "El worker de trabajo con LLM queda EN PAUSA hasta publicar el mecanismo de límite y recibir un presupuesto explícito (issue #3, punto 8). El lector no usa LLM."
+    "presupuesto_usd": 5.0,
+    "zona_presupuesto": "America/New_York",
+    "sin_compras_ni_recargas_automaticas": true,
+    "worker_llm_habilitado": true,
+    "worker_pausado_motivo": null
   },
   "notas": [
-    "pausa: true detiene el sondeo por completo. También se puede crear el fichero PAUSA en ~/.hermes/bridge/.",
-    "acciones_permitidas se intersecta con un enumerado cerrado de acciones inocuas: hoy solo 'ping'.",
-    "presupuesto_usd: null deja el worker con LLM deshabilitado. No habilitar sin límite verificable.",
+    "pausa: true (o el fichero PAUSA) detiene el sondeo por completo.",
+    "El presupuesto se aplica de verdad: se comprueba antes de cada ejecución y el gasto se lee de la tabla `sessions` de ~/.hermes/state.db.",
+    "Coste desconocido => fallo cerrado: el ejecutor se bloquea hasta reconciliación.",
+    "El día presupuestario se reinicia a medianoche de America/New_York.",
+    "acciones_permitidas se intersecta con un enumerado cerrado del código: hacen falta los dos cambios para habilitar algo nuevo.",
     "El lector NUNCA ejecuta texto del comentario: el contenido es dato, no código."
   ]
 }

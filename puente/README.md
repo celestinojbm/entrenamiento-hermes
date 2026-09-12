@@ -10,39 +10,41 @@ ninguna aprobación de seguridad.
 
 ---
 
-## Qué hace y qué no hace (versión 1)
+## Qué hace y qué no hace (versión 2)
 
 | Sí hace | No hace |
 |---|---|
 | Sondeo de GitHub cada 5 minutos **sin LLM** y en silencio si no hay novedades | No ejecuta texto arbitrario de un comentario |
-| Detecta órdenes en un formato estructurado y cerrado | No autentica el origen (ver abajo) |
-| Acusa recibo con ID y publica un resultado verificable | No ejecuta nada fuera de una allowlist inocua |
-| Deduplica por ID de comentario y por ID de orden | No procesa el histórico al arrancar |
-| Bloqueo exclusivo: dos ejecuciones no se solapan | No reinicia trabajos con efectos externos inciertos |
+| **Autentica el origen** con firma HMAC-SHA256 y secreto fuera de GitHub | No ejecuta nada fuera de una allowlist cerrada |
+| Acusa recibo con ID y publica un resultado verificable | No procesa el histórico al arrancar |
+| **Aplica un presupuesto diario** leyendo el gasto real de `state.db` | No reintenta a ciegas tras una interrupción |
+| **Reconcilia publicaciones fallidas** sin duplicar comentarios | No compra ni recarga nada automáticamente |
+| **Encola** las órdenes que superan un límite, para retomarlas al día siguiente | No cambia el modelo ni el proveedor configurados |
+| Deduplica por ID de comentario y por ID de orden; bloqueo exclusivo | No abre puertos ni expone nada a Internet |
 
-**El worker de trabajo con LLM queda EN PAUSA** (`limites.worker_llm_habilitado:
-false`, `presupuesto_usd: null`). El lector de GitHub no usa modelo: no consume
-tokens. No se habilita ejecución LLM recurrente hasta publicar el mecanismo de
-límite y recibir un presupuesto explícito (issue #3, punto 8).
+**Presupuesto autorizado: US$5,00 diarios**, con reinicio del día según
+**America/New_York** y sin compras ni recargas automáticas. El lector de GitHub no
+usa modelo: no consume tokens. Solo la acción `tarea_local` gasta, y solo si el
+presupuesto lo permite.
 
 ---
 
-## El punto delicado: el origen NO está autenticado
+## El origen se autentica con firma, no con autoría
 
 El supervisor y Hermes publican con la **misma cuenta de GitHub**
-(`celestinojbm`). Por tanto **el autor de un comentario no prueba quién lo
-escribió**: cualquiera con acceso a esa cuenta puede escribir lo que parece una
-orden.
+(`celestinojbm`), así que **el autor de un comentario no prueba quién lo
+escribió**. La autenticación real es una **firma HMAC-SHA256** sobre la
+serialización canónica de la orden, con un secreto de 256 bits que vive solo en
+`~/.hermes/bridge/secreto` (`chmod 600`) y **nunca toca GitHub**.
 
-Consecuencia de diseño, explícita y deliberada: en esta versión solo se reconocen
-acciones de un **enumerado cerrado e inocuo** (hoy únicamente `ping`). Cualquier
-otra orden se registra como `pendiente_confirmacion_humana` y **no se ejecuta**.
-El acuse publicado lo dice con todas las letras: *"Origen autenticado: no"*.
+Sin firma válida **no se ejecuta nada**: la orden se registra como
+`no_autenticada` y se publica el motivo. Sin secreto local, **fallo cerrado**. Las
+órdenes caducan a las 24 h, y cambiar cualquier campo firmado (por ejemplo la
+acción) invalida la firma — ambas cosas están probadas.
 
-Si más adelante se quiere ejecutar trabajo real de forma automática, hace falta
-un mecanismo de autenticación de origen que no dependa de la autoría del
-comentario (por ejemplo un HMAC con secreto compartido por fuera de GitHub).
-**Mientras eso no exista, este puente es de lectura y notificación.**
+Aun con firma válida, el alcance sigue siendo cerrado: solo `ping` y
+`tarea_local`, y `tarea_local` ejecuta una única pasada de Hermes con un **prompt
+fijo escrito en el código**, no con texto del comentario.
 
 ---
 
@@ -51,11 +53,15 @@ comentario (por ejemplo un HMAC con secreto compartido por fuera de GitHub).
 | Fichero | Función |
 |---|---|
 | `lector.py` | Proceso de sondeo. Sin LLM. Idempotente y con bloqueo exclusivo |
+| `auth.py` | Firma y verificación HMAC-SHA256 de las órdenes; provisiona el secreto |
+| `presupuesto.py` | Presupuesto diario verificable, con día America/New_York |
+| `firmar-orden.py` | Ayuda para firmar una orden y publicarla |
 | `config.example.json` | Configuración: repos/issues permitidos, límites, pausa, allowlist |
 | `formato-orden.md` | Formato del bloque `hermes-order` y reglas de tratamiento |
 | `instalar.sh` | Instalación local reversible (tres modos) |
 | `desinstalar.sh` | Rollback |
 | `pruebas/test_lector.py` | Batería de 8 pruebas, aislada en `/tmp` |
+| `pruebas/test_ejecutor.py` | Batería de 23 pruebas: firma, presupuesto, recuperación y cola |
 
 Estado y logs en tiempo de ejecución (fuera del repositorio, nunca versionados):
 
@@ -120,26 +126,50 @@ Cualquiera de estas dos, sin desinstalar nada:
 |---|---|---|
 | Órdenes por día | 20 | `limites.max_ordenes_por_dia` |
 | Duración máxima de ejecución | 60 s | `limites.max_duracion_ejecucion_s` |
-| Presupuesto | `null` → worker LLM deshabilitado | `limites.presupuesto_usd` |
-| Worker de trabajo | **pausado** | `limites.worker_llm_habilitado` |
-| Acciones ejecutables | `ping` | `acciones_permitidas` ∩ enumerado cerrado del código |
+| Presupuesto | **5,00 USD/día**, reinicio a medianoche de America/New_York | `limites.presupuesto_usd`, `limites.zona_presupuesto` |
+| Worker de trabajo | habilitado solo con presupuesto asignado | `limites.worker_llm_habilitado` |
+| Acciones ejecutables | `ping`, `tarea_local` | `acciones_permitidas` ∩ enumerado cerrado del código |
+| Compras / recargas automáticas | **desactivadas** | `limites.sin_compras_ni_recargas_automaticas` |
 
 Al alcanzar el límite diario, la orden se registra como bloqueo visible y **no se
-ejecuta**. Un fallo repetido deja también bloqueo visible en `estado.json`.
+ejecuta**: **queda en cola** y se retoma al día siguiente. Un fallo repetido deja
+también bloqueo visible en `estado.json`.
+
+### Cómo se aplica el presupuesto (no es decoración)
+
+1. **Antes** de ejecutar: `puede_gastar()` compara el gasto acumulado del día con
+   el límite. Si no queda margen, la ejecución **no ocurre** y la orden se encola.
+2. **Después** de ejecutar: se lee el coste real de la sesión recién creada en la
+   tabla `sessions` de `~/.hermes/state.db` (`estimated_cost_usd` /
+   `actual_cost_usd`, con `cost_status` y `cost_source`) y se suma al libro.
+3. **Coste desconocido → fallo cerrado**: si una ejecución consumió tokens y su
+   coste no puede determinarse, el ejecutor se bloquea hasta reconciliación.
+   Un límite que se salta cuando no se puede medir no es un límite.
+4. El día se reinicia según **America/New_York**, no según la hora local del
+   sistema.
+
+El libro queda en `~/.hermes/bridge/presupuesto.json`, con una entrada por
+ejecución: sesión, modelo, tokens, coste, acumulado y límite.
 
 ---
 
 ## Procedimiento de alta de una orden (lo que hace el supervisor)
 
-Publicar un comentario con:
+```bash
+python3 puente/firmar-orden.py --accion tarea_local --id ord-2026-09-12-001
+```
+
+Imprime el bloque firmado listo para pegar:
 
 ````
 ```hermes-order
 {
   "id_orden": "ord-2026-09-12-001",
   "tipo": "orden",
-  "accion": "ping",
-  "parametros": {}
+  "accion": "tarea_local",
+  "parametros": {},
+  "emitida_en": "2026-09-12T03:19:15+00:00",
+  "firma": "68b29ada…ff76"
 }
 ```
 ````
@@ -176,9 +206,10 @@ curso).
 | Sin red | **No probado** | Solo se probó un fallo de API por recurso inexistente, no una caída de red |
 | Reinicio del daemon `cron.service` | **No probado a propósito** | Es un servicio **preexistente y compartido**: reiniciarlo habría afectado a otros usos de la máquina. Se probó en su lugar la interrupción de una ejecución del propio lector |
 | Dependencia del transporte | **Limitación real** | En WSL no hay `gh`; se usa el `gh.exe` ya autenticado de Windows. Si Windows está apagado o el keyring bloqueado, el lector no puede publicar y lo registra como bloqueo |
-| Ejecución de trabajo real con LLM | **Pausada por diseño** | Sin presupuesto explícito y sin mecanismo de límite validado (issue #3, punto 8) |
-| Autenticación de origen | **No implementada** | Solo lectura/notificación; ver arriba |
+| Ejecución de trabajo real con LLM | **Acotada a `tarea_local`** | Una única pasada de Hermes con prompt fijo, bajo presupuesto de 5 USD/día. Trabajo abierto (varios pasos, herramientas, escritura) **no implementado** |
+| Autenticación de origen | **Implementada (HMAC-SHA256)** | Ver arriba; queda pendiente provisionar el secreto en la máquina de quien firma |
 | Escritura del heartbeat único actualizable | **No implementada** | Hoy se publican acuse y resultado por orden; el campo `comentario_estado` existe en la config pero no se usa todavía |
+| Recarga/compra automática | **Desactivada por diseño** | El puente no compra ni recarga nada; el límite solo bloquea y encola |
 
 ---
 
