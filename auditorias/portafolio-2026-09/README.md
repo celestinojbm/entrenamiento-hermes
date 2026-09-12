@@ -65,3 +65,4 @@ servicios reales se levantaron, sin privilegios: PostgreSQL 16.15, PostgreSQL
 - Las decisiones que requieren un humano (rotar secretos, reactivar producción,
   adoptar licencia, aprobar la ratificación fundacional de EvolveOS) están
   marcadas como tales y **no** se ejecutaron.
+| [vistas-previas/revision-calidad.md](vistas-previas/revision-calidad.md) | Ronda 3: vistas previas de frontend con capturas móvil/escritorio y revisión de calidad visual y funcional |
