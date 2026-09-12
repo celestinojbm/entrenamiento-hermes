@@ -1,0 +1,18 @@
+OK    F1 la reserva se comprueba antes de cada intento
+      gastado=0.01 <= limite=0.08, intentos=1
+OK    F2 los reintentos se detienen antes de rebasar el techo
+      gastado=0.0160 <= 0.0250 | intentos=3 autorizados=2 | último bloqueado: la reserva de 0.0100 USD no cabe: gastado 0.016000 + reserva
+OK    F3 las sesiones auxiliares de la ventana se atribuyen al segmento
+      gastado=0.31 (0.01 + 0.30 auxiliar) sesiones=2
+OK    F4 el exceso sobre la reserva bloquea el día
+      exceso=True motivo=el segmento costó 0.400000 USD y superó su reserva de 0.0500 USD; se b
+OK    F4b con exceso registrado no se autoriza ningún intento más
+      el día quedó bloqueado por exceso: el segmento costó 0.400000 USD y superó su re
+OK    F5 coste desconocido → fallo cerrado
+      desconocido=True | consumo previo con coste desconocido: no puede acotarse, requiere reco
+OK    F6 sin margen para la reserva no se lanza ni un intento
+      intentos=1 autorizado=False gastado=0.0
+OK    F7 tope de turnos + plazo + corte duro del grupo de procesos
+      HERMES_MAX_ITERATIONS, HERMES_AGENT_TIMEOUT, start_new_session, killpg presentes
+
+resumen: 8/8 pruebas OK

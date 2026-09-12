@@ -1,0 +1,18 @@
+OK    S1 se genera el par de claves del supervisor
+      privada=hermes_orden publica=hermes_orden.pub
+OK    S2 el allowlist contiene SOLO la clave pública
+      supervisor ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUtw9ZzENwrm…
+OK    S3 la orden se firma y se empaqueta para el comentario
+      firmante=supervisor firma=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVk…
+OK    S4 la firma se verifica con la clave pública
+      firma SSH válida de 'supervisor'
+OK    S5 cambiar la acción invalida la firma
+      firma SSH rechazada: Signature verification failed: incorrect signature
+OK    S6 otra clave pública no puede validar la orden
+      firma SSH rechazada: Could not verify signature.
+OK    S7 sin allowlist → fallo cerrado
+      no existe el allowlist de claves públicas: /tmp/puente-test-ssh/no-existe
+OK    S8 ninguna clave privada en el repositorio
+      archivos con 'PRIVATE KEY': ninguno
+
+resumen: 8/8 pruebas OK
