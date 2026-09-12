@@ -125,15 +125,15 @@ def t_presupuesto() -> None:
               abs(coste - 0.35) < 1e-9 and not desconocido,
               f"coste={coste} sesiones={len(detalle)}")
 
-    presupuesto.registrar(libro, t0, {"accion": "tarea_local"}, 5.0)
+    presupuesto.liquidar(libro, t0, {"accion": "tarea_local"}, 5.0, 0.50)
     registrar("B3 acumula el gasto en el libro", abs(libro["gastado_usd"] - 0.35) < 1e-9,
               f"gastado={libro['gastado_usd']}")
 
-    ok, motivo = presupuesto.puede_gastar(libro, 5.0)
-    registrar("B4 con 4.65 USD restantes se puede gastar", ok, motivo)
+    ok, motivo = presupuesto.puede_iniciar(libro, 5.0, 0.05)
+    registrar("B4 con 4.65 USD gastados aún cabe la siguiente reserva", ok, motivo)
 
     libro["gastado_usd"] = 5.0
-    ok, motivo = presupuesto.puede_gastar(libro, 5.0)
+    ok, motivo = presupuesto.puede_iniciar(libro, 5.0, 0.05)
     registrar("B5 con el presupuesto agotado NO se puede gastar", not ok, motivo)
 
     # reinicio del día
@@ -151,8 +151,8 @@ def t_presupuesto() -> None:
                      "est": None, "act": None, "status": None}])
     presupuesto.STATE_DB = db2
     libro2 = presupuesto.libro_vacio()
-    presupuesto.registrar(libro2, time.time() - 10, {"accion": "tarea_local"}, 5.0)
-    ok, motivo = presupuesto.puede_gastar(libro2, 5.0)
+    presupuesto.liquidar(libro2, time.time() - 10, {"accion": "tarea_local"}, 5.0, 0.05)
+    ok, motivo = presupuesto.puede_iniciar(libro2, 5.0, 0.0)
     registrar("B7 coste desconocido -> fallo cerrado (no se puede acotar)", not ok,
               f"desconocido={libro2['desconocido']} motivo={motivo}")
 

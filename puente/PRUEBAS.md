@@ -313,3 +313,141 @@ leído de la base de sesiones de Hermes, no estimado por el puente:
 
 El modelo y el proveedor son los configurados por el usuario
 (`openrouter` / `deepseek/deepseek-v4.1-flash`): el puente no los cambia.
+
+---
+
+# v3 — control del gasto DURANTE la ejecución y autenticación asimétrica
+
+## Batería 3 — el techo no se rebasa, ni con reintentos ni con tareas auxiliares
+
+Método: en el PATH se coloca un `hermes` **falso** que escribe en una base de
+sesiones falsa (mismo esquema que la real) el coste indicado y termina con el
+código pedido. Así se ejercita el bucle real del lector —autorización por
+segmento, liquidación, reintentos— sin gastar dinero.
+
+```
+OK    F1 la reserva se comprueba antes de cada intento
+      gastado=0.01 <= limite=0.08, intentos=1
+OK    F2 los reintentos se detienen antes de rebasar el techo
+      gastado=0.0160 <= 0.0250 | intentos=3 autorizados=2 | último bloqueado: la reserva de 0.0100 USD no cabe: gastado 0.016000 + reserva
+OK    F3 las sesiones auxiliares de la ventana se atribuyen al segmento
+      gastado=0.31 (0.01 + 0.30 auxiliar) sesiones=2
+OK    F4 el exceso sobre la reserva bloquea el día
+      exceso=True motivo=el segmento costó 0.400000 USD y superó su reserva de 0.0500 USD; se b
+OK    F4b con exceso registrado no se autoriza ningún intento más
+      el día quedó bloqueado por exceso: el segmento costó 0.400000 USD y superó su re
+OK    F5 coste desconocido → fallo cerrado
+      desconocido=True | consumo previo con coste desconocido: no puede acotarse, requiere reco
+OK    F6 sin margen para la reserva no se lanza ni un intento
+      intentos=1 autorizado=False gastado=0.0
+OK    F7 tope de turnos + plazo + corte duro del grupo de procesos
+      HERMES_MAX_ITERATIONS, HERMES_AGENT_TIMEOUT, start_new_session, killpg presentes
+
+resumen: 8/8 pruebas OK
+```
+
+## Batería 4 — autenticación asimétrica del supervisor
+
+```
+OK    S1 se genera el par de claves del supervisor
+      privada=hermes_orden publica=hermes_orden.pub
+OK    S2 el allowlist contiene SOLO la clave pública
+      supervisor ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUtw9ZzENwrm…
+OK    S3 la orden se firma y se empaqueta para el comentario
+      firmante=supervisor firma=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVk…
+OK    S4 la firma se verifica con la clave pública
+      firma SSH válida de 'supervisor'
+OK    S5 cambiar la acción invalida la firma
+      firma SSH rechazada: Signature verification failed: incorrect signature
+OK    S6 otra clave pública no puede validar la orden
+      firma SSH rechazada: Could not verify signature.
+OK    S7 sin allowlist → fallo cerrado
+      no existe el allowlist de claves públicas: /tmp/puente-test-ssh/no-existe
+OK    S8 ninguna clave privada en el repositorio
+      archivos con 'PRIVATE KEY': ninguno
+
+resumen: 8/8 pruebas OK
+```
+
+## Demostraciones en vivo
+
+**Demo A — sin margen para la reserva, cero gasto.** Orden real publicada en la
+issue #3, procesada con un límite (0,004 USD) inferior a la reserva por intento
+(0,05 USD):
+
+```
+la reserva de 0.0500 USD no cabe: gastado 0.000000 + reserva 0.0500 > límite 0.004
+→ orden ENCOLADA para el próximo día
+libro: {"gastado_usd": 0.0, "ejecuciones": []}
+```
+
+**Demo B — reserva autorizada antes y coste liquidado después**, con el
+presupuesto real de 5 USD/día:
+
+```json
+{"intentos": [{"intento": 1, "autorizado": true, "exit": 0,
+                "coste_usd": 0.00027361, "exceso": false, "sesiones": 1}],
+  "coste_usd": 0.00027361, "acumulado_dia_usd": 0.00369391,
+  "limite_dia_usd": 5.0, "reserva_por_intento_usd": 0.05,
+  "restante_usd": 4.99630609, "dia_presupuesto": "2026-09-12"}
+```
+
+## Lo que NO se puede garantizar (medido, no supuesto)
+
+**En Hermes no existe hoy un tope duro de gasto ni de iteraciones por ejecución
+que pueda imponerse desde fuera.** Se comprobó:
+
+| Intento de tope | Resultado medido |
+|---|---|
+| `HERMES_MAX_ITERATIONS=1` | **No acota.** El agente hizo 3 llamadas de herramienta. Hay un test en el propio Hermes (`tests/gateway/test_config_env_bridge_authority.py`) que confirma que `config.yaml` gana sobre esa variable |
+| `agent.max_turns: 1` en un `HERMES_HOME` sellado | **No acota.** También 3 llamadas de herramienta |
+| `-t ""` / toolsets vacíos | No impide el uso de herramientas |
+
+Por tanto la garantía del puente es **condicional y declarada**:
+
+1. La suma de gasto **autorizado** nunca supera el techo: se reserva antes de
+   arrancar cada intento y no se arranca si la reserva no cabe (probado).
+2. Un intento concreto puede costar más que su reserva. Cuando eso ocurre, el
+   puente lo **detecta** (`exceso`), **bloquea el resto del día** y lo reporta
+   (probado). Pero ese gasto ya se produjo: por eso la reserva debe ser un techo
+   medido, no un número inventado.
+3. **Corte duro por plazo**: si un intento se pasa del plazo, se mata el grupo de
+   procesos completo (no solo el padre). Un desbocado no puede correr indefinidamente.
+4. **Coste desconocido → fallo cerrado** (probado).
+
+Referencia medida de coste por ejecución acotada del ejecutor: entre **0,00027361**
+y **0,007121994** USD. La reserva de 0,05 USD es ~7 veces el máximo observado.
+No se compran ni recargan créditos automáticamente en ningún caso.
+
+## Propuesta de autenticación del supervisor: firma asimétrica
+
+Con HMAC hay que provisionar un secreto compartido, lo que obliga a moverlo entre
+máquinas. La propuesta viable **sin exportar ningún secreto** usa firmas SSH de
+OpenSSH, ya disponibles en ambas máquinas (Linux 10.2p1, Windows 9.5p2 — este
+último ya presente en `msi`, que además ya tiene `authorized_keys`).
+
+```
+Supervisor (msi)                        Hermes (WSL2)
+─────────────────                       ──────────────
+ssh-keygen -t ed25519 -f hermes_orden
+  → la clave PRIVADA nunca sale
+  → solo viaja la pública ───────────►  puente/allowed_signers
+                                        supervisor ssh-ed25519 AAAAC3Nz…
+ssh-keygen -Y sign -n hermes-order
+  → orden firmada en el comentario ──►  ssh-keygen -Y verify -f allowed_signers
+                                        -n hermes-order
+```
+
+Ventajas: no hay secreto compartido que provisionar ni rotar, no se puede
+suplantar al supervisor desde la máquina de Hermes (solo tiene la pública), y la
+revocación es borrar una línea. El namespace `hermes-order` separa estas firmas
+de cualquier otra cosa que esa clave firme.
+
+**Estado:** mecanismo **implementado y probado** (`puente/auth_ssh.py`, batería 4:
+firma válida aceptada · manipulación rechazada · otra clave rechazada · sin
+allowlist, fallo cerrado). **No está activado para el supervisor real porque
+todavía no hay una clave pública suya provisionada**, y no declaramos conexión
+por esto: existe el mecanismo, no el firmante.
+
+Activar cuando el propietario decida: en `config.json`,
+`"auth": {"esquema": "ssh-signature", "allowed_signers": "~/.hermes/bridge/allowed_signers"}`.

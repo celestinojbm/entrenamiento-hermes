@@ -137,16 +137,59 @@ también bloqueo visible en `estado.json`.
 
 ### Cómo se aplica el presupuesto (no es decoración)
 
-1. **Antes** de ejecutar: `puede_gastar()` compara el gasto acumulado del día con
-   el límite. Si no queda margen, la ejecución **no ocurre** y la orden se encola.
-2. **Después** de ejecutar: se lee el coste real de la sesión recién creada en la
-   tabla `sessions` de `~/.hermes/state.db` (`estimated_cost_usd` /
-   `actual_cost_usd`, con `cost_status` y `cost_source`) y se suma al libro.
-3. **Coste desconocido → fallo cerrado**: si una ejecución consumió tokens y su
-   coste no puede determinarse, el ejecutor se bloquea hasta reconciliación.
-   Un límite que se salta cuando no se puede medir no es un límite.
-4. El día se reinicia según **America/New_York**, no según la hora local del
-   sistema.
+Leer el coste al terminar **no basta**: una ejecución larga, un reintento o una
+tarea auxiliar pueden rebasar el techo antes de que nadie mire. El control es
+**segmentado**, y cada intento —el inicial y cada reintento— es un segmento:
+
+1. **RESERVA antes de arrancar.** Se reserva un techo `R` por intento. Si
+   `gastado + R > límite`, el intento **no arranca** y la orden se encola.
+   La suma de gasto *autorizado* nunca supera el techo.
+2. **LIQUIDACIÓN después de cada intento.** Se lee el coste real de la tabla
+   `sessions` de `~/.hermes/state.db` y se suma. **Antes de autorizar el
+   siguiente intento se vuelve a comprobar el margen**: un reintento no es gratis
+   ni invisible.
+3. **SESIONES AUXILIARES dentro del presupuesto.** Todo lo que Hermes cree en la
+   ventana del segmento —subagentes incluidos— se atribuye a ese segmento y
+   consume del mismo presupuesto.
+4. **CORTE DURO por plazo.** Si un intento se pasa del plazo, se mata el **grupo
+   de procesos** completo (no solo el padre): un desbocado no corre indefinidamente.
+5. **EXCESO detectado → día bloqueado.** Si un segmento cuesta más que su
+   reserva, se marca `exceso`, se bloquea el resto del día y se reporta.
+6. **COSTE DESCONOCIDO → fallo cerrado.** Si una ejecución consumió tokens y su
+   coste no puede determinarse, el ejecutor se bloquea. Un límite que se salta
+   cuando no se puede medir no es un límite.
+7. El día se reinicia según **America/New_York**, no según la hora local del sistema.
+
+### Lo que NO se puede garantizar (medido)
+
+**En Hermes no existe hoy un tope duro de gasto ni de iteraciones por ejecución
+que se pueda imponer desde fuera.** Se intentó y se midió:
+
+| Tope intentado | Resultado |
+|---|---|
+| `HERMES_MAX_ITERATIONS=1` | **No acota**: el agente hizo 3 llamadas de herramienta. El propio test de Hermes `test_config_env_bridge_authority.py` confirma que `config.yaml` gana sobre esa variable |
+| `agent.max_turns: 1` en un `HERMES_HOME` sellado | **No acota**: 3 llamadas |
+| `-t ""` (toolsets vacíos) | No impide el uso de herramientas |
+
+Estas variables se pasan como **mejor esfuerzo**, no como garantía. La garantía
+real es la de los puntos 1–6, y es **condicional**: dado que un intento cueste
+menos que su reserva, el techo no se rebasa nunca. Si un intento la supera, el
+puente lo detecta y bloquea, pero ese gasto ya se produjo — por eso la reserva
+debe ser un **techo medido**: el máximo observado de una ejecución acotada es
+0,007121994 USD, y la reserva por defecto es 0,05 USD (~7× ese máximo).
+
+### Autenticación del supervisor
+
+Hay **dos esquemas**:
+
+| Esquema | Cómo | Secreto |
+|---|---|---|
+| `hmac-sha256` (activo) | Firma simétrica con secreto en `~/.hermes/bridge/secreto` | Compartido, hay que provisionarlo en ambos lados |
+| `ssh-signature` (**mecanismo probado, no activado**) | Firma asimétrica con `ssh-keygen -Y`; el puente guarda **solo la clave pública** | **Ninguno** compartido: la privada no sale del lado del supervisor |
+
+El segundo evita el problema de mover secretos. Se prueba en `puente/auth_ssh.py`
+y en la batería 4. **No está activado para el supervisor real porque todavía no
+hay una clave pública suya provisionada**: existe el mecanismo, no el firmante.
 
 El libro queda en `~/.hermes/bridge/presupuesto.json`, con una entrada por
 ejecución: sesión, modelo, tokens, coste, acumulado y límite.

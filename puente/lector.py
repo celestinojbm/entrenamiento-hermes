@@ -29,6 +29,7 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -40,6 +41,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import auth  # noqa: E402
+import auth_ssh  # noqa: E402
 import presupuesto  # noqa: E402
 
 BASE = Path(os.environ.get("PUENTE_HOME", Path.home() / ".hermes" / "bridge"))
@@ -255,32 +257,98 @@ def ejecutar_accion(accion: str, config: dict, libro: dict, estado: dict) -> dic
         limites = config.get("limites", {})
         if not limites.get("worker_llm_habilitado"):
             return {"ejecutada": False, "motivo": "el ejecutor con LLM está en pausa"}
-        ok, motivo = presupuesto.puede_gastar(libro, limites.get("presupuesto_usd"))
-        if not ok:
-            return {"ejecutada": False, "requiere_cola": True, "motivo": f"presupuesto: {motivo}"}
-
+        limite = limites.get("presupuesto_usd")
+        res = presupuesto.reserva(config)
+        max_intentos = max(1, int(limites.get("max_intentos_por_orden", 3)))
+        max_turns = int(limites.get("max_turns_ejecucion", 4))
+        plazo = int(limites.get("max_duracion_ejecucion_s", 45))
         hermes = shutil.which("hermes") or str(Path.home() / ".local" / "bin" / "hermes")
-        t0 = time.time()
-        try:
-            proc = subprocess.run(
-                [hermes, "-z", PROMPT_TAREA_LOCAL, "--pass-session-id"],
-                capture_output=True, text=True,
-                timeout=int(limites.get("max_duracion_ejecucion_s", 60)),
-            )
-        except subprocess.TimeoutExpired:
-            return {"ejecutada": False, "motivo": "timeout del ejecutor", "coste_usd": 0.0}
-        time.sleep(2)  # dar tiempo a que Hermes persista la sesión
-        presupuesto.registrar(libro, t0, {"accion": accion}, limites.get("presupuesto_usd"))
-        gastado = libro["ejecuciones"][-1]["coste_usd"] if libro["ejecuciones"] else 0.0
+
+        # Presupuesto segmentado: cada intento —el inicial y cada reintento— es un
+        # segmento que se reserva ANTES y se liquida DESPUÉS. Un reintento no es
+        # gratis: si la reserva del siguiente intento no cabe en el margen, no se
+        # lanza. Es lo que impide rebasar el techo durante la ejecución y no solo
+        # al leer el coste al final.
+        intentos: list[dict] = []
+        salida = ""
+        coste_total = 0.0
+        ejecutada = False
+
+        for intento in range(1, max_intentos + 1):
+            autorizado, motivo = presupuesto.puede_iniciar(libro, limite, res)
+            if not autorizado:
+                intentos.append({"intento": intento, "autorizado": False, "motivo": motivo})
+                break
+
+            # Acotado del intento. IMPORTANTE Y MEDIDO: en Hermes NO existe hoy un
+            # tope duro de iteraciones por ejecución que se pueda imponer desde
+            # fuera. Se comprobó:
+            #   · `HERMES_MAX_ITERATIONS=1` NO acota: el agente hizo 3 llamadas de
+            #     herramienta (config.yaml gana sobre esa variable — hay un test en
+            #     el propio Hermes, tests/gateway/test_config_env_bridge_authority.py).
+            #   · `agent.max_turns: 1` en un HERMES_HOME sellado tampoco: 3 llamadas.
+            # Por eso estas dos variables se pasan como MEJOR ESFUERZO, no como
+            # garantía. La garantía real de esta acción es: reserva autorizada
+            # antes de arrancar (arriba), corte duro por plazo con SIGKILL del
+            # grupo de procesos (abajo), liquidación del coste real y bloqueo por
+            # exceso o por coste desconocido.
+            entorno = dict(os.environ,
+                           HERMES_MAX_ITERATIONS=str(max_turns),
+                           HERMES_AGENT_TIMEOUT=str(plazo))
+            t0 = time.time()
+            rc, out = None, ""
+            proc = None
+            try:
+                proc = subprocess.Popen([hermes, "-z", PROMPT_TAREA_LOCAL, "--pass-session-id"],
+                                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                        text=True, env=entorno, start_new_session=True)
+                try:
+                    out, _ = proc.communicate(timeout=plazo)
+                    rc = proc.returncode
+                except subprocess.TimeoutExpired:
+                    # Corte duro: mata el grupo entero, no solo el padre.
+                    try:
+                        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+                    except (ProcessLookupError, PermissionError):
+                        proc.kill()
+                    out, _ = proc.communicate()
+                    rc = -9
+                    out = (out or "") + "\n[corte duro por plazo del puente]"
+            finally:
+                time.sleep(2)   # que Hermes termine de persistir la sesión
+
+            seg = presupuesto.liquidar(libro, t0, {"intento": intento, "accion": accion}, limite, res)
+            coste_total += seg["coste_usd"]
+            intentos.append({"intento": intento, "autorizado": True, "exit": rc,
+                             "coste_usd": seg["coste_usd"], "exceso": seg["exceso"],
+                             "sesiones": len(seg["sesiones"])})
+            if seg["exceso"] or seg["coste_desconocido"]:
+                break           # fallo cerrado: no se sigue gastando
+            if rc == 0:
+                ejecutada = True
+                salida = (out or "").strip()[:500]
+                break
+
         libro["_sucio"] = True
-        return {"ejecutada": True, "coste_usd": gastado, "resultado": {
-            "salida": (proc.stdout or "").strip()[:500],
-            "exit_code": proc.returncode,
-            "coste_usd": gastado,
+        detalle = {
+            "salida": salida,
+            "intentos": intentos,
+            "intentos_usados": len(intentos),
+            "coste_usd": round(coste_total, 8),
             "acumulado_dia_usd": libro["gastado_usd"],
-            "limite_dia_usd": limites.get("presupuesto_usd"),
+            "limite_dia_usd": limite,
+            "reserva_por_intento_usd": res,
+            "restante_usd": presupuesto.restante(libro, limite),
             "dia_presupuesto": libro["dia"],
-        }}
+            "exceso": libro.get("exceso", False),
+        }
+        if ejecutada:
+            return {"ejecutada": True, "coste_usd": round(coste_total, 8), "resultado": detalle}
+        ultimo = intentos[-1]["motivo"] if intentos and not intentos[-1].get("autorizado") else "sin éxito"
+        return {"ejecutada": False, "coste_usd": round(coste_total, 8),
+                "requiere_cola": bool(intentos and not intentos[-1].get("autorizado")),
+                "motivo": f"no se completó en {len(intentos)} intento(s): {ultimo}",
+                "resultado": detalle}
     return {"ejecutada": False, "motivo": "acción no implementada"}
 
 
@@ -295,7 +363,15 @@ def procesar_orden(t: Transporte, config: dict, estado: dict, libro: dict,
 
     # --- autenticación verificable (firma HMAC) ---
     if config.get("auth", {}).get("requerida", True):
-        valida, motivo = auth.verificar(orden, auth.leer_secreto(auth.ruta_secreto(BASE)))
+        esquema = str(config.get("auth", {}).get("esquema", "hmac-sha256")).lower()
+        if esquema in ("ssh-signature", "ssh"):
+            # Firma asimétrica: el puente solo guarda la clave PÚBLICA del
+            # supervisor (allowlist), nunca su clave privada. Ver auth_ssh.py.
+            ruta_allowed = Path(config["auth"].get("allowed_signers", BASE / "allowed_signers"))
+            valida, motivo = auth_ssh.verificar_ssh(
+                orden, ruta_allowed, orden.get("firma", ""), orden.get("firmante", ""))
+        else:
+            valida, motivo = auth.verificar(orden, auth.leer_secreto(auth.ruta_secreto(BASE)))
         if not valida:
             registro = {"id_orden": id_orden, "comentario": cid, "accion": accion,
                         "estado": "no_autenticada", "motivo": motivo, "ts": ahora,

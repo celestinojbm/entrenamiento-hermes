@@ -18,7 +18,10 @@
   "comentario_estado": null,
   "limites": {
     "max_ordenes_por_dia": 20,
-    "max_duracion_ejecucion_s": 60,
+    "max_duracion_ejecucion_s": 45,
+    "max_turns_ejecucion": 4,
+    "max_intentos_por_orden": 3,
+    "reserva_por_intento_usd": 0.05,
     "presupuesto_usd": 5.0,
     "zona_presupuesto": "America/New_York",
     "sin_compras_ni_recargas_automaticas": true,
