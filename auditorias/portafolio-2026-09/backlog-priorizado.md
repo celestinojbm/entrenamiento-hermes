@@ -11,9 +11,16 @@ Responde a los bloqueadores nº5 y nº6 de la revisión:
   repositorio). Se sustituye por un **contrato de tokens copiable** hasta validar
   dos consumidores.
 
-Convención de responsable: **Propietario** = decisión humana, no delegable ·
-**Claude Code** = implementador primario · **Codex** = revisión no roja ·
-**Hermes** = orquestación, evidencia y verificación.
+Convención de responsable (**por capacidad, no por herramienta nombrada a dedo**):
+**Propietario** = decisión humana, no delegable · **Implementador** = quien ejecuta
+el cambio; hasta que el propietario decida otra cosa, el ejecutor **demostrado** es
+**Hermes** (el puente de la issue #3 y las correcciones de esta ronda salieron de
+ahí) · **Revisor independiente** = segunda opinión sobre el diff ·
+**Verificador** = quien aporta la evidencia reproducible.
+
+> Corrección de la revisión: asignar «Claude Code» como implementador primario
+> **no era una decisión tomada** por H-014 ni por el propietario. Se retira esa
+> atribución; queda como capacidad disponible, no como rol asignado.
 
 ---
 
@@ -24,14 +31,14 @@ registra, y el dashboard que se le enseña es presentable. Nada más entra aquí
 
 | # | Ítem | Esf. | Deps | CA | Resp. |
 |---|---|---|---|---|---|
-| I1 | **Cerrar el flujo demostrable del dashboard** (login → oportunidades → acción con riesgo → aprobación → ejecución → audit trail) sobre una demo con datos reales | L | — | Demo grabable < 5 min; capturas de cada pantalla del flujo | Claude Code |
+| I1 | **Cerrar el flujo demostrable del dashboard** (login → oportunidades → acción con riesgo → aprobación → ejecución → audit trail) con datos **locales sintéticos**; datos reales **solo** con autorización explícita del propietario | L | — | Demo grabable < 5 min; capturas de cada pantalla del flujo | Implementador |
 | I2 | **Arreglar los 4 defectos visuales de la landing** (contraste de texto secundario, `link-in-text-block`, elemento decorativo roto del hero, tarjeta incompleta de "Seis módulos") | S | — | 0 violaciones axe *serious* en la landing; captura comparativa | Claude Code |
 | I3 | Subir `cryptography` a `>=50` (quitar el techo `<50.0.0`) | XS | — | `pip-audit` sin PYSEC-2026-3552 | Claude Code |
 | I4 | Subir `next` a 16.3.5 en `landing/` | S | — | `npm audit --omit=dev` sin critical/high | Claude Code |
-| I5 | Subir `pytest` a `>=9.0.3` en `requirements-dev.txt` | XS | — | `pip-audit` sin PYSEC-2026-1845 | Claude Code |
+
 | I6 | **Rotar secretos por proveedor** (Anthropic, OpenAI, Stripe, Whapi, Supabase, R2, admin token), empezando por dinero y mensajería | M | decisión del propietario | Ningún secreto previo activo; registro fechado | Propietario + Hermes |
 | I7 | **Cerrar el flujo del dashboard ANTES de reactivar producción pública** — no después | M | I1 | Producción no se reabre mientras I1 no esté cerrado | Propietario |
-| I8 | Reactivar producción (Render + Vercel) con env vars, webhook Stripe y provider WhatsApp verificados | M | I1, I3–I6 | Smoke test E2E contra producción real | Propietario + Hermes |
+| I8 | Reactivar producción (Render + Vercel) con env vars, webhook Stripe y provider WhatsApp verificados | M | I1, I3, I4, I6 | Smoke test E2E contra producción real | Propietario + Hermes |
 | I9 | Verificar el cobro E2E en producción | S | I8 | Un pago real con su fila en `transacciones_credito` | Hermes |
 
 **Por qué I1 va antes que I8 (cambio respecto a la v1):** cobrar sin un dashboard
@@ -50,7 +57,7 @@ mantenimiento (§M) o a seguridad/legal (§P0-SL) según corresponda.
 
 | # | Ítem | Repo | Esf. | CA | Resp. |
 |---|---|---|---|---|---|
-| S1 | **Aplicar la config de gitleaks por valor literal** (`propuestas/gitleaks-dona.toml`): suprimir 5 fixtures sintéticos sin cegar el gate | Dona | XS | Gate verde **y** un secreto sembrado sigue fallando (evidencia en `evidencia-gitleaks.md`) | Claude Code + Hermes |
+| S1 | **Aplicar la config de gitleaks por valor literal** (`propuestas/gitleaks-dona.toml`). Medición corregida: la allowlist tiene 5 literales, **suprime 3 hallazgos** (no 4) y deja 1 artefacto generado visible a propósito. Sigue siendo **propuesta**, no gate | Dona | XS | Criterio de cierre en `evidencia-gitleaks-estado.md`: fixtures permitidos **y** secreto sembrado detectado **y** alcance real de CI, todo en un PR de Dona | Implementador + Verificador |
 | S2 | Corregir el comentario falso del workflow `security.yml` ("cryptography ya esta parchada") | Dona | XS | El comentario refleja el estado real | Claude Code |
 | S3 | **Decisión sobre repositorios públicos**: hacer privados los que exponen diseño financiero (Fluvia) o lógica anti-abuso (Dona), o registrar por qué siguen públicos | todos | XS | Decisión escrita por repo | Propietario |
 | S4 | **Decisión sobre la licencia de Dona (MIT)**: producto propietario o contribución abierta. Hoy convive con 4 repos sin licencia | Dona | XS | Decisión registrada | Propietario |
@@ -95,14 +102,15 @@ mantenimiento (§M) o a seguridad/legal (§P0-SL) según corresponda.
 | # | Ítem | Repo | Esf. | Nota |
 |---|---|---|---|---|
 | M1 | `ruff check .` limpio (446 correcciones automáticas + 12 manuales) | Dona | S | Deuda de lint, medida igual en 3.12 y 3.14 |
-| M2 | Arreglar el CI de Dependabot (bumps agrupados, `node:22→25`) | Fluvia | M | Desbloquea el mantenimiento futuro, no el ingreso presente |
+| M2 | Arreglar el CI de Dependabot (bumps agrupados, runtime a **Node 24 LTS** — **no 25, que está EOL**; ver `node-lts.md`) | Fluvia | M | Desbloquea el mantenimiento futuro, no el ingreso presente |
 | M3 | Cerrar/actualizar los 24 PRs de Dona y 12 de Fluvia; podar ramas remotas | Dona, Fluvia | S | Higiene |
 | M4 | `metadata.create_all()` fuera del lifespan; Alembic como fuente única | Dona | M | Con snapshot autogenerado + prueba de equivalencia |
 | M5 | `arq`/Redis por defecto; `inproc` solo explícito | Dona | S | Test de supervivencia a restart |
-| M6 | Actualizar `engines.node` a `>=22` (Node 20 **ya está EOL**) | Fluvia, EvolveOS, Donalabs | XS | Único ítem con fecha vencida; ver `matriz-actualizacion.md` §1 |
+| M6 | Fijar `engines.node` a un rango **acotado** (`">=24 <25"`), no `">=22"`: un rango abierto admite versiones impares ya EOL (23, 25) y mayores no probadas. Incluye Dockerfile (Dona está pineado por digest), workflows y hosting | Fluvia, EvolveOS, Donalabs | S | Ver `node-lts.md`: cuatro sitios por repo, no uno |
 | M7 | Corregir los 4 defectos de accesibilidad del design system (V2–V5) | Donalabs | S | **Antes** de propagar tokens a otros productos |
 | M8 | Extraer esquemas machine-readable con validación de drift | EvolveOS | M | Gap (e) de su `BUILDABILITY_AUDIT` |
 | M9 | Hardening operativo de Donalabs (cerrar signups, rotar credenciales, probar restauración) | Donalabs | M | Operativo |
+| M10 | **`pytest` a `>=9.0.3`** en `requirements-dev.txt` (PYSEC-2026-1845) | Dona | XS | **Movido desde P0-I**: es una dependencia de **desarrollo**, no del camino a ingresos. Su alcance real es seguridad/mantenimiento |
 
 ---
 

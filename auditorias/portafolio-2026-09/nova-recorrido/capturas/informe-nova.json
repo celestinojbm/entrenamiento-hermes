@@ -39,9 +39,9 @@
     "h1": [],
     "h2": 0,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Search 50 moments, newest first Screenshot dropped — media pipeline unavailable Pricing — Examplesave referenceskipped https://e",
-    "scrollWidth": 651,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": [
       {
         "id": "color-contrast",
@@ -83,9 +83,9 @@
     "h1": [],
     "h2": 0,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 18 tasks · created by the Action Engine (Tier 0) from your capture instructions Done create a task to file this no project · fro",
-    "scrollWidth": 651,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": [
       {
         "id": "color-contrast",
@@ -127,9 +127,9 @@
     "h1": [],
     "h2": 0,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 5 projects Inbox Default project for unsorted context moments 6 moments · 6 tasks Delete ExportScope 1 moment · 0 tasks Delete S",
-    "scrollWidth": 651,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": [
       {
         "id": "color-contrast",
@@ -171,9 +171,9 @@
     "h1": [],
     "h2": 1,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Action approvals Nova proposes; you decide. Nothing external executes without your explicit approval, and external writes run in",
-    "scrollWidth": 873,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": [
       {
         "id": "color-contrast",
@@ -215,9 +215,9 @@
     "h1": [],
     "h2": 1,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Audit log Everything Nova did, in the open: captures, live sessions, cloud calls, actions, deletions, exports. Entries record wh",
-    "scrollWidth": 651,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": [
       {
         "id": "select-name",
@@ -236,7 +236,7 @@
     "lang": "en",
     "h1": [],
     "h2": 1,
-    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/13/2026, 3:04:06 PM. Change",
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/14/2026, 10:27:08 PM. Chang",
     "scrollWidth": 1440,
     "clientWidth": 1440,
     "desbordeHorizontal": false,
@@ -252,8 +252,8 @@
     "lang": "en",
     "h1": [],
     "h2": 1,
-    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/13/2026, 3:04:06 PM. Change",
-    "scrollWidth": 651,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/14/2026, 10:27:08 PM. Chang",
+    "scrollWidth": 391,
     "clientWidth": 390,
     "desbordeHorizontal": true,
     "axe": []
@@ -285,9 +285,9 @@
     "h1": [],
     "h2": 1,
     "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out System status Operational view for the private alpha — component health, queues, and maintenance. Counts only; captured content ",
-    "scrollWidth": 651,
+    "scrollWidth": 390,
     "clientWidth": 390,
-    "desbordeHorizontal": true,
+    "desbordeHorizontal": false,
     "axe": []
   }
 ]

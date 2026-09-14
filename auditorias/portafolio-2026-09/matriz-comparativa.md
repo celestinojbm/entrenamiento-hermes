@@ -30,7 +30,7 @@ equiparables es lo que hoy dispersa la energía.
 | Lenguaje / runtime | Python 3.11+ (probado en 3.14) | TypeScript / Node ≥22 | TypeScript / Node ≥20 | TypeScript / Node ≥20 | TypeScript / Node ≥20 |
 | LOC (código) | ~117.900 | ~36.600 | ~62.300 | ~14.700 | design system + infra |
 | Archivos de test | 132 | 80 | 111 | 10 | sin suite |
-| Tests verificados | 2360 pass / 1 fail / 61 err | unit 12/12 ws verdes; integración 245 pass / 0 fail | todas las suites verdes con PG+Redis | 432 pass / 0 fail | — |
+| Tests verificados | **3.14:** 1 fail / 2360 pass / 61 err · **3.12:** 2422 pass con 38 warnings, exit 0 | unit 12/12 ws verdes; integración 245 pass / 0 fail | todas las suites verdes con PG+Redis | 432 pass / 0 fail | **sin suite de comportamiento** |
 | Install reproducible | sí | sí | sí | sí | sí |
 | Build | n/a | sí | sí | sí | sí |
 | Lint | **458 hallazgos** | n/a | limpio | n/a | limpio |
@@ -45,7 +45,7 @@ equiparables es lo que hoy dispersa la energía.
 
 ### 3.1 Funciona hoy (verificado)
 
-- **Dona:** backend FastAPI completo y probado (2360 tests), billing con créditos
+- **Dona:** backend FastAPI completo y probado (2422 tests pasan con 38 warnings en Python 3.12; en 3.14 la ejecución global falla), billing con créditos
   Stripe, Action Center con niveles de riesgo, audit trail, landing + dashboard
   Next.js con checkout embebido. Pipeline de automatización operable.
 - **Nova Context:** pipeline completo captura→redacción→media→timeline→búsqueda→
@@ -173,7 +173,7 @@ lanzan; se usan.**
    construido (créditos prepago + Stripe).
 2. Su deuda de lanzamiento es **enumerada, acotada y conocida**, no difusa:
    rotación de secretos, TCPA/STOP, auth web y el techo de `cryptography`.
-3. Ya tiene una suite de 2360 tests verdes: el riesgo de tocarla no es de
+3. Ya tiene una suite de 2422 tests que pasan (con 38 warnings): el riesgo de tocarla no es de
    regresión estructural sino de configuración y cumplimiento.
 4. Es el proyecto más antiguo: lanzarlo primero también cierra la deuda histórica
    más cara de arrastrar (ver `decision-dona.md`).

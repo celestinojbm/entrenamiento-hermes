@@ -1,0 +1,36 @@
+{
+  "etiqueta": "antes",
+  "viewport": "390x844",
+  "medicion": {
+    "scrollWidth": 651,
+    "clientWidth": 390,
+    "desborde": true,
+    "tareas": 18,
+    "titulo_texto": "create a task to file this",
+    "titulo_ancho_px": 0,
+    "titulo_alto_px": 504,
+    "titulo_lineas": 21,
+    "titulo_caracteres": 26,
+    "caracteres_por_linea": 1.2
+  },
+  "tras_interaccion": {
+    "scrollWidth": 651,
+    "clientWidth": 390,
+    "desborde": true,
+    "tareas": 18,
+    "titulo_texto": "create a task to file this",
+    "titulo_ancho_px": 0,
+    "titulo_alto_px": 504,
+    "titulo_lineas": 21,
+    "titulo_caracteres": 26,
+    "caracteres_por_linea": 1.2,
+    "interaccion": {
+      "texto_boton_antes": "Reopen",
+      "texto_boton_despues": "Done",
+      "clase_fila_antes": "task-row done",
+      "clase_fila_despues": "task-row ",
+      "cambio": true
+    }
+  },
+  "errores_consola": []
+}

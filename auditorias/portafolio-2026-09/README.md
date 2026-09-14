@@ -58,11 +58,25 @@ servicios reales se levantaron, sin privilegios: PostgreSQL 16.15, PostgreSQL
 
 ## Alcance y límites
 
-- **No** se modificó ningún repositorio auditado: solo se leyó y se ejecutaron
-  sus comandos declarados.
+- **No** se modificó ningún repositorio auditado **durante la auditoría**: solo se
+  leyó y se ejecutaron sus comandos declarados, y las pruebas que exigían escribir
+  se hicieron sobre **copias aisladas** (`/tmp/nova-run`).
+  **Excepción, por instrucción explícita del propietario:** la corrección de V25
+  (tarjetas de tarea ilegibles en móvil) se entregó en una **rama del repositorio
+  de Nova** — `celestinojbm/nova-context#19` — sin fusionar ni desplegar.
 - **No** se realizaron migraciones, compras, despliegues ni cambios de producción.
 - **No** se expusieron secretos, tokens, IPs ni valores de `.env`.
 - Las decisiones que requieren un humano (rotar secretos, reactivar producción,
   adoptar licencia, aprobar la ratificación fundacional de EvolveOS) están
   marcadas como tales y **no** se ejecutaron.
-| [vistas-previas/revision-calidad.md](vistas-previas/revision-calidad.md) | Ronda 3: vistas previas de frontend con capturas móvil/escritorio y revisión de calidad visual y funcional |
+### Documentos añadidos en las rondas 3 y 4 (respuesta a las revisiones)
+
+| Documento | Qué responde |
+|---|---|
+| [matriz-canonica.md](matriz-canonica.md) | **Fuente única de verdad por producto**: prueba técnica, cobertura visual, demo, cobro, limitaciones y evidencia (corrección 1) |
+| [nova-recorrido/](nova-recorrido/) | **Recorrido autenticado de Nova con cuenta sintética**: 15 capturas, axe y los hallazgos V23–V26 (corrección 2a) |
+| [dona-dashboard/](dona-dashboard/) | Gate de Dona documentado, intento reproducible y **maqueta del flujo prioritario** con seis estados (corrección 2b) |
+| [vistas-previas/revision-calidad.md](vistas-previas/revision-calidad.md) | Ronda 3: vistas previas con capturas móvil/escritorio, tipografía autoalojada y **reetiquetado a validación de maquetas estáticas** (corrección 3) |
+| [node-lts.md](node-lts.md) | **Node 24 LTS, no 25 (EOL)**, rango acotado y los cuatro sitios donde vive el runtime (corrección 5) |
+| [evidencia-gitleaks-estado.md](evidencia-gitleaks-estado.md) | Cifras corregidas (5 literales → **3 supresiones**, no 4) y criterio de cierre del gate (corrección 7) |
+| [precio-experimentos.md](precio-experimentos.md) · [precio-unit-economics.md](precio-unit-economics.md) | Hipótesis convertidas en **experimentos falsables** y el **piso económico** por cuenta y por acción (corrección 8) |

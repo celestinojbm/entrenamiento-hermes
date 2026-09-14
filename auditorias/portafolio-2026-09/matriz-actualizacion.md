@@ -102,6 +102,11 @@ rojo sistemático.** Todos los bumps agrupados (`minor-y-patch` con 15 y 14
 updates) y `node:22-slim → 25-slim` fallan. Hasta arreglar eso, esta matriz es
 teórica: **ninguna** actualización puede entrar. Ese es el P0 real de Fluvia.
 
+> **Corrección (ronda 4):** ese bump apuntaba a **Node 25, que está EOL**. El
+> objetivo correcto es **Node 24 LTS** con rango acotado (`">=24 <25"`), y el
+> cambio abarca también Dockerfile y workflows, no solo `package.json`. Ver
+> [`node-lts.md`](node-lts.md) para el inventario y la decisión.
+
 ### 2.5 EvolveOS
 
 | Paquete | Declarado | Estable | Salto | Decisión y motivo |

@@ -13,15 +13,20 @@ limpios; el detalle y los comandos están en
 
 **El portafolio no tiene un problema de construcción: tiene un problema de foco y
 de cierre.** Cuatro de los cinco repos compilan, instalan y ejecutan sus suites
-cuando el entorno tiene los servicios que piden; el quinto no tiene suite y sí una
-interfaz sin auditar. Lo que falta es decidir el orden, cerrar la deuda que impide
-cobrar en el único producto con usuarios, y dar coherencia a cuatro frontends que
-hoy viven por separado (y construir el quinto, que no existe).
+cuando el entorno tiene los servicios que piden. **EvolveOS es el que carece de
+interfaz** (`app/` solo expone `GET /health`), y **Donalabs sí fue auditado
+visualmente** pero **no tiene suite de comportamiento**. Lo que falta es decidir el
+orden, cerrar la deuda que impide cobrar en el único producto con usuarios, y dar
+coherencia a cuatro frontends que hoy viven por separado.
 
 Precisión obligada sobre el alcance de la verificación: **Dona-agent no quedó
-"verde"**. En el entorno ejecutado (Python 3.14) su suite produjo *1 fallo, 2360
-tests que pasaron dentro de una ejecución globalmente fallida y 61 errores*. La
-atribución a 3.14 es una **hipótesis fuerte pendiente de control positivo** (§2.5).
+"verde" en el entorno ejecutado**. En Python 3.14 su suite produjo *1 fallo, 2360
+tests que pasaron dentro de una ejecución globalmente fallida y 61 errores*. El
+**control positivo ya se hizo**: el mismo HEAD en **Python 3.12** da *2422 pasan,
+38 warnings, exit 0*, así que la incompatibilidad con 3.14 es un hecho medido y no
+una hipótesis pendiente — pero **3.12 tampoco está "limpio"**: arrastra 38 warnings,
+entre ellos `PytestUnhandledThreadExceptionWarning` y `RuntimeError: Event loop is
+closed` en workers de `aiosqlite`, con deuda propia (§2.5).
 Y **Donalabs no está verificado de extremo a extremo**: no tiene suite de
 comportamiento y su infraestructura Docker quedó sin ejecutar (§2.6).
 
@@ -32,7 +37,8 @@ comportamiento y su infraestructura Docker quedó sin ejecutar (§2.6).
 ### 2.1 El único producto con usuarios ya está listo para cobrar, salvo deuda enumerada
 
 **Dona** es el proyecto más antiguo y el único con usuarios reales. Su backend es
-maduro (2360 tests verdes, CI `Tests` verde en `main`) y su deuda es **puntual,
+maduro (**2422 tests pasan con 38 warnings, exit 0**, medido en Python 3.12; en 3.14
+la misma suite da 1 fallo / 2360 pasan / 61 errores) y su deuda es **puntual,
 conocida y reversible**:
 
 - El workflow **`Security` está rojo de forma permanente** en `main` (3 runs
@@ -45,7 +51,12 @@ conocida y reversible**:
   STOP incompletas, auth web **provisional**.
 - La suite **no está verificada en Python 3.14**: los 62 ítems no verdes del
   entorno local son incompatibilidad de `asyncio`, no defectos de producto. El
-  repo declara 3.11+ y su CI no cubre 3.14.
+  repo declara 3.11+ y su CI no cubre 3.14. **El control positivo en 3.12 ya se
+  ejecutó** y pasa con exit 0, lo que confirma que es un problema de runtime.
+- **Deuda propia de 3.12:** 38 warnings, con `PytestUnhandledThreadExceptionWarning`
+  y `RuntimeError: Event loop is closed` en workers de `aiosqlite`. No se esconde
+  dentro de la conclusión sobre compatibilidad: es una tarea aparte — cerrar y
+  esperar correctamente conexiones y hilos asíncronos.
 
 **Lectura:** nada de esto exige reescribir. Todo esto exige ejecutar.
 
@@ -58,7 +69,7 @@ Era crítico no confundir fallo de infraestructura con fallo de código:
 | Fluvia | 9 passed / 80 skipped (`ECONNREFUSED 5432`) | **verde completo** con PostgreSQL 16 + Redis | Sí (suite completa) |
 | EvolveOS | `Connection terminated unexpectedly` | **432 passed / 0 failed** + checks de spec **PASS** | Sí (suite + checks) |
 | nova-context | unit verde; integración no ejecutable | **245 passed / 0 failed** con PostgreSQL 18 + pgvector + Redis | Sí (unit + integración) |
-| Dona-agent | no aplica (no usa servicios externos para la suite) | 1 fallo / 2360 pasan / 61 errores en Python 3.14 | **No** — pendiente control positivo (§2.5) |
+| Dona-agent | no aplica (no usa servicios externos para la suite) | 1 fallo / 2360 pasan / 61 errores en Python 3.14 · **2422 pasan con 38 warnings en Python 3.12** | **Sí en 3.12** (control positivo, exit 0); no en 3.14 (§2.5) |
 | Donalabs | verde en design system | **la infraestructura Docker no se ejecutó** | **No** — sin suite de comportamiento y sin arranque del stack (§2.6) |
 
 **Lectura:** Fluvia, EvolveOS y nova-context no tienen suites rotas; tienen suites
@@ -103,7 +114,7 @@ y el estado visual real medido en §2.7.
    EvolveOS y Donalabs no se lanzan; se usan.
 2. **DONA: opción B (strangler), no reconstruir.** La evidencia no sostiene que el
    repo sea inviable; sostiene que su deuda es localizada. Reconstruir (C)
-   sacrificaría 483 commits, 2360 tests verdes y el único producto con usuarios
+   sacrificaría 483 commits, una suite de 2422 tests que pasa y el único producto con usuarios
    para resolver problemas puntuales. Detalle y secuencia B0–B6 en
    [`decision-dona.md`](decision-dona.md).
 3. **Frontend primero: el flujo demostrable del dashboard de Dona**, porque es lo
@@ -120,13 +131,13 @@ y el estado visual real medido en §2.7.
 
 ## 4. Qué falta exactamente para vender y lanzar (por producto)
 
-| Producto | Falta para demo | Falta para cobrar | Tiempo hasta 1ª venta (estimación) |
+| Producto | Falta para demo | Falta para cobrar | Tiempo hasta 1ª venta (**estimación**; supuestos en `estimaciones-y-precios.md`) |
 |---|---|---|---|
 | **Dona** | Infraestructura con secretos rotados | Secretos, TCPA/STOP, auth web, techo de `cryptography`, reactivar producción | **4–8 semanas** |
 | **Nova Context** | Despliegue real (hoy solo hay reuniones de despliegue, nunca ejecutadas) | LICENSE + cadena de título + infraestructura | 8–16 semanas |
-| **Fluvia** | Nada relevante: se levanta y se demuestra | Proveedor real (Fase 5) + verificación legal Colombia | 4–8 meses |
-| **EvolveOS** | Nada: la consola corre | No aplica: es interno y su spec prohíbe mover dinero sin ratificación | n/a |
-| **Donalabs** | Nada | No aplica: plataforma interna | n/a |
+| **Fluvia** | **Producto, no funcionamiento**: arranca y sirve, pero **visualmente no es presentable** y arrastra el bug de origen/CSRF. Tiene maqueta de referencia | Proveedor real (Fase 5) + verificación legal Colombia | 4–8 meses |
+| **EvolveOS** | **No hay demo visual posible: no existe interfaz** (`app/` solo expone `GET /health`). Se entrega wireframe, no implementación | No aplica: es interno y su spec prohíbe mover dinero sin ratificación | n/a |
+| **Donalabs** | Showcase arranca y sirve; **no se declara verde de extremo a extremo** (sin suite de comportamiento, Docker sin verificar) | No aplica: plataforma interna | n/a |
 
 ---
 

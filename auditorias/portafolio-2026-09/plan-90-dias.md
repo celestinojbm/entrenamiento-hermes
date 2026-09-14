@@ -11,29 +11,47 @@ infraestructura desbloqueada por decisión humana (Fluvia). No cinco frentes.
 
 ---
 
-## Días 1–30 — "Cerrar la deuda que bloquea cobrar y ver el primer frontend"
+## Días 1–30 — la cadena mínima hasta poder cobrar
 
-Objetivo del mes: Dona deja de tener motivos para no cobrar.
+**Reconstruido desde el resultado, no desde la deuda.** Antes mezclaba
+mantenimiento con lanzamiento (Ruff, poda de PRs, propagación de tokens, Alembic),
+y eso no es la ruta a ingresos. Ahora sólo hay tres bloques, **en este orden**, y
+todo lo demás vive en §"Mantenimiento posterior".
 
-| # | Tarea | Producto | Esfuerzo | Depende de | Criterio de aceptación |
-|---|---|---|---|---|---|
-| 1.1 | Rotar secretos por proveedor (Anthropic, OpenAI, Stripe, Whapi, Supabase, R2, admin token) con fecha registrada | Dona | M | decisión humana (¿todos o por proveedor?) | Ningún secreto previo a la rotación sigue activo; registro con fecha |
-| 1.2 | Subir el techo de `cryptography` a `<51` y verificar `pip-audit` | Dona | XS | — | Workflow `Security` → job `pip-audit` verde |
-| 1.3 | Allowlist de fixtures de test en `.gitleaks.toml` | Dona | XS | — | Job `gitleaks` verde con hallazgos = 0 |
-| 1.4 | Corregir quiet hours TCPA + robustecer detección STOP (más allá del set cerrado) | Dona | M | — | Suite verde + casos de prueba nuevos |
-| 1.5 | Retirar `metadata.create_all()` del lifespan; Alembic como fuente única | Dona | M | 1.1 | Prueba de equivalencia en base limpia |
-| 1.6 | `arq`/Redis como camino por defecto; `inproc` solo explícito | Dona | S | 1.1 | Test de supervivencia a restart |
-| 1.7 | Limpiar `ruff`: aplicar las 446 correcciones automáticas y decidir las 12 restantes | Dona | S | — | `ruff check .` sin hallazgos |
-| 1.8 | Corregir el test de observabilidad roto en Python 3.14 y fijar la matriz de CI (3.11/3.12/3.13 + 3.14 opcional) | Dona | S | — | Suite verde en la matriz declarada |
-| 1.9 | **Fase A del sistema de diseño**: publicar el **contrato de tokens copiable** (no un paquete: `@donalabs/ui` es `private` con deps `workspace:*`) y añadir los grupos que faltan (estado, radios, elevación, movimiento) | Donalabs → todos | M | — | `tokens.css` versionado copiado en Dona/Fluvia/Nova; showcase actualizado |
-| 1.10 | ~~Levantar los frontends y producir el mapa de pantallas~~ **HECHO en esta auditoría** (65 capturas, axe-core, móvil y escritorio). Queda: corregir los 4 defectos de accesibilidad del sistema de diseño (V2–V5) **antes** de propagarlo | Donalabs | S | 1.9 | 0 violaciones axe en el showcase |
-| 1.12 | Cerrar el flujo demostrable del dashboard de Dona (I1) — **prerequisito para reactivar producción**, no posterior | Dona | L | — | Demo grabable < 5 min |
-| 1.11 | Cerrar/actualizar los 24 PRs abiertos de Dona (mayoría Dependabot) y podar ramas remotas | Dona | S | — | PRs abiertos < 5; ramas remotas < 15 |
+### Bloque A — Un dashboard de Dona que se puede enseñar (semanas 1–3)
 
-**Avance visible al día 30:** workflow `Security` de Dona completamente verde,
-`ruff` limpio, el sistema de diseño sin defectos de accesibilidad, y el flujo del
-dashboard de Dona cerrado y grabable. La auditoría visual ya está hecha: no hay
-que levantarlos, hay que corregir lo que se midió.
+Primero, porque **es el prerequisito de reactivar producción**, no su consecuencia.
+
+| # | Tarea | Esfuerzo | Criterio de aceptación |
+|---|---|---|---|
+| A1 | Implementar el flujo demostrable del dashboard de Dona: login → oportunidad/tarea → acción de riesgo → aprobación → ejecución → audit trail | L | Demo grabable en menos de 5 min, con los seis estados (carga, vacío, error, permisos, sesión vencida, confirmación) |
+| A2 | Sistema de diseño aplicado a ese flujo: contratar los tokens **corregidos** (V2–V5) como contrato copiable, no como paquete | M | El flujo de A1 usa el contrato; 0 violaciones axe en las pantallas del flujo |
+
+**A2 depende de A1**, no al revés: se corrigen los tokens **al construir la primera
+pantalla real**, no propagando un contrato sin consumidor.
+
+### Bloque B — Lo imprescindible de seguridad y legal (semanas 2–4, en paralelo a A)
+
+Sin esto no se expone nada a Internet, pero **no incluye** limpieza de estilo ni
+mantenimiento de repos.
+
+| # | Tarea | Esfuerzo | Criterio de aceptación |
+|---|---|---|---|
+| B1 | Rotar secretos por proveedor (Anthropic, OpenAI, Stripe, Whapi, Supabase, R2, admin token) con fecha registrada | M | Ningún secreto previo sigue activo; registro con fecha |
+| B2 | Quiet hours TCPA + detección STOP robustecida (más allá del set cerrado) | M | Suite verde + casos nuevos que cubren STOP fuera del set |
+| B3 | Auth web endurecido sustituyendo el provisional, **sin cambiar el contrato de sesión** | L | Suite de auth web verde; sin hallazgos P1 en revisión de seguridad |
+| B4 | Techo de `cryptography` a un rango que permita el fix (`PYSEC-2026-3552`) | XS | Job `pip-audit` verde — **es la puerta del gate de seguridad**, por eso está en el camino y no en mantenimiento |
+
+### Bloque C — Preparar la reactivación (semana 4)
+
+| # | Tarea | Esfuerzo | Criterio de aceptación |
+|---|---|---|---|
+| C1 | Preparar la reactivación: env vars, webhook de Stripe verificado y smoke test definido | M | Smoke test reproducible escrito y en verde en local contra el flujo de A1 |
+
+**Avance visible al día 30:** el dashboard de Dona cerrado y grabable (A1+A2), los
+secretos rotados, TCPA/STOP cubiertos y el auth web endurecido (B), y la
+reactivación lista para ejecutarse (C). **Nada más.** Ruff, la poda de PRs, Alembic
+y la propagación del sistema de diseño no aparecen aquí a propósito.
 
 ---
 
@@ -44,12 +62,12 @@ reales.
 
 | # | Tarea | Producto | Esfuerzo | Depende de | Criterio de aceptación |
 |---|---|---|---|---|---|
-| 2.1 | **B4 — Auth web endurecido**, sustituyendo el provisional sin cambiar el contrato de sesión | Dona | L | 1.1 | Suite de auth web verde + revisión de seguridad sin hallazgos P1 |
-| 2.2 | Reactivar producción: Render (backend) + Vercel (landing) con env vars y webhook Stripe verificado. **Condición de entrada: 1.12 (flujo del dashboard) cerrado** | Dona | M | 1.1–1.6, 1.12, 2.1 | Smoke test end-to-end contra producción real |
+| 2.1 | **Auth web endurecido** (= B3, ejecutado) | Dona | L | B1 | Suite de auth web verde + revisión de seguridad sin hallazgos P1 |
+| 2.2 | Reactivar producción: Render (backend) + Vercel (landing) con env vars y webhook Stripe verificado. **Condición de entrada: el flujo del dashboard (A1) cerrado** | Dona | M | B1–B3, A1, C1, 2.1 | Smoke test end-to-end contra producción real |
 | 2.3 | Verificar el cobro end-to-end en producción (checkout → webhook → créditos → acción pagada) | Dona | S | 2.2 | Al menos un pago real registrado con su fila en `transacciones_credito` |
-| 2.4 | **Fase C-bis del sistema de diseño**: cerrar el flujo demostrable del dashboard de Dona con los componentes base (AppShell, DataTable, StatusBadge, ApprovalCard, estados) | Dona | L | 1.9, 1.10 | Demo grabable del flujo principal en < 5 min |
+| 2.4 | ~~Cerrar el flujo demostrable del dashboard de Dona~~ **DUPLICADO de A1**: estaba en los días 1–30 y aquí otra vez. Eliminado | — | — | — | — |
 | 2.5 | Decidir la fusión del rediseño de hero pendiente (`design/landing-hero-v2`) | Dona | XS | 1.9 | Decisión registrada (fusionar o descartar) |
-| 2.6 | Arreglar CI de Dependabot en Fluvia (bumps agrupados y `node:22→25`) | Fluvia | M | — | Al menos un PR de Dependabot verde y fusionable |
+| 2.6 | Arreglar CI de Dependabot en Fluvia (bumps agrupados y runtime a **Node 24 LTS**, no 25: 25 está EOL — ver `node-lts.md`) | Fluvia | M | — | Al menos un PR de Dependabot verde y fusionable |
 | 2.7 | **Nova Context: LICENSE + postura de licencia** y NOTICE/atribución | Nova Context | S | decisión humana | LICENSE presente y postura registrada |
 | 2.8 | **Nova Context: despliegue real** con los gates de operador (`validate:predeploy`) y backups sellados | Nova Context | L | 2.7 | `validate:predeploy` PASS contra infraestructura real; un deploy con smoke verde |
 | 2.9 | Fluvia: llevar la matriz de jurisdicción (Colombia) a revisión legal | Fluvia | M | decisión humana | Checklist entregado a abogado; estado registrado (sin conclusiones legales) |
@@ -57,7 +75,9 @@ reales.
 | 2.11 | Donalabs: hardening operativo (cerrar signups, rotar credenciales, verificar restauración de backup) | Donalabs | M | — | `./scripts/health.sh` verde + una restauración probada |
 
 **Avance visible al día 60:** Dona cobrando en producción, Nova Context desplegado
-con datos de un usuario real, Fluvia con la vía legal iniciada.
+**con datos sintéticos primero** (el gate del propio repo exige empezar por ahí y
+autorización explícita antes de datos reales — ver corrección 4 de la revisión),
+y Fluvia con la vía legal iniciada.
 
 ---
 
@@ -73,12 +93,36 @@ tomada para el tercero.
 | 3.3 | Nova Context: cerrar la documentación de bugs y el loop de feedback de alpha | Nova Context | S | 3.2 | `alpha_feedback` operativo; categorías revisadas semanalmente |
 | 3.4 | Fluvia: **Fase 5.0** (verificación legal/matriz) y decisión humana sobre F5.1 (proveedor real) | Fluvia | M | 2.9 | Decisión registrada: avanzar a F5.1 o mantener freeze |
 | 3.5 | Dona: **B6 higiene** — decidir restos huérfanos (`knowledge/`, `start.sh`, `config/business.yaml`, `migration.py`); `enhanced/` no se toca | Dona | S | 2.2 | Decisión registrada por archivo |
-| 3.6 | Sistema de diseño: **Fase D** — propagar tokens y componentes base a Nova Context y Fluvia | Nova Context, Fluvia | L | 1.9 | Ambos usan los tokens compartidos; sin regresión visual |
+| 3.6 | Sistema de diseño: propagar tokens y componentes base a Nova Context y Fluvia | Nova Context, Fluvia | L | A2 | Ambos usan los tokens compartidos; sin regresión visual. **Sólo después de probarlos sobre componentes reales**, no antes |
 | 3.7 | Revisión trimestral de go/no-go (ver §Gates) | todos | S | todo | Decisión escrita: qué se acelera, qué se mantiene, qué se detiene |
 
 **Avance visible al día 90:** un producto cobrando con métricas leídas, un
 producto con 25 usuarios reales en validación falsable, y una decisión explícita
 sobre el producto de pagos.
+
+---
+
+## Mantenimiento posterior (fuera de la ruta a ingresos)
+
+Estas tareas **se retiraron de los primeros 30 días** porque no bloquean cobrar con
+Dona. Ninguna se borra: se aparcan con dueño y criterio, para que no vuelvan a
+colarse en la cadena por parecer «de limpieza rápida».
+
+| # | Tarea | Por qué NO bloquea cobrar |
+|---|---|---|
+| M-1 | `ruff` limpio (458 hallazgos) | Es estilo y consistencia, no comportamiento |
+| M-2 | Retirar `metadata.create_all()` del lifespan; Alembic como fuente única | La suite pasa hoy; el riesgo es de evolución, no de cobro |
+| M-3 | `arq`/Redis como camino por defecto en lugar de `inproc` | Afecta a la supervivencia a reinicios, no a cobrar el primer euro |
+| M-4 | Cerrar/actualizar los 24 PRs y podar ramas remotas | Higiene de repositorio |
+| M-5 | Matriz de CI con 3.11/3.12/3.13 (+3.14 opcional) | El runtime del entorno no es el desplegado |
+| M-6 | `gitleaks` como gate aplicado y verificado (criterio en `evidencia-gitleaks-estado.md`) | **Seguridad**: importante, pero el gate puede cerrarse en paralelo sin frenar la demo |
+| M-7 | Corregir los 4 defectos de accesibilidad del sistema de diseño (V2–V5) | Entra en A2 **sólo** para las pantallas del flujo; el resto puede esperar |
+| M-8 | Runtime a **Node 24 LTS** en Fluvia, EvolveOS y Donalabs, con inventario completo (Dockerfile, CI, hosting) | Node 20 está EOL, pero esos repos no son la ruta de ingreso (ver `node-lts.md`) |
+| M-9 | **Deuda de los 38 warnings de Dona** (`PytestUnhandledThreadExceptionWarning`, `aiosqlite`/event loop) | La suite pasa; es deuda de calidad asíncrona, no de disponibilidad |
+| M-10 | V23 (falta de `h1`) y V26 (contraste, `select-name`) en Nova | Ya hay un PR para V25; estos son la continuación natural y no bloquean cobrar |
+
+**Regla de entrada a esta lista:** si una tarea no cambia el resultado «un cliente
+puede pagar», su sitio es esta tabla y no los días 1–30.
 
 ---
 
