@@ -1,0 +1,46 @@
+############ Dona-agent
+completed	success	npm_and_yarn in /landing for @auth/core, @auth/core, @auth/core, @babel/core, @humanfs/node, @vitest/mocker, baseline-browser-mapping, brace-expansion, brace-expansion, browserslist, js-yaml, nanoid, nanoid, next, next, next, next, next, next, next, next, next, next, next, next, next, next, next-auth, next-auth, next-auth, next-auth, postcss, postcss, postcss, sharp, sharp, undici, undici, undici, undici, undici, vitest - Update #1570386509	Dependabot Updates	main	dynamic	34555842370	2m1s	2026-09-11T02:45:27Z
+completed	success	npm_and_yarn in /landing for @auth/core, @auth/core, @auth/core, @babel/core, @humanfs/node, @vitest/mocker, baseline-browser-mapping, brace-expansion, brace-expansion, browserslist, js-yaml, nanoid, nanoid, next, next, next, next, next, next, next, next, next, next, next-auth, next-auth, next-auth, next-auth, postcss, postcss, postcss, sharp, undici, undici, undici, undici, undici, vitest - Update #1570361337	Dependabot Updates	main	dynamic	34555130921	2m6s	2026-09-11T02:34:20Z
+completed	success	build(deps-dev): bump vitest from 4.1.9 to 5.0.0 in /landing	Tests	dependabot/npm_and_yarn/landing/vitest-5.0.0	pull_request	34547100442	11m33s	2026-09-11T00:35:04Z
+completed	failure	build(deps-dev): bump vitest from 4.1.9 to 5.0.0 in /landing	Security	dependabot/npm_and_yarn/landing/vitest-5.0.0	pull_request	34547100372	27s	2026-09-11T00:35:04Z
+completed	success	build(deps-dev): bump vitest from 4.1.9 to 5.0.0 in /landing	Agent Runs Validation	dependabot/npm_and_yarn/landing/vitest-5.0.0	pull_request	34547100364	12s	2026-09-11T00:35:04Z
+completed	success	build(deps-dev): bump vitest from 4.1.9 to 5.0.0 in /landing	Claude Review	dependabot/npm_and_yarn/landing/vitest-5.0.0	pull_request	34547100363	9s	2026-09-11T00:35:04Z
+completed	success	build(deps-dev): bump vitest from 4.1.9 to 5.0.0 in /landing	Landing CI	dependabot/npm_and_yarn/landing/vitest-5.0.0	pull_request	34547100337	58s	2026-09-11T00:35:04Z
+completed	success	npm_and_yarn in /landing for @auth/core, @auth/core, @auth/core, @babel/core, @humanfs/node, @vitest/mocker, baseline-browser-mapping, brace-expansion, brace-expansion, browserslist, js-yaml, nanoid, nanoid, next, next, next, next, next, next, next, next, next, next, next-auth, next-auth, next-auth, next-auth, postcss, postcss, postcss, sharp, undici, undici, undici, undici, undici, vitest - Update #1570049532	Dependabot Updates	main	dynamic	34547010090	2m9s	2026-09-11T00:33:45Z
+
+############ nova-context
+completed	success	M19A — Visual Redaction Integrity: fail-closed OCR and honest redaction state	ci	claude/m19a-visual-redaction-integrity	pull_request	30210185937	4m41s	2026-07-26T16:20:10Z
+completed	success	Merge pull request #17 from celestinojbm/claude/m18-controlled-real-d…	ci	main	push	29960447039	9m37s	2026-07-22T21:46:02Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29896138224	4m15s	2026-07-22T06:14:25Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29781072110	4m17s	2026-07-20T21:40:11Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29697564200	4m0s	2026-07-19T17:48:51Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29631867183	3m43s	2026-07-18T05:12:35Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29621851744	3m18s	2026-07-17T23:54:11Z
+completed	success	M18A / M18A.1 / M18A.2 / M18A.3 / M18A.4 / M18A.5 — Pre-Provision Deployment & Recovery Closure + Executable Cloud Recovery + Recovery Orchestration + Hermes P1 Closure (no provisioning, no costs)	ci	claude/m18-controlled-real-deploy-nova	pull_request	29620951646	3m30s	2026-07-17T23:32:27Z
+
+############ Fluvia
+completed	success	npm_and_yarn in / for prettier, turbo, typescript-eslint, pg, @types/pg, @types/pg, tsx, fastify, redis, react, @types/react, react-dom, @types/react-dom, @testing-library/react, @testing-library/user-event, @types/react, @types/react-dom, axe-core - Update #1563592120	Dependabot Updates	claude/new-session-haeo7h	dynamic	34221319009	4m16s	2026-09-08T11:33:30Z
+completed	success	docker in /. - Update #1563592032	Dependabot Updates	claude/new-session-haeo7h	dynamic	34221318158	35s	2026-09-08T11:33:29Z
+completed	failure	build(deps): Bump the minor-y-patch group across 1 directory with 15 updates	CI	dependabot/npm_and_yarn/minor-y-patch-47c3ef8526	pull_request	33503936504	3m4s	2026-09-01T11:43:28Z
+completed	failure	build(deps): Bump the minor-y-patch group across 1 directory with 15 …	CI	dependabot/npm_and_yarn/minor-y-patch-47c3ef8526	push	33503932171	2m55s	2026-09-01T11:43:25Z
+completed	success	npm_and_yarn in / for prettier, turbo, typescript-eslint, pg, @types/pg, @types/pg, tsx, fastify, redis, react, @types/react, react-dom, @types/react-dom, @testing-library/user-event, @types/react, @types/react-dom, axe-core - Update #1549442168	Dependabot Updates	claude/new-session-haeo7h	dynamic	33503631822	3m32s	2026-09-01T11:39:54Z
+completed	success	docker in /. - Update #1549442124	Dependabot Updates	claude/new-session-haeo7h	dynamic	33503630040	29s	2026-09-01T11:39:53Z
+completed	failure	build(deps): Bump node from 22-slim to 25-slim	CI	dependabot/docker/node-25-slim	pull_request	32842999563	3m18s	2026-08-25T11:34:17Z
+completed	failure	build(deps): Bump node from 22-slim to 25-slim	CI	dependabot/docker/node-25-slim	push	32842994936	3m4s	2026-08-25T11:34:14Z
+
+############ EvolveOS
+completed	success	Merge pull request #34 from celestinojbm/claude/phase0-issue-13-audit…	app-ci	main	push	29696363761	1m1s	2026-07-19T17:12:17Z
+completed	success	Merge pull request #34 from celestinojbm/claude/phase0-issue-13-audit…	spec-consistency	main	push	29696363736	14s	2026-07-19T17:12:17Z
+completed	success	Audit-trail conventions + event-log verification CLI (issue #13, P0-12)	spec-consistency	claude/phase0-issue-13-audit-trail-verification	pull_request	29631722752	10s	2026-07-18T05:07:36Z
+completed	success	Audit-trail conventions + event-log verification CLI (issue #13, P0-12)	app-ci	claude/phase0-issue-13-audit-trail-verification	pull_request	29631722739	1m8s	2026-07-18T05:07:36Z
+completed	success	Audit drift: unify funnel discovery on the canonical resolver, forwar…	spec-consistency	claude/phase0-issue-13-audit-trail-verification	push	29631721347	12s	2026-07-18T05:07:33Z
+completed	success	Audit drift: unify funnel discovery on the canonical resolver, forwar…	app-ci	claude/phase0-issue-13-audit-trail-verification	push	29631721318	1m5s	2026-07-18T05:07:33Z
+completed	success	Audit-trail conventions + event-log verification CLI (issue #13, P0-12)	app-ci	claude/phase0-issue-13-audit-trail-verification	pull_request	29631204236	1m3s	2026-07-18T04:49:55Z
+completed	success	Audit-trail conventions + event-log verification CLI (issue #13, P0-12)	spec-consistency	claude/phase0-issue-13-audit-trail-verification	pull_request	29631204225	11s	2026-07-18T04:49:55Z
+
+############ Donalabs
+completed	success	ci: GitHub Actions for design-system + infrastructure validation (#2)	Design System CI	main	push	29055446026	57s	2026-07-09T22:45:24Z
+completed	success	ci: GitHub Actions for design-system + infrastructure validation (#2)	Infrastructure Validation	main	push	29055446014	19s	2026-07-09T22:45:24Z
+completed	success	ci: GitHub Actions for design-system + infrastructure validation	Infrastructure Validation	claude/donalabs-ci-setup	pull_request	29054879849	12s	2026-07-09T22:33:45Z
+completed	success	ci: GitHub Actions for design-system + infrastructure validation	Design System CI	claude/donalabs-ci-setup	pull_request	29054879806	1m4s	2026-07-09T22:33:45Z
+

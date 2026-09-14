@@ -1,0 +1,70 @@
+### EvolveOS con PostgreSQL 16.15 real
+--- pnpm test
+
+> evolveos@0.1.0 test /home/celestinojbm/h014-work/repos/EvolveOS
+> pnpm --filter @evolveos/app test
+
+
+> @evolveos/app@0.1.0 pretest /home/celestinojbm/h014-work/repos/EvolveOS/app
+> node ../ops/typegen.mjs && tsc -p tsconfig.test.json
+
+typegen: wrote 7 type module(s) to app/src/generated/
+
+> @evolveos/app@0.1.0 test /home/celestinojbm/h014-work/repos/EvolveOS/app
+> vitest run
+
+
+ RUN  v2.1.9 /home/celestinojbm/h014-work/repos/EvolveOS/app
+
+ ✓ test/audit-conventions.test.ts (127 tests) 10778ms
+   ✓ CLI verify + extract (seeded isolated DB) > --from is inclusive and --to is exclusive around the stop event 545ms
+   ✓ CLI verify + extract (seeded isolated DB) > rejects --from >= --to as a usage error (exit 2) 480ms
+   ✓ CLI verify + extract (seeded isolated DB) > rejects a malformed --from date (exit 2) 325ms
+   ✓ CLI verify + extract (seeded isolated DB) > prints canonical payload JSON (key-sorted) 315ms
+   ✓ CLI verify — tamper detection > detects a tampered payload (exit 1) 534ms
+   ✓ CLI verify — tamper detection > detects a tampered actor_id (exit 1) 537ms
+   ✓ CLI verify — tamper detection > detects a tampered event_type (exit 1) 772ms
+   ✓ CLI verify — tamper detection > detects a tampered previous_hash (exit 1) 527ms
+   ✓ CLI verify — tamper detection > detects a tampered hash (exit 1) 666ms
+   ✓ CLI verify — tamper detection > detects an unknown event type carrying a VALID recomputed hash (exit 1) 396ms
+   ✓ CLI verify — tamper detection > extract refuses over a globally invalid chain, printing NO events (exit 1) 395ms
+   ✓ CLI verify — valid-hash convention violations > a semantically-invalid payload with a valid hash fails (exit 1) 327ms
+   ✓ CLI verify — impossible events with a valid hash (real CLI) > detects G-01 without opportunity_ref, a standing gate with an effect, a null-digest DR approval, and actor≠approver (exit 1) 641ms
+   ✓ CLI verify — snapshot isolation > does not see an uncommitted concurrent append, then sees it after commit 1221ms
+ ✓ test/flags.test.ts (97 tests) 728ms
+ ✓ test/gates.test.ts (57 tests) 782ms
+ ✓ test/dr.test.ts (48 tests) 174ms
+ ✓ test/stop.test.ts (51 tests) 933ms
+ ✓ test/auth.test.ts (18 tests) 242ms
+ ✓ test/venture.test.ts (23 tests) 520ms
+ ✓ test/eventlog.test.ts (9 tests) 91ms
+ ✓ test/generated-types.test.ts (2 tests) 3ms
+
+ Test Files  9 passed (9)
+      Tests  432 passed (432)
+   Start at  14:36:27
+   Duration  16.97s (transform 377ms, setup 0ms, collect 1.28s, tests 14.25s, environment 1ms, prepare 465ms)
+
+EXIT=0 DURACION=22s
+--- checks de consistencia del spec
+ok    expected files
+ok    fenced blocks
+ok    gate range
+ok    agent references
+ok    taxonomies
+ok    table integrity
+
+spec-consistency: all checks passed
+
+=== markdown links ===
+ok    markdown links
+
+markdown-links: all internal links resolve
+
+=== no placeholders ===
+ok    placeholders
+
+no-placeholders: none found
+
+RESULT: PASS
+EXIT=0 DURACION=0s

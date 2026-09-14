@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vista previa · Identidad de Nova Context</title>
+<link rel="stylesheet" href="tokens-corregidos.css">
+<style>
+  /* Vista previa, NO implementación.
+     Responde a los hallazgos V14 (sin h1: el encabezado era un h2), V15 (pantalla
+     genérica estilizada por el navegador) y V16 (idioma en inglés) de
+     auditoria-visual.md. */
+
+  .aviso-previa {
+    background: var(--accent-soft); border-bottom: 1px solid var(--border);
+    color: var(--accent); font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label); text-transform: uppercase;
+    font-weight: 700; text-align: center; padding: var(--space-2);
+  }
+
+  .acceso { min-height: calc(100vh - 32px); display: grid; grid-template-columns: 1.05fr 0.95fr; }
+
+  /* --- columna editorial: la identidad que hoy no existe --- */
+  .editorial {
+    padding: var(--space-7) var(--space-6);
+    border-right: 1px solid var(--border);
+    /* Distribución ajustada tras la revisión visual: con space-between la
+       columna dejaba ~440 px de vacío y el pie descolgado al fondo. Ahora el
+       contenido se agrupa arriba y se añade una franja real de superficies. */
+    display: flex; flex-direction: column; justify-content: flex-start;
+    gap: var(--space-6);
+    background:
+      radial-gradient(120% 80% at 0% 0%, var(--accent-soft) 0%, transparent 55%),
+      var(--bg);
+  }
+  .editorial h1 {
+    font-size: var(--text-3xl); line-height: 1.04; margin: var(--space-5) 0;
+    letter-spacing: -0.03em; font-weight: 800;
+  }
+  .editorial h1 em { font-style: italic; color: var(--accent); }
+  .editorial p.entrada { color: var(--fg-secondary); font-size: var(--text-lg); max-width: 46ch; }
+
+  .pasos { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-6); }
+  .paso { display: flex; gap: var(--space-3); align-items: flex-start; font-size: var(--text-sm); color: var(--fg-secondary); }
+  .paso__n {
+    flex: 0 0 22px; height: 22px; border-radius: var(--radius-sm);
+    background: var(--bg-overlay); color: var(--fg);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 700;
+  }
+  .paso strong { color: var(--fg); font-weight: 600; }
+
+  .superficies {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+    display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5);
+  }
+  .superficie { font-size: var(--text-xs); color: var(--fg-secondary); }
+  .superficie strong { display: block; color: var(--fg); font-size: var(--text-sm); font-weight: 600; }
+
+  /* --- formulario --- */
+  .formulario { display: grid; place-items: center; padding: var(--space-6); }
+  .caja { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: var(--space-4); }
+  .caja h2 { font-size: var(--text-xl); margin: 0; letter-spacing: -0.01em; }
+  .campo { display: flex; flex-direction: column; gap: var(--space-2); }
+  .campo input {
+    padding: var(--space-3); border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong); background: var(--bg-raised);
+    color: var(--fg); font: inherit; font-size: var(--text-sm);
+  }
+  .campo input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .privacidad {
+    border: 1px solid var(--border); border-radius: var(--radius-md);
+    padding: var(--space-3); font-size: var(--text-xs); color: var(--fg-secondary);
+    background: var(--bg-raised);
+  }
+  .pie { font-size: var(--text-xs); color: var(--fg-secondary); text-align: center; }
+  .pie a { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .acceso { grid-template-columns: 1fr; min-height: 0; }
+    .editorial { border-right: none; border-bottom: 1px solid var(--border); padding: var(--space-6) var(--space-4); }
+    .editorial h1 { font-size: var(--text-2xl); }
+    .pasos { display: none; }
+    .formulario { padding: var(--space-6) var(--space-4) var(--space-7); }
+  }
+</style>
+</head>
+<body>
+
+<div class="aviso-previa">Vista previa de diseño — no implementada. Objetivo de identidad para Nova Context según H-014.</div>
+
+<div class="acceso">
+  <section class="editorial">
+    <div>
+      <p class="label">Nova Context · captura &rarr; acción</p>
+      <h1>Tu contexto, <em>privado</em>, convertido en acción.</h1>
+      <p class="entrada">Nova observa tu trabajo, lo redacta y lo convierte en acciones que tú apruebas. Nada se ejecuta sin tu visto bueno.</p>
+      <div class="pasos">
+        <div class="paso"><span class="paso__n">1</span><span><strong>Captura</strong> — sesiones, proyectos y decisiones quedan registrados.</span></div>
+        <div class="paso"><span class="paso__n">2</span><span><strong>Redacta</strong> — el contexto se resume y se estructura por proyecto.</span></div>
+        <div class="paso"><span class="paso__n">3</span><span><strong>Apruebas</strong> — cada acción pasa por tu aprobación explícita.</span></div>
+      </div>
+    </div>
+    <!-- Franja de superficies: contenido real que además equilibra la columna.
+         Antes había un vacío de ~440 px y el pie descolgado al fondo. -->
+    <div class="superficies">
+      <span class="superficie"><strong>Timeline</strong>sesiones y decisiones</span>
+      <span class="superficie"><strong>Proyectos</strong>contexto estructurado</span>
+      <span class="superficie"><strong>Aprobaciones</strong>nada sin tu visto bueno</span>
+      <span class="superficie"><strong>Auditoría</strong>qué se hizo y cuándo</span>
+    </div>
+    <p class="label" style="margin: 0">Alpha privada · 25 usuarios</p>
+  </section>
+
+  <section class="formulario">
+    <form class="caja" method="post" action="#">
+      <div>
+        <p class="label">Acceso</p>
+        <!-- V14: esta pantalla hoy no tiene h1 (el encabezado era un h2). El h1
+             único de la página es el titular editorial de la izquierda; aquí
+             corresponde un h2. La captura lo destapó: había dos h1. -->
+        <h2 style="font-size: var(--text-xl); margin: var(--space-2) 0 0; letter-spacing: -0.01em;">Entra en Nova</h2>
+      </div>
+
+      <div class="campo">
+        <label for="email" class="label">Correo</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="campo">
+        <label for="clave" class="label">Contraseña</label>
+        <input id="clave" name="password" type="password" autocomplete="current-password" required>
+      </div>
+
+      <button class="btn btn--primary" type="submit" style="justify-content:center">Entrar</button>
+
+      <p class="privacidad">
+        El contexto que capturas es privado de tu cuenta: las sesiones caducan y puedes
+        revocar cualquier dispositivo desde Ajustes.
+      </p>
+
+      <p class="pie"><a href="#">¿Olvidaste la contraseña?</a></p>
+    </form>
+  </section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+############################################################
+# Dona-agent
+############################################################
+[git] HEAD=958b525 2026-07-19 Merge pull request #240 from celestinojbm/refactor/email-action-center-persistence-pr1
+[git] commits total=483  primer=2026-03-17
+[git] ultimo activity=2026-07-19
+[git] ramas remotas=75  tags=3
+[git] top autores:
+   239	Celestino <celestinojbm@gmail.com>
+   181	celestinojbm <celestinojbm@gmail.com>
+    28	celestinojbm <232502820+celestinojbm@users.noreply.github.com>
+    26	dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+     8	Enrique Henry <enriqueers98@gmail.com>
+     1	Manus <manus@dona.ai>
+[tree] dirs nivel1-2:
+.
+./.claude
+./.claude/commands
+./.ruff_cache
+./.ruff_cache/0.15.20
+./agent
+./agent/__pycache__
+./agent/automation
+./agent/business
+./agent/creativos
+./agent/jobs
+./agent/providers
+./agent/tool_handlers
+./agent/web_agent
+./alembic
+./alembic/versions
+./config
+./docs
+./docs/auditorias
+./docs/ops
+./docs/planes
+./docs/scripts
+./docs/tools
+./docs/vision
+./enhanced
+./enhanced/__pycache__
+./knowledge
+./landing
+./landing/app
+./landing/components
+./landing/data
+./landing/lib
+./landing/public
+./landing/scripts
+./scripts
+[docs] md raiz:
+AGENTS.md
+CLAUDE.md
+README.md
+[ci] workflows:
+agent-runs-validation.yml
+claude-review.yml
+landing.yml
+lint.yml
+security.yml
+tests.yml
+[ci] dependabot:
+.github/dependabot.yml
+[sec] gitleaks=.gitleaks.toml codeql=
+[env] ejemplos:
+.env.example
+[todo] conteo:
+38
+[tests] archivos de test:
+132
+[loc] codigo:
+   archivos= 411 loc= 117875
+
+############################################################
+# nova-context
+############################################################
+[git] HEAD=c49ef4d 2026-07-22 Merge pull request #17 from celestinojbm/claude/m18-controlled-real-deploy-nova
+[git] commits total=53  primer=2026-07-09
+[git] ultimo activity=2026-07-22
+[git] ramas remotas=20  tags=0
+[git] top autores:
+    33	Claude <noreply@anthropic.com>
+    20	celestinojbm <celestinojbm@gmail.com>
+[tree] dirs nivel1-2:
+.
+./apps
+./apps/browser-shell
+./apps/extension
+./apps/web
+./docs
+./docs/acquisition
+./infra
+./infra/deploy
+./packages
+./packages/config
+./packages/context-engine
+./packages/model-router
+./packages/schema
+./scripts
+./services
+./services/api
+./services/worker
+./tools
+./tools/validation-gate
+[docs] md raiz:
+HANDOFF.md
+README.md
+[ci] workflows:
+ci.yml
+[ci] dependabot:
+[sec] gitleaks= codeql=
+[env] ejemplos:
+.env.production.template
+[todo] conteo:
+0
+[tests] archivos de test:
+80
+[loc] codigo:
+   archivos= 246 loc= 36598
+
+############################################################
+# Fluvia
+############################################################
+[git] HEAD=ed2f368 2026-07-17 Merge pull request #46 from celestinojbm/feat/f6-5c2-organization-merchant-onboarding
+[git] commits total=273  primer=2026-07-04
+[git] ultimo activity=2026-07-17
+[git] ramas remotas=48  tags=0
+[git] top autores:
+   238	Claude <noreply@anthropic.com>
+    33	celestinojbm <celestinojbm@gmail.com>
+     1	Hermes Agent <hermes-agent@users.noreply.github.com>
+     1	Hermes Audit Agent <audit@hermes-agent.local>
+[tree] dirs nivel1-2:
+.
+./.turbo
+./.turbo/cache
+./apps
+./apps/api
+./apps/checkout
+./apps/dashboard
+./apps/worker
+./docs
+./docs/adr
+./docs/agents
+./docs/api
+./docs/architecture
+./docs/audits
+./docs/compliance
+./docs/design
+./docs/ops
+./docs/phases
+./docs/product
+./docs/references
+./docs/security
+./packages
+./packages/audit
+./packages/auth
+./packages/config
+./packages/db
+./packages/events
+./packages/idempotency
+./packages/identity
+./packages/inbox
+./packages/ledger
+./packages/money
+./packages/observability
+./packages/outbox
+./packages/payments-core
+[docs] md raiz:
+CONTRIBUTING.md
+README.md
+SECURITY.md
+[ci] workflows:
+ci.yml
+[ci] dependabot:
+.github/dependabot.yml
+[sec] gitleaks=.gitleaks.toml codeql=
+[env] ejemplos:
+.env.example
+[todo] conteo:
+68
+[tests] archivos de test:
+111
+[loc] codigo:
+   archivos= 368 loc= 62297
+
+############################################################
+# EvolveOS
+############################################################
+[git] HEAD=88103ee 2026-07-19 Merge pull request #34 from celestinojbm/claude/phase0-issue-13-audit-trail-verification
+[git] commits total=59  primer=2026-07-08
+[git] ultimo activity=2026-07-19
+[git] ramas remotas=14  tags=0
+[git] top autores:
+    46	Claude <noreply@anthropic.com>
+    13	celestinojbm <celestinojbm@gmail.com>
+[tree] dirs nivel1-2:
+.
+./app
+./app/src
+./app/test
+./docs
+./docs/templates
+./ops
+./ops/migrations
+./schemas
+./schemas/data
+./schemas/examples
+./scripts
+./spec
+[docs] md raiz:
+README.md
+[ci] workflows:
+app-ci.yml
+spec-consistency.yml
+[ci] dependabot:
+[sec] gitleaks= codeql=
+[env] ejemplos:
+[todo] conteo:
+15
+[tests] archivos de test:
+10
+[loc] codigo:
+   archivos= 40 loc= 14714
+
+############################################################
+# Donalabs
+############################################################
+[git] HEAD=dd6e08b 2026-07-08 feat(design-system): build DonaLabs design system platform
+[git] commits total=6  primer=2026-07-08
+[git] ultimo activity=2026-07-08
+[git] ramas remotas=5  tags=0
+[git] top autores:
+     6	Claude <noreply@anthropic.com>
+[tree] dirs nivel1-2:
+.
+./backups
+./design-system
+./design-system/apps
+./design-system/docs
+./design-system/packages
+./docs
+./proxy
+./proxy/caddy
+./scripts
+./services
+./services/calcom
+./services/n8n
+./services/open-webui
+./services/penpot
+./services/plausible
+./services/vaultwarden
+./services/ytdlp

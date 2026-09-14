@@ -1,0 +1,35 @@
+[14:29:49] =================== Fluvia ===================
+[14:29:50] [Fluvia] CMD: pnpm install --frozen-lockfile
+[14:29:57] [Fluvia] -> exit 0
+[14:29:57] [Fluvia] CMD: pnpm run build
+[14:30:13] [Fluvia] -> exit 0
+[14:30:13] [Fluvia] CMD: pnpm run lint
+[14:30:17] [Fluvia] -> exit 0
+[14:30:17] [Fluvia] CMD: pnpm run test
+[14:30:25] [Fluvia] -> exit 1
+[14:30:25] =================== EvolveOS ===================
+[14:30:26] [EvolveOS] CMD: pnpm install --frozen-lockfile
+[14:30:28] [EvolveOS] -> exit 0
+[14:30:28] [EvolveOS] CMD: pnpm run build
+[14:30:30] [EvolveOS] -> exit 0
+[14:30:30] [EvolveOS] CMD: pnpm run test
+[14:30:35] [EvolveOS] -> exit 1
+[14:30:35] =================== nova-context ===================
+[14:30:36] [nova-context] CMD: pnpm install --frozen-lockfile
+[14:30:45] [nova-context] -> exit 0
+[14:30:45] [nova-context] CMD: pnpm run typecheck
+[14:30:51] [nova-context] -> exit 0
+[14:30:51] [nova-context] CMD: pnpm run build
+[14:31:06] [nova-context] -> exit 0
+[14:31:06] [nova-context] CMD: pnpm run test
+[14:31:22] [nova-context] -> exit 0
+[14:31:22] =================== Donalabs ===================
+[14:31:22] [Donalabs] CMD: pnpm --dir design-system install --frozen-lockfile
+[14:31:29] [Donalabs] -> exit 0
+[14:31:29] [Donalabs] CMD: pnpm --dir design-system run typecheck
+[14:31:35] [Donalabs] -> exit 0
+[14:31:35] [Donalabs] CMD: pnpm --dir design-system run lint
+[14:31:42] [Donalabs] -> exit 0
+[14:31:42] [Donalabs] CMD: pnpm --dir design-system run build
+[14:31:50] [Donalabs] -> exit 0
+[14:31:50] === runner terminado ===

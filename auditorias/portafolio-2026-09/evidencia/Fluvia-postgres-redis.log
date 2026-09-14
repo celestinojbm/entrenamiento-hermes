@@ -1,0 +1,53 @@
+### Fluvia con PostgreSQL 16.15 + Redis 8.10.1 reales
+--- pnpm test
+   ✓ crear payment link por sesión (F6.5A-bis G2, reconciliation:manage) > rejects roles without reconciliation:manage (403) and requires the Idempotency-Key (400)  654ms
+   ✓ gestión de webhook endpoints por sesión (F6.5B1) > rejects roles without webhooks:manage (403) and 404s cross-tenant  670ms
+   ✓ gestión de webhook endpoints por sesión (F6.5B1) > create/rotate/disable require FRESH step-up (403 mfa_step_up_required); reads do NOT  339ms
+   ✓ gestión de webhook endpoints por sesión (F6.5B1) > disable is tenant-isolated: orgB cannot disable an orgA endpoint (404)  401ms
+
+ Test Files  28 passed (28)
+      Tests  260 passed (260)
+   Start at  14:39:24
+   Duration  9.83s (transform 1.66s, setup 0ms, collect 16.65s, tests 29.79s, environment 7ms, prepare 3.26s)
+
+
+> @fluvia/worker@0.1.0 test /home/celestinojbm/h014-work/repos/Fluvia/apps/worker
+> vitest run
+
+
+ RUN  v3.2.6 /home/celestinojbm/h014-work/repos/Fluvia/apps/worker
+
+ ✓ test/metrics-server.test.ts (3 tests) 40ms
+ ✓ test/attempts-watchdog.test.ts (2 tests) 17ms
+ ✓ test/purge.test.ts (2 tests) 20ms
+ ✓ test/worker.test.ts (5 tests) 21ms
+ ✓ test/idempotency-watchdog.test.ts (2 tests) 28ms
+ ✓ test/payouts-watchdog.test.ts (6 tests) 46ms
+ ✓ test/disputes-watchdog.test.ts (5 tests) 41ms
+ ✓ test/ledger-chain-anchorer.test.ts (2 tests) 65ms
+ ✓ test/ledger-checkpointer.test.ts (2 tests) 70ms
+ ✓ test/reconciliation-watchdog.test.ts (6 tests) 74ms
+ ✓ test/checkout-watchdog.test.ts (6 tests) 68ms
+ ✓ test/payouts-redriver.test.ts (5 tests) 117ms
+
+ Test Files  12 passed (12)
+      Tests  46 passed (46)
+   Start at  14:39:34
+   Duration  848ms (transform 1.15s, setup 0ms, collect 2.69s, tests 608ms, environment 2ms, prepare 1.22s)
+
+
+> @fluvia/sdk@0.1.0 test /home/celestinojbm/h014-work/repos/Fluvia/packages/sdk
+> vitest run
+
+
+ RUN  v3.2.6 /home/celestinojbm/h014-work/repos/Fluvia/packages/sdk
+
+ ✓ test/contract.test.ts (2 tests) 2ms
+ ✓ test/sdk.test.ts (8 tests) 171ms
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  14:39:35
+   Duration  1.02s (transform 441ms, setup 0ms, collect 655ms, tests 173ms, environment 0ms, prepare 139ms)
+
+EXIT=0 DURACION=40s

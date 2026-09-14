@@ -1,0 +1,93 @@
+
+################ Dona-agent
+--- landing/package.json  (name=landing, engines=None, pm=None)
+    next: 16.2.10
+    react: 19.2.7
+    react-dom: 19.2.7
+    typescript: ^6
+    vitest: ^4.1.9
+    tailwindcss: ^4
+    eslint: ^9
+    @radix-ui/react-dialog: ^1.1.19
+    framer-motion: ^12.42.2
+    lucide-react: ^1.23.0
+    next-auth: ^5.0.0-beta.31
+
+################ nova-context
+--- package.json  (name=nova-context, engines={'node': '>=22'}, pm=pnpm@10.33.0)
+    typescript: ^5.6.0
+    turbo: ^2.3.0
+--- apps/web/package.json  (name=@nova/web, engines=None, pm=None)
+    next: ^15.1.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    typescript: ^5.6.0
+--- services/api/package.json  (name=@nova/api, engines=None, pm=None)
+    typescript: ^5.6.0
+    fastify: ^5.1.0
+    vitest: ^2.1.0
+    zod: ^3.24.0
+    tsx: ^4.19.0
+    pg: ^8.13.0
+    ioredis: ^5.11.1
+
+################ Fluvia
+--- package.json  (name=fluvia, engines={'node': '>=20'}, pm=pnpm@10.33.0)
+    turbo: ^2.5.0
+    eslint: ^9.17.0
+    prettier: ^3.4.0
+--- apps/api/package.json  (name=@fluvia/api, engines=None, pm=None)
+    typescript: ^5.7.0
+    fastify: ^5.2.0
+    vitest: ^3.0.0
+    zod: ^3.25.0
+    tsx: ^4.19.0
+    redis: 6.1.0
+--- apps/dashboard/package.json  (name=@fluvia/dashboard, engines=None, pm=None)
+    next: ^15.5.16
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    typescript: ^5.7.0
+    vitest: ^3.0.0
+    axe-core: ^4.10.0
+--- apps/checkout/package.json  (name=@fluvia/checkout, engines=None, pm=None)
+    next: ^15.5.16
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    typescript: ^5.7.0
+    vitest: ^3.0.0
+    axe-core: ^4.10.0
+
+################ EvolveOS
+--- package.json  (name=evolveos, engines={'node': '>=20'}, pm=pnpm@10.33.0)
+    pg: ^8.13.1
+--- app/package.json  (name=@evolveos/app, engines=None, pm=None)
+    typescript: ^5.7.2
+    vitest: ^2.1.8
+    tsx: ^4.19.2
+    pg: ^8.13.1
+
+################ Donalabs
+--- design-system/package.json  (name=donalabs-design-system, engines={'node': '>=20'}, pm=pnpm@10.33.0)
+    typescript: ^5
+    turbo: ^2.9.18
+    prettier: ^3.8.3
+--- design-system/apps/showcase/package.json  (name=@donalabs/showcase, engines=None, pm=None)
+    next: 16.2.6
+    react: 19.2.4
+    react-dom: 19.2.4
+    typescript: ^5
+    eslint: ^9
+    motion: ^12.42.2
+    lucide-react: ^1.23.0
+    zod: ^4.4.3
+--- design-system/packages/ui/package.json  (name=@donalabs/ui, engines=None, pm=None)
+    react: 19.2.4
+    react-dom: 19.2.4
+    typescript: ^5
+    tailwindcss: ^4
+    eslint: ^9
+    motion: ^12.42.2
+    lucide-react: ^1.23.0
+    zod: ^4.4.3
+nova-context/.nvmrc = 22

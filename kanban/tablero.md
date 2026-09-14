@@ -19,6 +19,11 @@
 
 ## 🔄 En Curso
 
+- **[H-014] Auditoría ejecutable de portafolio, frontend y ruta de lanzamiento** — pipeline 06 — P1
+  Issue: [#1](https://github.com/celestinojbm/entrenamiento-hermes/issues/1). Auditoría de Dona-agent, nova-context, Fluvia, EvolveOS y Donalabs. Rama `auditoria/portafolio-2026-09`.
+  ✅ Línea base reproducida sobre clones limpios (install/typecheck/lint/test/build) con PostgreSQL 16, PostgreSQL 18 + pgvector y Redis reales levantados sin root.
+  ✅ Entregables escritos: `auditorias/portafolio-2026-09/` (resumen ejecutivo, matriz comparativa, decisión DONA, plan 90 días, sistema de diseño compartido, backlog P0/P1/P2, evidencia y un informe por repositorio).
+  ✅ PR [#2](https://github.com/celestinojbm/entrenamiento-hermes/pull/2) abierto hacia `main` y **sin fusionar** (queda a revisión del propietario).
 - **[H-011] Dar a Hermes acceso al centro de orquestación** — integración — P1
   ✅ Skill instalada y verificada en la app local (`~/.hermes/skills/entrenamiento-hermes`) junto a `personas`.
   ✅ Repo público clonado/actualizado: `https://github.com/celestinojbm/entrenamiento-hermes`.

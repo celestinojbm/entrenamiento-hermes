@@ -1,0 +1,187 @@
+# Resumen ejecutivo — Auditoría de portafolio 2026-09
+
+**Fecha:** 2026-09-11 · **Alcance:** Dona-agent, nova-context, Fluvia, EvolveOS,
+Donalabs · **Centro de coordinación:** entrenamiento-hermes · **Tarea:** H-014
+
+Toda cifra técnica de este documento proviene de ejecución real sobre clones
+limpios; el detalle y los comandos están en
+[`evidencia/comandos-y-resultados.md`](evidencia/comandos-y-resultados.md).
+
+---
+
+## 1. La conclusión en una línea
+
+**El portafolio no tiene un problema de construcción: tiene un problema de foco y
+de cierre.** Cuatro de los cinco repos compilan, instalan y ejecutan sus suites
+cuando el entorno tiene los servicios que piden. **EvolveOS es el que carece de
+interfaz** (`app/` solo expone `GET /health`), y **Donalabs sí fue auditado
+visualmente** pero **no tiene suite de comportamiento**. Lo que falta es decidir el
+orden, cerrar la deuda que impide cobrar en el único producto con usuarios, y dar
+coherencia a cuatro frontends que hoy viven por separado.
+
+Precisión obligada sobre el alcance de la verificación: **Dona-agent no quedó
+"verde" en el entorno ejecutado**. En Python 3.14 su suite produjo *1 fallo, 2360
+tests que pasaron dentro de una ejecución globalmente fallida y 61 errores*. El
+**control positivo ya se hizo**: el mismo HEAD en **Python 3.12** da *2422 pasan,
+38 warnings, exit 0*, así que la incompatibilidad con 3.14 es un hecho medido y no
+una hipótesis pendiente — pero **3.12 tampoco está "limpio"**: arrastra 38 warnings,
+entre ellos `PytestUnhandledThreadExceptionWarning` y `RuntimeError: Event loop is
+closed` en workers de `aiosqlite`, con deuda propia (§2.5).
+Y **Donalabs no está verificado de extremo a extremo**: no tiene suite de
+comportamiento y su infraestructura Docker quedó sin ejecutar (§2.6).
+
+---
+
+## 2. Qué encontró la auditoría (hallazgos verificados)
+
+### 2.1 El único producto con usuarios ya está listo para cobrar, salvo deuda enumerada
+
+**Dona** es el proyecto más antiguo y el único con usuarios reales. Su backend es
+maduro (**2422 tests pasan con 38 warnings, exit 0**, medido en Python 3.12; en 3.14
+la misma suite da 1 fallo / 2360 pasan / 61 errores) y su deuda es **puntual,
+conocida y reversible**:
+
+- El workflow **`Security` está rojo de forma permanente** en `main` (3 runs
+  fallidos consecutivos), por dos causas concretas y arreglables en horas:
+  1. `cryptography 49.0.0` tiene **PYSEC-2026-3552** y el rango
+     `>=49.0.0,<50.0.0` de `requirements.txt` **impide aplicar el fix**.
+  2. `gitleaks` reporta 6 hallazgos que son **falsos positivos en archivos de
+     test** con valores sintéticos.
+- Producción **suspendida**, secretos **sin rotar**, quiet hours TCPA y detección
+  STOP incompletas, auth web **provisional**.
+- La suite **no está verificada en Python 3.14**: los 62 ítems no verdes del
+  entorno local son incompatibilidad de `asyncio`, no defectos de producto. El
+  repo declara 3.11+ y su CI no cubre 3.14. **El control positivo en 3.12 ya se
+  ejecutó** y pasa con exit 0, lo que confirma que es un problema de runtime.
+- **Deuda propia de 3.12:** 38 warnings, con `PytestUnhandledThreadExceptionWarning`
+  y `RuntimeError: Event loop is closed` en workers de `aiosqlite`. No se esconde
+  dentro de la conclusión sobre compatibilidad: es una tarea aparte — cerrar y
+  esperar correctamente conexiones y hilos asíncronos.
+
+**Lectura:** nada de esto exige reescribir. Todo esto exige ejecutar.
+
+### 2.2 Cuando el entorno tiene los servicios, tres repos quedan verdes de verdad
+
+Era crítico no confundir fallo de infraestructura con fallo de código:
+
+| Repo | Sin servicios | Con servicios reales | ¿Verificado de extremo a extremo? |
+|---|---|---|---|
+| Fluvia | 9 passed / 80 skipped (`ECONNREFUSED 5432`) | **verde completo** con PostgreSQL 16 + Redis | Sí (suite completa) |
+| EvolveOS | `Connection terminated unexpectedly` | **432 passed / 0 failed** + checks de spec **PASS** | Sí (suite + checks) |
+| nova-context | unit verde; integración no ejecutable | **245 passed / 0 failed** con PostgreSQL 18 + pgvector + Redis | Sí (unit + integración) |
+| Dona-agent | no aplica (no usa servicios externos para la suite) | 1 fallo / 2360 pasan / 61 errores en Python 3.14 · **2422 pasan con 38 warnings en Python 3.12** | **Sí en 3.12** (control positivo, exit 0); no en 3.14 (§2.5) |
+| Donalabs | verde en design system | **la infraestructura Docker no se ejecutó** | **No** — sin suite de comportamiento y sin arranque del stack (§2.6) |
+
+**Lectura:** Fluvia, EvolveOS y nova-context no tienen suites rotas; tienen suites
+que nadie estaba ejecutando con sus dependencias reales. Ese es un hallazgo de
+proceso, no de código. Dona-agent y Donalabs **no pueden** clasificarse como verdes
+y en este documento no se clasifican como tales.
+
+### 2.3 Hay cuatro frontends, no cinco, y ninguno tiene una quinta capa que unificar
+
+- **Donalabs** tiene el único sistema de tokens real del portafolio
+  (`design-system/packages/ui/src/styles/globals.css`, OKLCH + Tailwind v4,
+  documentado en `docs/design-tokens.md`), más un showcase de 7 rutas.
+- **Fluvia** es el frontend más maduro en accesibilidad (checkout con i18n es/en
+  y WCAG AA, verificado con axe en su CI).
+- **Dona** y **nova-context** tienen frontends funcionales sin relación formal con
+  esa base.
+- **EvolveOS no tiene frontend.** `app/src/index.ts` solo expone `GET /health` y
+  `docs/DEVELOPMENT.md` dice literalmente "No UI (Next.js enters in Phase 1)". La
+  consola Next.js es una **declaración de alcance futuro**, no código existente.
+
+**Lectura:** "empezar a ver frontends de alta calidad" no requiere cinco proyectos
+de diseño ni "levantar los cinco frontends" (una tarea imposible: uno no existe).
+Requiere **una** capa de fundamentos compartidos, cerrar el flujo demostrable de
+tres productos y **construir** la interfaz de EvolveOS más adelante, sobre esa base.
+Propuesta completa en [`sistema-diseno-compartido.md`](sistema-diseno-compartido.md)
+y el estado visual real medido en §2.7.
+
+### 2.4 Higiene de repositorio despareja
+
+- Dos repos tienen rama por defecto `claude/…` (Fluvia, Donalabs), no `main`.
+- **36 PRs abiertos acumulados** (24 en Dona, 12 en Fluvia), mayoría Dependabot.
+- En Fluvia **todos los runs de CI de Dependabot fallan**: hoy ninguna
+  actualización de dependencias puede entrar sin trabajo de arreglo.
+- EvolveOS tiene 11 issues abiertos y 0 PRs: su backlog está sano y esperando una
+  decisión humana, no código.
+
+---
+
+## 3. Las cinco decisiones que el propietario debe tomar
+
+1. **Secuencia de lanzamiento: Dona → Nova Context → Fluvia.**
+   EvolveOS y Donalabs no se lanzan; se usan.
+2. **DONA: opción B (strangler), no reconstruir.** La evidencia no sostiene que el
+   repo sea inviable; sostiene que su deuda es localizada. Reconstruir (C)
+   sacrificaría 483 commits, una suite de 2422 tests que pasa y el único producto con usuarios
+   para resolver problemas puntuales. Detalle y secuencia B0–B6 en
+   [`decision-dona.md`](decision-dona.md).
+3. **Frontend primero: el flujo demostrable del dashboard de Dona**, porque es lo
+   que se enseña a un comprador en las próximas semanas y ya existe la base.
+4. **Nova Context: desplegar de verdad.** Su bloqueo no es técnico — es
+   `LICENSE`, cadena de título y ejecutar los gates de operador contra
+   infraestructura real. Es el test falsable más barato del portafolio (25
+   usuarios, 6 semanas, criterios de kill numéricos ya escritos).
+5. **Fluvia: decisión humana sobre Fase 5.** La infraestructura más valiosa a
+   largo plazo no debe meterse antes que Dona: su tiempo hasta la primera venta
+   se mide en meses y depende de proveedor real y verificación legal.
+
+---
+
+## 4. Qué falta exactamente para vender y lanzar (por producto)
+
+| Producto | Falta para demo | Falta para cobrar | Tiempo hasta 1ª venta (**estimación**; supuestos en `estimaciones-y-precios.md`) |
+|---|---|---|---|
+| **Dona** | Infraestructura con secretos rotados | Secretos, TCPA/STOP, auth web, techo de `cryptography`, reactivar producción | **4–8 semanas** |
+| **Nova Context** | Despliegue real (hoy solo hay reuniones de despliegue, nunca ejecutadas) | LICENSE + cadena de título + infraestructura | 8–16 semanas |
+| **Fluvia** | **Producto, no funcionamiento**: arranca y sirve, pero **visualmente no es presentable** y arrastra el bug de origen/CSRF. Tiene maqueta de referencia | Proveedor real (Fase 5) + verificación legal Colombia | 4–8 meses |
+| **EvolveOS** | **No hay demo visual posible: no existe interfaz** (`app/` solo expone `GET /health`). Se entrega wireframe, no implementación | No aplica: es interno y su spec prohíbe mover dinero sin ratificación | n/a |
+| **Donalabs** | Showcase arranca y sirve; **no se declara verde de extremo a extremo** (sin suite de comportamiento, Docker sin verificar) | No aplica: plataforma interna | n/a |
+
+---
+
+## 5. Lo que NO recomienda esta auditoría
+
+- **No** recomienda un repositorio nuevo para Dona. La evidencia recogida no
+  contiene el disparador que lo justificaría.
+- **No** recomienda modernizar de forma indiscriminada. Cada intervención
+  propuesta mapea a seguridad, cumplimiento, mantenibilidad o viabilidad
+  comercial; ninguna es estética por sí sola.
+- **No** recomienda lanzar los cinco productos. El plan de 90 días asigna **un
+  producto protagonista por mes** porque la restricción real es la atención, no el
+  código.
+- **No** recomienda construir features nuevas en ningún producto durante el
+  trimestre.
+
+---
+
+## 6. Riesgos que la auditoría deja explícitos
+
+1. **Bus factor 1** en los cinco repos: un solo humano sostiene cuentas, claves y
+   decisiones.
+2. **Documentación que supera al código** en nova-context y EvolveOS: excelente
+   para diseño, peligrosa si se lee como estado. La línea base de este documento
+   existe justamente para separar una cosa de la otra.
+3. **Riesgo legal en Dona**: mensajería en EEUU con quiet hours TCPA incompletas
+   es el bloqueo de cobro más serio, no el técnico.
+4. **Riesgo de dispersión**: cinco frentes con una sola capacidad de atención es
+   el modo de fallo más probable del trimestre.
+
+---
+
+## 7. Entregables de esta auditoría
+
+| Documento | Contenido |
+|---|---|
+| [`matriz-comparativa.md`](matriz-comparativa.md) | Comparación medida de los cinco productos y secuencia recomendada |
+| [`informes/`](informes/) | Un informe por repositorio |
+| [`decision-dona.md`](decision-dona.md) | Decisión argumentada A/B/C con secuencia strangler B0–B6 |
+| [`plan-90-dias.md`](plan-90-dias.md) | Plan trimestral con gates go/no-go |
+| [`sistema-diseno-compartido.md`](sistema-diseno-compartido.md) | Tokens, tipografía, movimiento, imágenes y componentes base |
+| [`backlog-priorizado.md`](backlog-priorizado.md) | Backlog P0/P1/P2 con esfuerzo, dependencias y criterio de aceptación |
+| [`evidencia/comandos-y-resultados.md`](evidencia/comandos-y-resultados.md) | Registro reproducible de comandos y resultados |
+| [`auditoria-visual.md`](auditoria-visual.md) | Auditoría visual medida con navegador: 65 capturas, axe-core, escritorio y móvil |
+| [`matriz-actualizacion.md`](matriz-actualizacion.md) | Versiones, breaking changes, CVE/EOL y decisión de actualización por repo |
+| [`estimaciones-y-precios.md`](estimaciones-y-precios.md) | Qué es medido y qué es estimado; hipótesis de precio falsificables |
+| [`evidencia-gitleaks.md`](evidencia-gitleaks.md) | Cómo dejar el gate de secretos en verde sin cegarlo (con prueba) |

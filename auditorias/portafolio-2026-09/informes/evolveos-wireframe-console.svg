@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .bg { fill:#f6f6f7; }
+      .frame { fill:#ffffff; stroke:#c9c9cf; stroke-width:1.5; }
+      .box { fill:#fbfbfc; stroke:#c9c9cf; stroke-width:1.25; }
+      .box-d { fill:#f1f1f3; stroke:#b6b6bd; stroke-width:1.25; stroke-dasharray:6 4; }
+      .t { fill:#2b2b31; }
+      .muted { fill:#6d6d78; }
+      .label { fill:#8a8a95; font-size:11px; letter-spacing:.09em; font-weight:700; }
+      .h { font-size:17px; font-weight:700; }
+      .s { font-size:12.5px; }
+      .xs { font-size:11px; }
+      .mono { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .note { fill:#fff8e6; stroke:#e0c27a; stroke-width:1.2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="860"/>
+
+  <!-- Barra superior -->
+  <rect class="frame" x="20" y="20" width="1240" height="56" rx="8"/>
+  <text class="t h" x="40" y="55">EvolveOS Console — WIREFRAME (no implementado)</text>
+  <rect class="box" x="900" y="34" width="180" height="28" rx="6"/>
+  <text class="t s" x="916" y="53">operator · approver · curator</text>
+  <rect x="1100" y="32" width="140" height="32" rx="6" fill="#e9f6ec" stroke="#7fbf8f" stroke-width="1.25"/>
+  <text class="t s mono" x="1116" y="53">G-00: sin stop</text>
+
+  <!-- Nota de honestidad -->
+  <rect class="note" x="20" y="88" width="1240" height="40" rx="6"/>
+  <text class="t s" x="38" y="113">Wireframe del flujo prioritario propuesto. EvolveOS no tiene interfaz hoy: app/src/index.ts solo expone GET /health (docs/DEVELOPMENT.md: “No UI (Next.js enters in Phase 1)”).</text>
+
+  <!-- Columna izquierda: venture -->
+  <rect class="frame" x="20" y="144" width="300" height="690" rx="8"/>
+  <text class="label" x="40" y="172">VENTURE (ÚNICO — REGLA PATHFINDER XV-12)</text>
+  <rect class="box" x="40" y="186" width="260" height="76" rx="6"/>
+  <text class="t s" x="54" y="210">Línea de hogar decorada</text>
+  <text class="muted xs mono" x="54" y="230">V-2026-1 · stage 4 / 12</text>
+  <text class="muted xs" x="54" y="248">stage 13+ fuera de alcance</text>
+
+  <rect class="label" x="40" y="290">MÁQUINA DE ESTADOS (1–12)</rect>
+  <g>
+    <rect class="box" x="40" y="302" width="52" height="26" rx="4"/><text class="muted xs" x="52" y="319">1</text>
+    <rect class="box" x="96" y="302" width="52" height="26" rx="4"/><text class="muted xs" x="108" y="319">2</text>
+    <rect class="box" x="152" y="302" width="52" height="26" rx="4"/><text class="muted xs" x="164" y="319">3</text>
+    <rect x="208" y="302" width="52" height="26" rx="4" fill="#e7eefb" stroke="#5b7fc7" stroke-width="1.5"/><text class="t xs" x="220" y="319">4</text>
+    <rect class="box-d" x="264" y="302" width="36" height="26" rx="4"/><text class="muted xs" x="272" y="319">…12</text>
+  </g>
+
+  <rect class="label" x="40" y="362">CHECKLIST DE ANÁLISIS (5–9)</rect>
+  <g class="muted s">
+    <text x="40" y="384">☑ customer discovery</text>
+    <text x="40" y="404">☑ competitive</text>
+    <text x="40" y="424">☐ financial model</text>
+    <text x="40" y="444">☐ risk</text>
+    <text x="40" y="464">☐ legal</text>
+  </g>
+
+  <rect class="label" x="40" y="506">KILL CRITERIA PRE-REGISTRADAS</rect>
+  <rect class="box" x="40" y="518" width="260" height="70" rx="6"/>
+  <text class="muted xs" x="54" y="540">Obligatorio antes de G-01. Sin ellas el</text>
+  <text class="muted xs" x="54" y="557">Kernel bloquea el paso (guard de motor).</text>
+  <text class="muted xs mono" x="54" y="578">DR-2026-004 · dig 4f2a…c19</text>
+
+  <rect class="label" x="40" y="618">RIESGO / AUTONOMÍA</rect>
+  <rect class="box" x="40" y="630" width="260" height="56" rx="6"/>
+  <text class="muted xs" x="54" y="652">R2 reversible con coste · agentes A0/A1</text>
+  <text class="muted xs" x="54" y="672">Cero credenciales externas</text>
+
+  <rect class="box" x="40" y="706" width="260" height="60" rx="6"/>
+  <text class="muted xs" x="54" y="728">Nada de esta pantalla ejecuta acciones</text>
+  <text class="muted xs" x="54" y="745">externas. Toda aprobación es humana.</text>
+
+  <!-- Columna central: cola de gates -->
+  <rect class="frame" x="336" y="144" width="596" height="690" rx="8"/>
+  <text class="label" x="356" y="172">COLA DE GATES — REVISIÓN SEMANAL (LA PANTALLA QUE EVITA LA “TEATRALIDAD”)</text>
+
+  <g>
+    <rect class="box" x="356" y="190" width="556" height="118" rx="6"/>
+    <rect x="356" y="190" width="5" height="118" rx="2" fill="#5b7fc7"/>
+    <text class="t s" x="376" y="214">G-03 · Veredicto de validación (go / kill)</text>
+    <text class="muted xs" x="376" y="234">Evidencia requerida: plan de validación ejecutado + resultados</text>
+    <text class="muted xs" x="376" y="252">DR-2026-007 (borrador) · brief 2 páginas · kill criteria preregistradas ✔</text>
+    <rect x="376" y="266" width="150" height="26" rx="4" fill="#e7eefb" stroke="#5b7fc7" stroke-width="1.25"/><text class="t xs" x="388" y="283">Aprobar (approver)</text>
+    <rect class="box" x="538" y="266" width="120" height="26" rx="4"/><text class="muted xs" x="552" y="283">Pedir cambios</text>
+    <rect class="box" x="670" y="266" width="150" height="26" rx="4"/><text class="muted xs" x="682" y="283">Ver evidencia (pack)</text>
+  </g>
+
+  <g>
+    <rect class="box" x="356" y="322" width="556" height="104" rx="6"/>
+    <rect x="356" y="322" width="5" height="104" rx="2" fill="#c9a24a"/>
+    <text class="t s" x="376" y="346">G-04 · Checklist de análisis completo</text>
+    <text class="muted xs" x="376" y="366">Faltan: financial model, risk, legal (3 de 5)</text>
+    <text class="muted xs" x="376" y="384">Bloqueado por dependencias — no se puede aprobar aún</text>
+    <rect x="376" y="396" width="180" height="24" rx="4" fill="#f4ece0" stroke="#c9a24a" stroke-width="1.25"/><text class="muted xs" x="388" y="412">Bloqueado: faltan artefactos</text>
+  </g>
+
+  <g>
+    <rect class="box" x="356" y="440" width="556" height="90" rx="6"/>
+    <rect x="356" y="440" width="5" height="90" rx="2" fill="#7fbf8f"/>
+    <text class="t s" x="376" y="464">G-02 · Cierre de investigación (aprobado)</text>
+    <text class="muted xs" x="376" y="484">1 gate_passed · DR-2026-003 · evidencia vinculada</text>
+    <text class="muted xs mono" x="376" y="504">event #1841 · hash encadenado ✔</text>
+  </g>
+
+  <text class="label" x="356" y="562">RESPONSABILIDAD DEL OPERADOR (SEMANAL, 30 MIN) — RIESGO Nº1: DOS REVISIONES SALTADAS</text>
+  <rect class="box-d" x="356" y="574" width="556" height="60" rx="6"/>
+  <text class="muted xs" x="372" y="598">Revisión de esta semana: pendiente · última completada: 2026-09-04</text>
+  <text class="muted xs" x="372" y="618">Dos semanas consecutivas sin revisión = métrica de fallo del MVP (docs/MVP_SCOPE.md §7)</text>
+
+  <rect class="label" x="356" y="668">EVENT LOG (SOLO LECTURA, VERIFICABLE)</text>
+  <rect class="box" x="356" y="680" width="556" height="130" rx="6"/>
+  <text class="muted xs mono" x="372" y="702">#1841 gate_passed    G-02   approver  dr-2026-003  4f2a…c19 ✔</text>
+  <text class="muted xs mono" x="372" y="722">#1840 dr_validated   —      curator   ki-2026-088   9b71…a02 ✔</text>
+  <text class="muted xs mono" x="372" y="742">#1839 agent_invoked  DEEP-RES operator —              c3d0…77e ✔</text>
+  <text class="muted xs mono" x="372" y="762">#1838 venture_stage  3→4    operator  V-2026-1      a1f9…4b8 ✔</text>
+  <text class="muted xs" x="372" y="786">Cadena verificada hasta la cabeza · verify-log sin discrepancias</text>
+  <rect class="box" x="372" y="796" width="140" height="0" rx="4"/>
+
+  <!-- Columna derecha -->
+  <rect class="frame" x="952" y="144" width="308" height="690" rx="8"/>
+  <text class="label" x="972" y="172">BASE DE CONOCIMIENTO (KI) — VALIDACIÓN HUMANA</text>
+  <rect class="box" x="972" y="186" width="268" height="70" rx="6"/>
+  <text class="muted xs" x="986" y="208">KIs validadas: 7 / objetivo MVP 20</text>
+  <text class="muted xs" x="986" y="228">En cola de validación: 4 (CURATOR humano)</text>
+  <text class="muted xs" x="986" y="248">Sin validar no entran como conocimiento</text>
+
+  <text class="label" x="972" y="292">ARTEFACTOS DE AGENTES (BORRADORES)</text>
+  <rect class="box" x="972" y="304" width="268" height="110" rx="6"/>
+  <text class="muted xs" x="986" y="326">DEEP-RES · resumen de mercado · borrador</text>
+  <text class="muted xs" x="986" y="346">TRENDS · señales de demanda · borrador</text>
+  <text class="muted xs" x="986" y="366">COMP-INTEL · 4 competidores · aceptado con ediciones</text>
+  <text class="muted xs" x="986" y="386">A0/A1: producen documentos, jamás acciones</text>
+  <text class="muted xs" x="986" y="404">Métrica: ≥50% aceptados con ediciones menores</text>
+
+  <text class="label" x="972" y="450">DECISION RECORDS</text>
+  <rect class="box" x="972" y="462" width="268" height="96" rx="6"/>
+  <text class="muted xs mono" x="986" y="484">DR-2026-007 · borrador · G-03</text>
+  <text class="muted xs mono" x="986" y="504">DR-2026-003 · inmutable · G-02</text>
+  <text class="muted xs mono" x="986" y="524">DR-2026-002 · inmutable · G-01</text>
+  <text class="muted xs" x="986" y="546">Inmutables tras el registro.</text>
+
+  <text class="label" x="972" y="592">CURADURÍA / KERNEL MÍNIMO</text>
+  <rect class="box" x="972" y="604" width="268" height="96" rx="6"/>
+  <text class="muted xs" x="986" y="626">Kernel mínimo (ADR-001): RBAC + event log</text>
+  <text class="muted xs" x="986" y="646">append-only + checks de gate. Sin SPIFFE/OPA.</text>
+  <text class="muted xs" x="986" y="666">Capacidad = cero credenciales externas</text>
+  <text class="muted xs" x="986" y="688">(más fuerte que “envelopes” en Fase 0–2)</text>
+
+  <rect class="note" x="972" y="724" width="268" height="90" rx="6"/>
+  <text class="muted xs" x="986" y="746">Estado previo requerido: ratificación</text>
+  <text class="muted xs" x="986" y="763">fundacional (Part 0 + Ap. C + auditoría,</text>
+  <text class="muted xs" x="986" y="780">~30–40 min de lectura humana). Sin firma,</text>
+  <text class="muted xs" x="986" y="797">cero gasto agente-adyacente.</text>
+
+  <text class="muted xs" x="20" y="852">Wireframe de baja fidelidad. Representa intención de producto, no estado del repositorio. Densidad y tipografía definitivas quedan sujetas al sistema de diseño compartido (sistema-diseno-compartido.md).</text>
+</svg>
