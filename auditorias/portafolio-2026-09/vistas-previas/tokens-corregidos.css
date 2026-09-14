@@ -26,6 +26,36 @@
    Regla que se mantiene: se copia el archivo; rollback = borrarlo.
    ============================================================ */
 
+/* ---------------------------------------------------------------
+   Tipografía AUTOALOJADA.
+   La ronda 3 declaraba Inter/JetBrains Mono sin cargarlas, así que en un
+   entorno limpio caía en Arial o en la monoespaciada del sistema y las
+   capturas no demostraban la tipografía objetivo. Ahora los woff2 viven en
+   `fuentes/` (subconjunto latino, ~23 KB cada uno, licencia SIL OFL 1.1) y se
+   sirven desde el propio repositorio: reproducible sin red.
+   --------------------------------------------------------------- */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fuentes/inter-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fuentes/inter-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fuentes/jetbrains-mono-latin.woff2") format("woff2");
+}
+
 :root {
   /* --- superficies y texto (tema oscuro premium) --- */
   --bg:            oklch(0.16 0.012 260);

@@ -19,7 +19,11 @@ const AQUI = dirname(fileURLToPath(import.meta.url));
 const SALIDA = resolve(AQUI, 'capturas');
 mkdirSync(SALIDA, { recursive: true });
 
-const VISTAS = ['fluvia-dashboard.html', 'nova-shell.html'];
+const VISTAS = [
+  'fluvia-dashboard.html',
+  'nova-shell.html',
+  '../dona-dashboard/flujo-principal.html',
+];
 const VIEWPORTS = [
   { nombre: 'desktop', width: 1440, height: 900 },
   { nombre: 'mobile', width: 390, height: 844 },
@@ -44,7 +48,7 @@ for (const vista of VISTAS) {
     await pagina.goto(url, { waitUntil: 'load' });
     await pagina.waitForTimeout(300);
 
-    const nombre = `${vista.replace('.html', '')}__${vp.nombre}`;
+    const nombre = `${vista.split('/').pop().replace('.html', '')}__${vp.nombre}`;
     await pagina.screenshot({ path: resolve(SALIDA, `${nombre}.png`), fullPage: true });
 
     const metricas = await pagina.evaluate(() => {
@@ -73,6 +77,10 @@ for (const vista of VISTAS) {
         enlacesSinTexto,
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth,
+        // ¿La tipografía declarada resuelve de verdad o cayó en el respaldo?
+        fuente_titulo: getComputedStyle(document.querySelector('h1, h2')).fontFamily,
+        inter_disponible: document.fonts.check('16px Inter'),
+        mono_disponible: document.fonts.check('16px "JetBrains Mono"'),
       };
     });
 
