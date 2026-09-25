@@ -107,7 +107,7 @@ echo "== Instalando CLI oficial de Hermes (sin setup/gateway/cron) =="
 INSTALLER="$(mktemp)"
 trap 'rm -f "$INSTALLER"' EXIT
 curl -fsSL --retry 3 "https://hermes-agent.nousresearch.com/install.sh" -o "$INSTALLER"
-bash "$INSTALLER" --non-interactive --skip-setup --skip-browser --skip-computer-use --no-skills
+bash "$INSTALLER" --non-interactive --skip-setup --skip-browser
 export PATH="$HOME/.local/bin:$HOME/.hermes/bin:$PATH"
 if ! command -v hermes >/dev/null 2>&1; then
     echo "MEMORIA PREPARADA. Instalacion terminada, pero hermes no aparece en PATH."
