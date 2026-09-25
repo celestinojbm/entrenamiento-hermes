@@ -51,6 +51,5 @@ No hay límite de tiempo global. Trabajar en pasos consecutivos, producir eviden
 | A1 | Serve y gateway no demostrados tras reinicio | Arranque único de ambos y acceso privado verificado después de reinicio autorizado |
 | A2 | `openrouter/free` se intenta como auxiliar y `free_only` lo rechaza | Configuración efectiva y llamada auxiliar gratuita verificadas; sin fallback de pago |
 | A3 | Auth gate del dashboard y rotación previa no verificadas aquí | Acceso anónimo denegado y credencial anterior inválida desde MSI |
-| B1 | S8 no se ve en GitHub PR #4 | Commit/ancestría remota y diff S8 comprobados |
 | B2 | Circuito firmado no demostrado completo | Una orden inocua una vez, resultado GitHub, aviso Telegram y rechazo de suplantación |
 | C1 | Inventario y gasto n8n no actualizados | Conteo actual, proveedor/modelo/costo por workflow y respaldo documentados |
