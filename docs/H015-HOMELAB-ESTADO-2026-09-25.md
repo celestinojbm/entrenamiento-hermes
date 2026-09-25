@@ -51,6 +51,17 @@ No hay límite de tiempo global. Trabajar en pasos consecutivos, producir eviden
 4. Preparar (sin activar) una sola vía de arranque Windows→WSL y una unidad independiente por proceso Hermes, con `HERMES_DASHBOARD_PUBLIC_URL` en el entorno de serve, arranque único, registro, reintentos acotados y rollback. Indicar cómo retirar tmux gateway en un corte controlado solo después de autorización. Conservar Tailscale Serve existente.
 5. Entregar: tabla `proceso / PID / responsable / mecanismo de arranque / duplicación / modelo efectivo`; diffs de archivos nuevos; evidencia redactada de auth y auxiliar; pasos exactos de corte y rollback; prueba de reinicio Windows/WSL **pendiente** hasta autorización de ese corte.
 
+## Último checkpoint recibido — Bloque A (25-09-2026)
+
+Informe de Hermes Desktop recibido por el propietario; la sesión reportada no hizo cambios ni detuvo servicios.
+
+- Telegram gateway en tmux `hermes-gateway`, Hermes serve en tmux `hermes-serve`, Tailscale Serve privado, Docker/n8n y otros contenedores se reportan activos. La tarea Windows `HomeLab WSL Startup` no fue visible desde WSL; esto no determina si existe en Windows y debe inspeccionarse allí con PowerShell.
+- Configuración guardada de auxiliares coincide con los SKU gratuitos indicados arriba. Hermes reporta que el gateway intentó `openrouter/free` al arrancar y propone reiniciarlo; atribuye el intento a configuración previa/caché, pero esa causa sigue siendo hipótesis hasta cotejar hora de inicio, hora de modificación de config y valor efectivo cargado por cada auxiliar. No reiniciar el gateway sin autorización expresa; no seleccionar modelos de pago.
+- Hermes también etiquetó un Node de n8n como duplicado al observar que su PPID coincide con el PID informado para el proceso principal del contenedor. Esa conclusión **no está probada**: una relación padre-hijo apunta a pertenencia al árbol del contenedor, no a un servicio duplicado. No matar ni detener ese proceso. Validar en solo lectura con cgroup/namespaces, `docker top` y árbol de procesos.
+- PR #4 se reporta abierto y con `fix(S8)` en head `42390b`, consistente con la corrección del propietario; no repetir esa corrección.
+
+Siguiente avance seguro: verificar en solo lectura la precedencia y carga efectiva de auxiliares; comprobar la pertenencia del proceso Node al contenedor; inspeccionar la tarea de Windows desde el host Windows; y preparar el arranque persistente con plan de corte/rollback. Mantener los servicios actuales. La prueba que requiere reinicio del gateway queda pendiente de autorización expresa.
+
 ## Continuación de H-015 después del Bloque A (no detenerse al cerrar A)
 
 - **B.** Conservar S8 ya resuelto en PR #4. Completar prueba de orden Ed25519 firmada MSI→staging OptiPlex→GitHub→Telegram, con allowlist inocua, deduplicación y rechazo de firma inválida; no activar cron/producción ni fusionar fuera del alcance autorizado.
