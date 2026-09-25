@@ -1,0 +1,18 @@
+OK    P1 sin novedades -> silencio
+      stdout='' exit=0
+OK    P2 fichero PAUSA detiene el sondeo
+      exit=0; log contiene PAUSA=True
+OK    P2b config.pausa=true detiene el sondeo
+      exit=0
+OK    P3 límite diario bloquea sin ejecutar y encola
+      bloqueos=4 entregadas=0 encoladas=3
+OK    P4 primera pasada fija cursor y no procesa histórico
+      inicializados=['celestinojbm/entrenamiento-hermes#3'] ordenes=0 cursor={'celestinojbm/entrenamiento-hermes#3': 5643112774}
+OK    P5 bloqueo exclusivo: segunda instancia no hace trabajo
+      exit=0; log=True
+OK    P6 fallo de API no tumba el lector
+      exit=0; log='2026-09-12T03:21:14+00:00 error consultando celestinojbm/repo-que-no-existe-xyz#999999: gh fallo (1): gh: Not Found (HTT'
+OK    P7 matar la ejecución en curso libera el bloqueo
+      exit tras interrupción=0
+
+resumen: 8/8 pruebas OK

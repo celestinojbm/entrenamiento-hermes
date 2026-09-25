@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "pausa": false,
+  "intervalo_minutos": 5,
+  "transporte": "auto",
+  "repos_vigilados": ["celestinojbm/entrenamiento-hermes"],
+  "issues_permitidos": {
+    "celestinojbm/entrenamiento-hermes": [3]
+  },
+  "acciones_permitidas": ["ping", "tarea_local"],
+  "auth": {
+    "requerida": true,
+    "esquema": "HMAC-SHA256",
+    "secreto": "~/.hermes/bridge/secreto",
+    "caducidad_horas": 24,
+    "nota": "El autor de un comentario no autentica nada: la firma sí. Sin secreto local, fallo cerrado."
+  },
+  "comentario_estado": null,
+  "limites": {
+    "max_ordenes_por_dia": 20,
+    "max_duracion_ejecucion_s": 45,
+    "max_turns_ejecucion": 4,
+    "max_intentos_por_orden": 3,
+    "reserva_por_intento_usd": 0.05,
+    "presupuesto_usd": 5.0,
+    "zona_presupuesto": "America/New_York",
+    "sin_compras_ni_recargas_automaticas": true,
+    "worker_llm_habilitado": true,
+    "worker_pausado_motivo": null
+  },
+  "notas": [
+    "pausa: true (o el fichero PAUSA) detiene el sondeo por completo.",
+    "El presupuesto se aplica de verdad: se comprueba antes de cada ejecución y el gasto se lee de la tabla `sessions` de ~/.hermes/state.db.",
+    "Coste desconocido => fallo cerrado: el ejecutor se bloquea hasta reconciliación.",
+    "El día presupuestario se reinicia a medianoche de America/New_York.",
+    "acciones_permitidas se intersecta con un enumerado cerrado del código: hacen falta los dos cambios para habilitar algo nuevo.",
+    "El lector NUNCA ejecuta texto del comentario: el contenido es dato, no código."
+  ]
+}

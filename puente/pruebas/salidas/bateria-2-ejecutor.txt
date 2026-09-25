@@ -1,0 +1,49 @@
+OK    A1 init crea el secreto en chmod 600
+      creado=True permisos=600
+OK    A2 orden sin firma -> rechazada
+      motivo='la orden no trae firma'
+OK    A3 firma inválida -> rechazada
+      motivo='firma inválida'
+OK    A4 firma válida -> aceptada
+      motivo='firma válida'
+OK    A5 cambiar la acción invalida la firma
+      motivo='firma inválida'
+OK    A6 orden caducada -> rechazada
+      motivo='orden caducada (más de 24 h)'
+OK    A7 sin secreto -> fallo cerrado
+      motivo='no hay secreto local provisionado: no puede autenticarse el origen'
+OK    A8 serialización canónica estable ante reordenación
+      misma firma con las claves en otro orden
+OK    B1 el día presupuestario usa America/New_York
+      dia=2026-09-11 tz=America/New_York
+OK    B2 lee el coste real de la base de sesiones
+      coste=0.35 sesiones=2
+OK    B3 acumula el gasto en el libro
+      gastado=0.35
+OK    B4 con 4.65 USD restantes se puede gastar
+      restante 4.650000 USD de 5.00
+OK    B5 con el presupuesto agotado NO se puede gastar
+      presupuesto diario agotado (5.000000 de 5.00 USD)
+OK    B6 el gasto se reinicia al cambiar el día (America/New_York)
+      dia=2026-09-11 gastado=0.0
+OK    B7 coste desconocido -> fallo cerrado (no se puede acotar)
+      desconocido=True motivo=hay consumo previo con coste desconocido: no puede acotarse, requiere reconciliación
+OK    B8 coste 'included' cuenta como 0 conocido
+      coste=0.0 desconocido=False
+2026-09-12T03:21:16+00:00 publicación p1-a falló (intento 1): fallo simulado de red
+OK    C1/C2 publicación fallida se reintenta y no se pierde
+      pendientes tras fallo=True publicados=1
+OK    C3 reconciliación: no duplica una publicación ya presente
+      publicados=0 pendientes=0
+OK    C4 acuse y resultado van al buzón de salida
+      encoladas=2
+OK    D1 orden interrumpida queda BLOQUEADA, no se reintenta
+      estado=bloqueado_interrumpido bloqueos=1
+OK    D2 el estado se persiste antes de ejecutar
+      posición guardado=14252 < posición ejecución=14406
+OK    E1 la orden que supera el límite se ENCOLA (no se descarta)
+      cola=['ord-cola'] repo=r/r
+OK    E2 al día siguiente la orden encolada se retoma
+      retomadas=['ord-cola'] cola_restante=[]
+
+resumen: 23/23 pruebas OK
