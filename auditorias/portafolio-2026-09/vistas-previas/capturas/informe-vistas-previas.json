@@ -1,0 +1,134 @@
+[
+  {
+    "vista": "fluvia-dashboard.html",
+    "viewport": "desktop",
+    "ancho": 1440,
+    "lang": "es",
+    "title": "Vista previa · Panel de operación de Fluvia",
+    "h1s": [
+      "Últimas 24 horas"
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": true,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  },
+  {
+    "vista": "fluvia-dashboard.html",
+    "viewport": "mobile",
+    "ancho": 390,
+    "lang": "es",
+    "title": "Vista previa · Panel de operación de Fluvia",
+    "h1s": [
+      "Últimas 24 horas"
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": true,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  },
+  {
+    "vista": "nova-shell.html",
+    "viewport": "desktop",
+    "ancho": 1440,
+    "lang": "es",
+    "title": "Vista previa · Identidad de Nova Context",
+    "h1s": [
+      "Tu contexto, privado, convertido en acción."
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": true,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  },
+  {
+    "vista": "nova-shell.html",
+    "viewport": "mobile",
+    "ancho": 390,
+    "lang": "es",
+    "title": "Vista previa · Identidad de Nova Context",
+    "h1s": [
+      "Tu contexto, privado, convertido en acción."
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": false,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  },
+  {
+    "vista": "../dona-dashboard/flujo-principal.html",
+    "viewport": "desktop",
+    "ancho": 1440,
+    "lang": "es",
+    "title": "Vista previa · Flujo principal del dashboard de Dona",
+    "h1s": [
+      "Flujo principal del dashboard de Dona"
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": true,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  },
+  {
+    "vista": "../dona-dashboard/flujo-principal.html",
+    "viewport": "mobile",
+    "ancho": 390,
+    "lang": "es",
+    "title": "Vista previa · Flujo principal del dashboard de Dona",
+    "h1s": [
+      "Flujo principal del dashboard de Dona"
+    ],
+    "imgsSinAlt": 0,
+    "botonesSinNombre": 0,
+    "inputsSinEtiqueta": 0,
+    "enlacesSinTexto": 0,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "fuente_titulo": "Inter, \"Helvetica Neue\", Arial, sans-serif",
+    "inter_disponible": true,
+    "mono_disponible": true,
+    "desbordeHorizontal": false,
+    "erroresConsola": [],
+    "axeViolaciones": []
+  }
+]

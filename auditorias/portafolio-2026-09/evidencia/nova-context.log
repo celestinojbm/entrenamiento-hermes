@@ -1,0 +1,232 @@
+### repo: nova-context
+### fecha: 2026-09-11T14:30:35-04:00
+### HEAD: c49ef4d3d58f07c9af2259eec10b047e6606e6db  (c49ef4d Merge pull request #17 from celestinojbm/claude/m18-controlled-real-deploy-nova)
+### node: v22.23.0  pnpm: 10.33.0
+
+----- CMD: pnpm install --frozen-lockfile
+Scope: all 11 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +708
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 708, reused 201, downloaded 197, added 397
+Progress: resolved 708, reused 201, downloaded 500, added 701
+Progress: resolved 708, reused 201, downloaded 505, added 706
+Progress: resolved 708, reused 201, downloaded 507, added 708, done
+.../node_modules/spawn-sync postinstall$ node postinstall
+.../node_modules/electron postinstall$ node install.js
+.../esbuild@0.25.12/node_modules/esbuild postinstall$ node install.js
+.../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+.../node_modules/spawn-sync postinstall: Done
+.../esbuild@0.25.12/node_modules/esbuild postinstall: Done
+.../sharp@0.34.5/node_modules/sharp install: Done
+.../node_modules/electron postinstall: Done
+
+devDependencies:
++ turbo 2.10.4
++ typescript 5.9.3
+
+apps/extension postinstall$ wxt prepare
+apps/extension postinstall: [log] [90mWXT[39m [90m[1m0.19.29[22m[39m
+apps/extension postinstall: [info] Generating types...
+apps/extension postinstall: [success] Finished in 274 ms
+apps/extension postinstall: Done
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: msgpackr-extract@3.0.4, tesseract.js@7.0.0.         │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 7.5s using pnpm v10.33.0
+----- EXIT=0  DURACION=9s
+
+----- CMD: pnpm run typecheck
+@nova/context-engine:build: cache miss, executing 5dcc0c8c2e44ec83
+@nova/model-router:build: cache miss, executing b3ebd399bd35dfed
+@nova/browser-shell:typecheck: cache miss, executing a569694315817d45
+@nova/model-router:typecheck: cache miss, executing 674ca1d4672fb643
+@nova/browser-shell:build: cache miss, executing ff50bf52c04c15fe
+@nova/context-engine:typecheck: cache miss, executing 8b3610c0912a4184
+@nova/web:typecheck: cache miss, executing 475d667fb05a87c7
+@nova/model-router:typecheck: 
+@nova/model-router:typecheck: > @nova/model-router@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/packages/model-router
+@nova/model-router:typecheck: > tsc -p tsconfig.json --noEmit
+@nova/model-router:typecheck: 
+@nova/context-engine:typecheck: 
+@nova/context-engine:typecheck: > @nova/context-engine@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/packages/context-engine
+@nova/context-engine:typecheck: > tsc -p tsconfig.json --noEmit
+@nova/context-engine:typecheck: 
+@nova/context-engine:build: 
+@nova/context-engine:build: > @nova/context-engine@0.0.1 build /home/celestinojbm/h014-work/repos/nova-context/packages/context-engine
+@nova/context-engine:build: > tsc -p tsconfig.json
+@nova/context-engine:build: 
+@nova/model-router:build: 
+@nova/model-router:build: > @nova/model-router@0.0.1 build /home/celestinojbm/h014-work/repos/nova-context/packages/model-router
+@nova/model-router:build: > tsc -p tsconfig.json
+@nova/model-router:build: 
+@nova/browser-shell:typecheck: 
+@nova/browser-shell:typecheck: > @nova/browser-shell@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/apps/browser-shell
+@nova/browser-shell:typecheck: > tsc --noEmit
+@nova/browser-shell:typecheck: 
+@nova/web:typecheck: 
+@nova/web:typecheck: > @nova/web@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/apps/web
+@nova/web:typecheck: > tsc --noEmit
+@nova/web:typecheck: 
+@nova/browser-shell:build: 
+@nova/browser-shell:build: > @nova/browser-shell@0.0.1 build /home/celestinojbm/h014-work/repos/nova-context/apps/browser-shell
+@nova/browser-shell:build: > tsc -p tsconfig.json
+@nova/browser-shell:build: 
+@nova/extension:typecheck: cache miss, executing 2d24e18b05bffdbe
+@nova/worker:typecheck: cache miss, executing 07cfdf14ee8b872f
+@nova/validation-gate:typecheck: cache miss, executing 7c2e787bd5404910
+@nova/api:typecheck: cache miss, executing 740d68565d8cab35
+@nova/validation-gate:typecheck: 
+@nova/validation-gate:typecheck: > @nova/validation-gate@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/tools/validation-gate
+@nova/validation-gate:typecheck: > tsc -p tsconfig.json --noEmit
+@nova/validation-gate:typecheck: 
+@nova/worker:typecheck: 
+@nova/worker:typecheck: > @nova/worker@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/services/worker
+@nova/worker:typecheck: > tsc -p tsconfig.json --noEmit
+@nova/worker:typecheck: 
+@nova/extension:typecheck: 
+@nova/extension:typecheck: > @nova/extension@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/apps/extension
+@nova/extension:typecheck: > tsc --noEmit
+@nova/extension:typecheck: 
+@nova/api:typecheck: 
+@nova/api:typecheck: > @nova/api@0.0.1 typecheck /home/celestinojbm/h014-work/repos/nova-context/services/api
+@nova/api:typecheck: > tsc -p tsconfig.json --noEmit
+@nova/api:typecheck: 
+
+ Tasks:    13 successful, 13 total
+Cached:    0 cached, 13 total
+  Time:    5.446s 
+
+----- EXIT=0  DURACION=6s
+
+----- CMD: pnpm run build
+@nova/web:build: 
+@nova/extension:build: 
+@nova/extension:build: [log] [90mWXT[39m [90m[1m0.19.29[22m[39m
+@nova/extension:build: [info] Building [36mchrome-mv3[39m for [36mproduction[39m with [32mVite 6.4.3[39m
+@nova/web:build:    ▲ Next.js 15.5.20
+@nova/web:build: 
+@nova/web:build:    Creating an optimized production build ...
+@nova/extension:build: - Preparing...
+@nova/extension:build: [success] Built extension in 1.208 s
+@nova/extension:build: [90m  ├─[39m [2m.output/chrome-mv3/[22m[34mmanifest.json[39m                  [2m362 B[22m    
+@nova/extension:build: [90m  ├─[39m [2m.output/chrome-mv3/[22m[32msidepanel.html[39m                 [2m401 B[22m    
+@nova/extension:build: [90m  ├─[39m [2m.output/chrome-mv3/[22m[36mbackground.js[39m                  [2m10.31 kB[22m 
+@nova/extension:build: [90m  ├─[39m [2m.output/chrome-mv3/[22m[36mchunks/sidepanel-BGby5MhY.js[39m   [2m283.55 kB[22m
+@nova/extension:build: [90m  └─[39m [2m.output/chrome-mv3/[22m[35massets/sidepanel-B3Yvo9ly.css[39m  [2m2.02 kB[22m  
+@nova/extension:build: [36mΣ Total size:[39m 296.65 kB                                                 
+@nova/extension:build: [success] Finished in 1.245 s
+@nova/web:build:  ✓ Compiled successfully in 3.9s
+@nova/web:build:    Linting and checking validity of types ...
+@nova/web:build:    Collecting page data ...
+@nova/web:build:    Generating static pages (0/8) ...
+@nova/web:build:    Generating static pages (2/8) 
+@nova/web:build:    Generating static pages (4/8) 
+@nova/web:build:    Generating static pages (6/8) 
+@nova/web:build:  ✓ Generating static pages (8/8)
+@nova/web:build:    Finalizing page optimization ...
+@nova/web:build:    Collecting build traces ...
+@nova/web:build: 
+@nova/web:build: Route (app)                                 Size  First Load JS
+@nova/web:build: ┌ ƒ /                                      315 B         102 kB
+@nova/web:build: ├ ƒ /_not-found                            989 B         103 kB
+@nova/web:build: ├ ƒ /api/pairing                           155 B         102 kB
+@nova/web:build: ├ ƒ /approvals                             155 B         102 kB
+@nova/web:build: ├ ƒ /audit                                 155 B         102 kB
+@nova/web:build: ├ ƒ /export                                155 B         102 kB
+@nova/web:build: ├ ƒ /export/account                        155 B         102 kB
+@nova/web:build: ├ ƒ /integrations/notion/callback          155 B         102 kB
+@nova/web:build: ├ ƒ /integrations/notion/start             155 B         102 kB
+@nova/web:build: ├ ƒ /login                                 155 B         102 kB
+@nova/web:build: ├ ƒ /media/[id]                            155 B         102 kB
+@nova/web:build: ├ ƒ /projects                              315 B         102 kB
+@nova/web:build: ├ ƒ /projects/[id]                         155 B         102 kB
+@nova/web:build: ├ ƒ /reset                                 155 B         102 kB
+@nova/web:build: ├ ƒ /settings                              799 B         103 kB
+@nova/web:build: ├ ƒ /status                                155 B         102 kB
+@nova/web:build: └ ƒ /tasks                                 155 B         102 kB
+@nova/web:build: + First Load JS shared by all             102 kB
+@nova/web:build:   ├ chunks/558-239c31f73a257451.js       45.7 kB
+@nova/web:build:   ├ chunks/567e3fde-8c71b67cb98676f3.js  54.2 kB
+@nova/web:build:   └ other shared chunks (total)           1.9 kB
+@nova/web:build: 
+@nova/web:build: 
+@nova/web:build: ƒ Middleware                             34.1 kB
+@nova/web:build: 
+@nova/web:build: ƒ  (Dynamic)  server-rendered on demand
+@nova/web:build: 
+
+ Tasks:    9 successful, 9 total
+Cached:    4 cached, 9 total
+  Time:    14.299s 
+
+----- EXIT=0  DURACION=15s
+
+----- CMD: pnpm run test
+@nova/context-engine:test:  [32m✓[39m src/consent-capture-mode.test.ts [2m([22m[2m10 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/sanitization.test.ts [2m([22m[2m10 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/m18a-evidence.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/outcome.test.ts [2m([22m[2m15 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/report.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/m18a-deploy.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 53[2mms[22m[39m
+@nova/context-engine:test:  [32m✓[39m src/visual-redaction.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 151[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/m18a-recovery-s3.test.ts [2m([22m[2m11 tests[22m[2m)[22m[90m 197[2mms[22m[39m
+@nova/context-engine:test:  [32m✓[39m src/notion-mapping.test.ts [2m([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/m17b1-semantics.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 221[2mms[22m[39m
+@nova/context-engine:test:  [32m✓[39m src/live-buffer.test.ts [2m([22m[2m9 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+@nova/context-engine:test: 
+@nova/context-engine:test: [2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
+@nova/context-engine:test: [2m      Tests [22m [1m[32m69 passed[39m[22m[90m (69)[39m
+@nova/context-engine:test: [2m   Start at [22m 14:31:08
+@nova/context-engine:test: [2m   Duration [22m 1.60s[2m (transform 889ms, setup 0ms, collect 1.86s, tests 217ms, environment 2ms, prepare 1.75s)[22m
+@nova/context-engine:test: 
+@nova/api:test:  [32m✓[39m src/backup/target.test.ts [2m([22m[2m36 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/backup/sealed-backup-s3.test.ts [2m([22m[2m11 tests[22m[2m)[22m[90m 75[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/backup/manifest.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 45[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/runner.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 732[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m runner + command execution (M17B §6)[2m > [22mcommand timeout → failed (and the child is terminated) [33m513[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/env.test.ts [2m([22m[2m13 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/legacy-media.test.ts [2m([22m[2m7 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/routes-ops.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/backup/crypto.test.ts [2m([22m[2m4 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/backup/sanitize.test.ts [2m([22m[2m2 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+@nova/validation-gate:test:  [32m✓[39m test/m18a4-recovery-remote-exit.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 2084[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m validate:recovery-remote — real CLI exit codes (NCA-17-001)[2m > [22mmissing required args → exit 2 (usage) [33m512[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m validate:recovery-remote — real CLI exit codes (NCA-17-001)[2m > [22mfetch throws (malformed NOVA_BACKUP_KEY) → non-zero, cleanup ran, no PASS, no secret [33m791[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m validate:recovery-remote — real CLI exit codes (NCA-17-001)[2m > [22mforced cleanup failure → non-zero + explicit cleanup-FAILED evidence [33m778[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/auth/rate-limit.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2265[2mms[22m[39m
+@nova/api:test:    [33m[2m✓[22m[39m rate limiter Redis-failure fallback[2m > [22mRedis unreachable → fails CLOSED via in-memory fallback, marks degraded [33m2263[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/auth/passwords.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1507[2mms[22m[39m
+@nova/api:test:    [33m[2m✓[22m[39m password hashing[2m > [22mround-trips a correct password [33m500[2mms[22m[39m
+@nova/api:test:    [33m[2m✓[22m[39m password hashing[2m > [22mrejects a wrong password [33m503[2mms[22m[39m
+@nova/api:test:    [33m[2m✓[22m[39m password hashing[2m > [22msalts hashes (same password, different hashes) [33m502[2mms[22m[39m
+@nova/api:test:  [32m✓[39m src/ocr.test.ts [2m([22m[2m1 test[22m[2m)[22m[90m 13[2mms[22m[39m
+@nova/api:test: 
+@nova/api:test: [2m Test Files [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+@nova/api:test: [2m      Tests [22m [1m[32m109 passed[39m[22m[90m (109)[39m
+@nova/api:test: [2m   Start at [22m 14:31:08
+@nova/api:test: [2m   Duration [22m 7.05s[2m (transform 373ms, setup 0ms, collect 546ms, tests 3.99s, environment 1ms, prepare 851ms)[22m
+@nova/api:test: 
+@nova/validation-gate:test:  [32m✓[39m test/m18a-postdeploy-bootstrap.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 12376[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m M18A.1 finding 4: synthetic session lifecycle[2m > [22munrecoverable cleanup: login can never succeed → FAIL loudly with a sanitized synthetic handle [33m3018[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m M18A.1 finding 4: synthetic session lifecycle[2m > [22mdelete rejected → cleanup FAILs (never silent) with a sanitized handle [33m3016[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m M18A.1 finding 4: synthetic session lifecycle[2m > [22mM18A.2 §2: signup HTTP 500 + no recoverable login → cleanup FAILs (no more 'likely no orphan') [33m3017[2mms[22m[39m
+@nova/validation-gate:test:    [33m[2m✓[22m[39m M18A.1 finding 4: synthetic session lifecycle[2m > [22mM18A.2 §2: committed-but-lost signup (502) + login unrecoverable → cleanup FAILs (real orphan flagged) [33m3019[2mms[22m[39m
+@nova/validation-gate:test: 
+@nova/validation-gate:test: [2m Test Files [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+@nova/validation-gate:test: [2m      Tests [22m [1m[32m106 passed[39m[22m[90m (106)[39m
+@nova/validation-gate:test: [2m   Start at [22m 14:31:08
+@nova/validation-gate:test: [2m   Duration [22m 13.76s[2m (transform 1.25s, setup 0ms, collect 2.57s, tests 15.74s, environment 3ms, prepare 2.50s)[22m
+@nova/validation-gate:test: 
+
+ Tasks:    12 successful, 12 total
+Cached:    4 cached, 12 total
+  Time:    14.339s 
+
+----- EXIT=0  DURACION=16s
+

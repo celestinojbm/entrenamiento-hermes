@@ -1,0 +1,168 @@
+### repo: Fluvia
+### fecha: 2026-09-11T14:29:49-04:00
+### HEAD: ed2f368f7968774949d57fd38f0ac1b0a1232482  (ed2f368 Merge pull request #46 from celestinojbm/feat/f6-5c2-organization-merchant-onboarding)
+### node: v22.23.0  pnpm: 10.33.0
+
+----- CMD: pnpm install --frozen-lockfile
+Scope: all 22 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +369
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 369, reused 0, downloaded 184, added 183
+Progress: resolved 369, reused 0, downloaded 364, added 364
+Progress: resolved 369, reused 0, downloaded 365, added 365
+Progress: resolved 369, reused 0, downloaded 366, added 366
+Progress: resolved 369, reused 0, downloaded 367, added 366
+Progress: resolved 369, reused 0, downloaded 369, added 369, done
+
+devDependencies:
++ @eslint/js 9.39.4
++ eslint 9.39.4
++ prettier 3.9.4
++ turbo 2.10.3
++ typescript-eslint 8.62.1
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: esbuild@0.28.1, sharp@0.34.5.                       │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 6.2s using pnpm v10.33.0
+----- EXIT=0  DURACION=7s
+
+----- CMD: pnpm run build
+@fluvia/ledger:build: > @fluvia/ledger@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/ledger
+@fluvia/ledger:build: > tsc --noEmit
+@fluvia/ledger:build: 
+@fluvia/auth:build: 
+@fluvia/auth:build: > @fluvia/auth@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/auth
+@fluvia/auth:build: > tsc --noEmit
+@fluvia/auth:build: 
+@fluvia/inbox:build: 
+@fluvia/inbox:build: > @fluvia/inbox@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/inbox
+@fluvia/inbox:build: > tsc --noEmit
+@fluvia/inbox:build: 
+@fluvia/identity:build: 
+@fluvia/identity:build: > @fluvia/identity@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/identity
+@fluvia/identity:build: > tsc --noEmit
+@fluvia/identity:build: 
+@fluvia/reconciliation:build: cache miss, executing 8ffb7ea116d231cf
+@fluvia/seeds:build: cache miss, executing e62245c8dad8dc08
+@fluvia/outbox:build: cache miss, executing 1d76ebd67887a841
+@fluvia/payments-core:build: cache miss, executing 7deda72d34116ced
+@fluvia/outbox:build: 
+@fluvia/outbox:build: > @fluvia/outbox@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/outbox
+@fluvia/outbox:build: > tsc --noEmit
+@fluvia/outbox:build: 
+@fluvia/seeds:build: 
+@fluvia/seeds:build: > @fluvia/seeds@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/seeds
+@fluvia/seeds:build: > tsc --noEmit
+@fluvia/seeds:build: 
+@fluvia/reconciliation:build: 
+@fluvia/reconciliation:build: > @fluvia/reconciliation@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/reconciliation
+@fluvia/reconciliation:build: > tsc --noEmit
+@fluvia/reconciliation:build: 
+@fluvia/payments-core:build: 
+@fluvia/payments-core:build: > @fluvia/payments-core@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/payments-core
+@fluvia/payments-core:build: > tsc --noEmit
+@fluvia/payments-core:build: 
+@fluvia/webhooks:build: cache miss, executing 5a3e427cdbd6dd47
+@fluvia/webhooks:build: 
+@fluvia/webhooks:build: > @fluvia/webhooks@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/webhooks
+@fluvia/webhooks:build: > tsc --noEmit
+@fluvia/webhooks:build: 
+@fluvia/api:build: cache miss, executing ed854010f51ccb7a
+@fluvia/worker:build: cache miss, executing e37e2167b03f4497
+@fluvia/api:build: 
+@fluvia/api:build: > @fluvia/api@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/apps/api
+@fluvia/api:build: > tsc --noEmit
+@fluvia/api:build: 
+@fluvia/worker:build: 
+@fluvia/worker:build: > @fluvia/worker@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/apps/worker
+@fluvia/worker:build: > tsc --noEmit
+@fluvia/worker:build: 
+@fluvia/sdk:build: cache miss, executing 5539c0635fe3877f
+@fluvia/sdk:build: 
+@fluvia/sdk:build: > @fluvia/sdk@0.1.0 build /home/celestinojbm/h014-work/repos/Fluvia/packages/sdk
+@fluvia/sdk:build: > tsc --noEmit
+@fluvia/sdk:build: 
+
+ Tasks:    21 successful, 21 total
+Cached:    0 cached, 21 total
+  Time:    12.071s 
+
+----- EXIT=0  DURACION=16s
+
+----- CMD: pnpm run lint
+
+> fluvia@0.1.0 lint /home/celestinojbm/h014-work/repos/Fluvia
+> eslint .
+
+----- EXIT=0  DURACION=4s
+
+----- CMD: pnpm run test
+    [90m 38| [39m  [35mtry[39m {
+    [90m 39| [39m    await client.query('SELECT pg_advisory_lock($1)', [MIGRATION_LOCK_…
+[90m [2m❯[22m createTestContext src/testing.ts:[2m55:3[22m[39m
+[90m [2m❯[22m test/tenant-escape.test.ts:[2m29:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m test/tenant-escape.test.ts[2m [ test/tenant-escape.test.ts ][22m
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'close')[39m
+[36m [2m❯[22m test/tenant-escape.test.ts:[2m37:13[22m[39m
+    [90m 35| [39m
+    [90m 36| [39m[34mafterAll[39m([35masync[39m () [33m=>[39m {
+    [90m 37| [39m  [35mawait[39m ctx[33m.[39m[34mclose[39m()[33m;[39m
+    [90m   | [39m            [31m^[39m
+    [90m 38| [39m})[33m;[39m
+    [90m 39| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/16]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m test/tx-timeouts.test.ts[2m [ test/tx-timeouts.test.ts ][22m
+[31m[1mError[22m: connect ECONNREFUSED 127.0.0.1:5432[39m
+[90m [2m❯[22m ../../node_modules/.pnpm/pg-pool@3.14.0_pg@8.22.0/node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m migrate src/migrate.ts:[2m37:18[22m[39m
+    [90m 35| [39m    options.environment ?? process.env.FLUVIA_ENV ?? process.env.NODE_…
+    [90m 36| [39m  [35mconst[39m applied[33m:[39m string[] [33m=[39m [][33m;[39m
+    [90m 37| [39m  [35mconst[39m client [33m=[39m [35mawait[39m pool[33m.[39m[34mconnect[39m()[33m;[39m
+    [90m   | [39m                 [31m^[39m
+    [90m 38| [39m  [35mtry[39m {
+    [90m 39| [39m    await client.query('SELECT pg_advisory_lock($1)', [MIGRATION_LOCK_…
+[90m [2m❯[22m createTestContext src/testing.ts:[2m55:3[22m[39m
+[90m [2m❯[22m test/tx-timeouts.test.ts:[2m17:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/16]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m test/tx-timeouts.test.ts[2m [ test/tx-timeouts.test.ts ][22m
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'close')[39m
+[36m [2m❯[22m test/tx-timeouts.test.ts:[2m22:13[22m[39m
+    [90m 20| [39m
+    [90m 21| [39m[34mafterAll[39m([35masync[39m () [33m=>[39m {
+    [90m 22| [39m  [35mawait[39m ctx[33m.[39m[34mclose[39m()[33m;[39m
+    [90m   | [39m            [31m^[39m
+    [90m 23| [39m})[33m;[39m
+    [90m 24| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/16]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (10)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[2m | [22m[33m80 skipped[39m[90m (89)[39m
+[2m   Start at [22m 14:30:24
+[2m   Duration [22m 420ms[2m (transform 381ms, setup 0ms, collect 905ms, tests 105ms, environment 2ms, prepare 920ms)[22m
+
+/home/celestinojbm/h014-work/repos/Fluvia/packages/db:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @fluvia/db@0.1.0 test: `vitest run`
+Exit status 1
+
+> @fluvia/events@0.1.0 test /home/celestinojbm/h014-work/repos/Fluvia/packages/events
+> vitest run
+
+ ELIFECYCLE  Test failed. See above for more details.
+----- EXIT=1  DURACION=8s
+

@@ -1,0 +1,175 @@
+### pnpm audit (producción) por repo pnpm
+=================== Fluvia (.)
+│                     │ trustProxy hop-count                                   │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ fastify                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=5.8.3 <5.12.1                                        │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=5.12.1                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ apps__api>fastify                                      │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-3m5p-2c4r-xxw2      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ moderate            │ baseline-browser-mapping process termination on        │
+│                     │ invalid input causes denial of service                 │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ baseline-browser-mapping                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=2.0.0 <2.11.0                                        │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=2.11.0                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ apps__checkout>next>styled-jsx>@babel/core>@babel/     │
+│                     │ helper-compilation-targets>browserslist>baseline-      │
+│                     │ browser-mapping                                        │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-w5vr-8v7q-w6rv      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+28 vulnerabilities found
+Severity: 9 moderate | 17 high | 2 critical
+--- pnpm audit --json (resumen por severidad, prod) ---
+   severidades: {'info': 0, 'low': 0, 'moderate': 9, 'high': 17, 'critical': 2}
+   - fast-uri high fast-uri vulnerable to host confusion via literal backslash authority delimiter
+   - sharp high sharp inherited vulnerabilities in libvips: CVE-2026-33327, CVE-2026-33328, CVE-
+   - next high Next.js: Denial of Service in App Router using Server Actions
+   - next high Next.js: Server-Side Request Forgery in Server Actions on custom servers
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies containing 
+   - next moderate Next.js: Unbounded Server Action payload in Edge runtime
+   - next high Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destina
+   - next moderate Next.js: Denial of Service in the Image Optimization API using SVGs
+   - next moderate Next.js: Unauthenticated disclosure of internal Server Function endpoints
+   - find-my-way high find-my-way: DDoS with HTTP2
+   - postcss moderate PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappi
+=================== nova-context (.)
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ moderate            │ fastify vulnerable to schema validation bypass via     │
+│                     │ root primitive coercion mismatch                       │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ fastify                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ <5.12.1                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=5.12.1                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ services__api>fastify                                  │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-w2qp-rph6-63g4      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ moderate            │ fastify vulnerable to X-Forwarded-* spoofing under     │
+│                     │ trustProxy hop-count                                   │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ fastify                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=5.8.3 <5.12.1                                        │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=5.12.1                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ services__api>fastify                                  │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-3m5p-2c4r-xxw2      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+27 vulnerabilities found
+Severity: 9 moderate | 16 high | 2 critical
+--- pnpm audit --json (resumen por severidad, prod) ---
+   severidades: {'info': 0, 'low': 0, 'moderate': 9, 'high': 16, 'critical': 2}
+   - postcss moderate PostCSS has XSS via Unescaped </style> in its CSS Stringify Output
+   - fast-uri high fast-uri vulnerable to host confusion via literal backslash authority delimiter
+   - sharp high sharp inherited vulnerabilities in libvips: CVE-2026-33327, CVE-2026-33328, CVE-
+   - next high Next.js: Denial of Service in App Router using Server Actions
+   - next high Next.js: Server-Side Request Forgery in Server Actions on custom servers
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies containing 
+   - next moderate Next.js: Unbounded Server Action payload in Edge runtime
+   - next high Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destina
+   - next moderate Next.js: Denial of Service in the Image Optimization API using SVGs
+   - next moderate Next.js: Unauthenticated disclosure of internal Server Function endpoints
+   - postcss high PostCSS: Arbitrary file read and information disclosure via attacker-controlled 
+=================== EvolveOS (.)
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ high                │ fast-uri vulnerable to server-side request forgery via │
+│                     │ repeated hostname percent-decoding                     │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ fast-uri                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=3.1.2 <3.1.6                                         │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=3.1.6                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ app>ajv>fast-uri                                       │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-fph4-wmhf-6fwf      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ high                │ fast-uri vulnerable to host confusion via              │
+│                     │ percent-encoded scheme normalization                   │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ fast-uri                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=3.0.0 <3.1.6                                         │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=3.1.6                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ app>ajv>fast-uri                                       │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-jqff-g426-hqxp      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+6 vulnerabilities found
+Severity: 6 high
+--- pnpm audit --json (resumen por severidad, prod) ---
+   severidades: {'info': 0, 'low': 0, 'moderate': 0, 'high': 6, 'critical': 0}
+   - fast-uri high fast-uri vulnerable to host confusion via literal backslash authority delimiter
+   - fast-uri high fast-uri vulnerable to host confusion via backslash authority introducer
+   - fast-uri high fast-uri vulnerable to host confusion via skipped IDN canonicalization on scheme
+   - fast-uri high fast-uri vulnerable to server-side request forgery via malformed IPv6 normalizat
+   - fast-uri high fast-uri vulnerable to server-side request forgery via repeated hostname percent
+   - fast-uri high fast-uri vulnerable to host confusion via percent-encoded scheme normalization
+=================== Donalabs (design-system)
+│ moderate            │ Hono: Query parser reads parameters after the URL      │
+│                     │ fragment, causing cache-key and proxy interpretation   │
+│                     │ differentials                                          │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ hono                                                   │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ <4.13.5                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=4.13.5                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ packages__ui>shadcn>@modelcontextprotocol/sdk>hono     │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-crvj-82cr-hjcx      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ low                 │ Hono: Proxy Helper does not remove response headers    │
+│                     │ listed in the `Connection` header                      │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ hono                                                   │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ >=4.7.0 <4.12.34                                       │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=4.12.34                                              │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ packages__ui>shadcn>@modelcontextprotocol/sdk>hono     │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-79qm-7rj5-m7r9      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+52 vulnerabilities found
+Severity: 1 low | 24 moderate | 25 high | 2 critical
+--- pnpm audit --json (resumen por severidad, prod) ---
+   severidades: {'info': 0, 'low': 1, 'moderate': 24, 'high': 25, 'critical': 2}
+   - postcss moderate PostCSS has XSS via Unescaped </style> in its CSS Stringify Output
+   - fast-uri high fast-uri vulnerable to host confusion via literal backslash authority delimiter
+   - sharp high sharp inherited vulnerabilities in libvips: CVE-2026-33327, CVE-2026-33328, CVE-
+   - next high Next.js: Middleware / Proxy bypass in App Router applications using Turbopack an
+   - next high Next.js: Denial of Service in App Router using Server Actions
+   - next high Next.js: Server-Side Request Forgery in Server Actions on custom servers
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies
+   - next moderate Next.js: Cache confusion of response bodies for requests with bodies containing 
+   - next moderate Next.js: Unbounded Server Action payload in Edge runtime
+   - next high Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destina
+   - next moderate Next.js: Denial of Service in the Image Optimization API using SVGs
+   - next moderate Next.js: Unauthenticated disclosure of internal Server Function endpoints

@@ -1,0 +1,86 @@
+### repo: Dona-agent
+### fecha: 2026-09-11T14:30:01-04:00
+### HEAD: 958b5250ac2e04075d74bb061eeebd3504911be4 (958b525 Merge pull request #240 from celestinojbm/refactor/email-action-center-persistence-pr1)
+### python: Python 3.14.4
+
+----- CMD: pip install -r requirements.txt
+----- EXIT=0 DURACION=28s
+
+----- CMD: pip install -r requirements-dev.txt
+----- EXIT=0 DURACION=3s
+
+----- CMD: ruff check . (lint)
+552 |         assert _dashboard_url() == _DEFAULT_DASHBOARD_URL
+    |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/test_welcome_premium.py:555:9
+    |
+554 |     def test_valor_no_http_se_ignora(self, monkeypatch):
+555 |         from agent.welcome import _dashboard_url, _DEFAULT_DASHBOARD_URL
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+556 |         self._limpiar(monkeypatch)
+557 |         # Un valor sin esquema http(s) no cuenta y cae al default.
+    |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/test_welcome_premium.py:590:9
+    |
+588 |                   return True
+589 |
+590 | /         import agent.welcome as welcome_mod
+591 | |         import agent.providers
+    | |______________________________^
+592 |           monkeypatch.setattr(
+593 |               agent.providers, "obtener_proveedor", lambda: FakeProveedorOk()
+    |
+help: Organize imports
+
+Found 458 errors.
+[*] 446 fixable with the `--fix` option (12 hidden fixes can be enabled with the `--unsafe-fixes` option).
+----- EXIT=1 DURACION=0s
+
+----- CMD: pytest -q
+ERROR tests/test_main_internal_usuario_resumen.py::TestSubInexistente::test_subscription_inexistente_devuelve_404
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_sub_sin_saldo_sin_trans
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_sub_con_saldo_y_transacciones
+ERROR tests/test_main_internal_usuario_resumen.py::TestRespuestaCompleta::test_solo_devuelve_ultimas_10
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstadosSuscripcion::test_canceled_no_puede_cancelar
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstadosSuscripcion::test_past_due_no_puede_cancelar
+ERROR tests/test_main_internal_usuario_resumen.py::TestReadOnly::test_endpoint_no_modifica_db
+ERROR tests/test_main_internal_usuario_resumen.py::TestLegacyEndpointsIntactos::test_internal_stripe_event_acepta_request
+ERROR tests/test_main_internal_usuario_resumen.py::TestEstructuraEsperada::test_telefono_presente_en_respuesta
+1 failed, 2360 passed, 16 warnings, 61 errors in 264.70s (0:04:24)
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6debe9010>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6debe9bc0>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6984443b0>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a698447320>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a704e00eb0>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a704e000f0>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a672dae6c0>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6804cac40>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a672dafa00>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6b6bc7320>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6806a9380>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6f6dc0a90>
+14:34:58 DEBUG [aiosqlite] executing <function Connection.stop.<locals>.close_and_stop at 0x79a6c5ab49e0>
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/logging/__init__.py", line 1154, in emit
+    stream.write(msg + self.terminator)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: I/O operation on closed file.
+Call stack:
+  File "/usr/lib/python3.14/threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/lib/python3.14/threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "/usr/lib/python3.14/threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/celestinojbm/h014-work/venv-dona/lib/python3.14/site-packages/aiosqlite/core.py", line 62, in _connection_worker_thread
+    LOG.debug("executing %s", function)
+Message: 'executing %s'
+Arguments: (<function Connection.stop.<locals>.close_and_stop at 0x79a6c588b480>,)
+----- EXIT=1 DURACION=269s

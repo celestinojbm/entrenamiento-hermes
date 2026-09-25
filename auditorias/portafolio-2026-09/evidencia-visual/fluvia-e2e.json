@@ -1,0 +1,253 @@
+{
+  "email": "audit-fin-1789155354360@fluvia.local",
+  "orgId": "5b0715ba-fd36-4279-b9cd-be346ec817a3",
+  "paisesEnSelectMerchant": 0,
+  "paginas": [
+    {
+      "label": "org-overview",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3",
+      "h1": [
+        "Panel de operación"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Panel de operación Org Auditoria H-014 Pagos Reembolsos Sesiones de checkout Payment links Comercios Casos Conciliación Payouts Disputas Webhooks Endpoints API keys Eventos Cerrar sesión Payment intents (0) Sin reg",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-overview.png"
+    },
+    {
+      "label": "org-payments",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/payments",
+      "h1": [
+        "Pagos (payment intents)"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Pagos (payment intents) ← Volver al panel Cerrar sesión Sin pagos. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-payments.png"
+    },
+    {
+      "label": "org-refunds",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/refunds",
+      "h1": [
+        "Reembolsos"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Reembolsos ← Volver al panel Cerrar sesión Sin reembolsos. Los reembolsos se crean desde el detalle del pago (rol owner/admin/finance). Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-refunds.png"
+    },
+    {
+      "label": "org-checkout-sessions",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/checkout-sessions",
+      "h1": [
+        "Sesiones de checkout"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Sesiones de checkout ← Volver al panel Cerrar sesión Sin sesiones de checkout. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-checkout-sessions.png"
+    },
+    {
+      "label": "org-payment-links",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/payment-links",
+      "h1": [
+        "Payment links"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Payment links ← Volver al panel Cerrar sesión Sin payment links. Crear payment link Comercio Comercio Auditoria H-014 Monto En unidades menores (p. ej. centavos; COP no tiene decimales). Moneda Descripción Crear li",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-payment-links.png"
+    },
+    {
+      "label": "org-payouts",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/payouts",
+      "h1": [
+        "Payouts (salidas de dinero)"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Payouts (salidas de dinero) ← Volver al panel Cerrar sesión Sin payouts. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-payouts.png"
+    },
+    {
+      "label": "org-disputes",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/disputes",
+      "h1": [
+        "Disputas (contracargos)"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Disputas (contracargos) ← Volver al panel Cerrar sesión Sin disputas. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-disputes.png"
+    },
+    {
+      "label": "org-reconciliation",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/reconciliation",
+      "h1": [
+        "Reportes de liquidación"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Reportes de liquidación ← Volver al panel Cerrar sesión Sin reportes de liquidación. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-reconciliation.png"
+    },
+    {
+      "label": "org-cases",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/cases",
+      "h1": [
+        "Casos operativos"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Casos operativos ← Volver al panel Cerrar sesión Todos Abiertos Reconocidos Resueltos Sin casos operativos. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-cases.png"
+    },
+    {
+      "label": "org-webhook-events",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/webhook-events",
+      "h1": [
+        "Eventos de webhook"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Eventos de webhook ← Volver al panel Cerrar sesión Sin eventos de webhook. Entorno de pruebas — no se mueve dinero real.",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-webhook-events.png"
+    },
+    {
+      "label": "org-webhook-endpoints",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/webhook-endpoints",
+      "h1": [
+        "Endpoints de webhook"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Endpoints de webhook ← Volver al panel Cerrar sesión Sin endpoints de webhook. Crear endpoint URL de destino HTTPS de tu servidor que recibirá los eventos (sandbox). Eventos (separados por coma; vacío = todos) Ej.:",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-webhook-endpoints.png"
+    },
+    {
+      "label": "org-api-keys",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/api-keys",
+      "h1": [
+        "API keys"
+      ],
+      "tablas": 0,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado API keys ← Volver al panel Cerrar sesión Sin API keys. Crear API key Etiqueta Scopes read payments:write customers:write webhooks:manage Selecciona al menos uno. El API valida los permitidos. Entorno: test (sandbox",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-api-keys.png"
+    },
+    {
+      "label": "org-events",
+      "url": "http://localhost:3200/o/5b0715ba-fd36-4279-b9cd-be346ec817a3/events",
+      "h1": [
+        "Eventos de auditoría"
+      ],
+      "tablas": 1,
+      "overflow": false,
+      "px": "1440/1440",
+      "axe": {
+        "violations": 0,
+        "byImpact": {},
+        "top": []
+      },
+      "texto": "SANDBOX — dinero simulado Eventos de auditoría ← Volver al panel Cerrar sesión Eventos de auditoría Fecha y hora Actor Acción Recurso Resultado Riesgo 2026-09-11 19:36:17 user · 0007d6df…5691 merchant.created merchant 66bdaa4b…eeab Éxito Ba",
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-events.png"
+    }
+  ],
+  "movil": [
+    {
+      "label": "org-overview",
+      "sw": 390,
+      "cw": 390,
+      "overflow": false,
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-overview__mobile.png"
+    },
+    {
+      "label": "org-payments",
+      "sw": 390,
+      "cw": 390,
+      "overflow": false,
+      "captura": "/home/celestinojbm/h014-work/visual/out/fluvia__org-payments__mobile.png"
+    }
+  ],
+  "mutaciones": [
+    "POST /api/signup -> 201",
+    "POST /api/session -> 200",
+    "POST /api/onboarding/organization -> 201",
+    "POST /api/orgs/5b0715ba-fd36-4279-b9cd-be346ec817a3/onboarding/merchant -> 201"
+  ],
+  "erroresConsola": [
+    "Pattern attribute value [a-z0-9][a-z0-9-]{1,48} is not a valid regular expression: Uncaught SyntaxError: Invalid regular expression: /[a-z0-9][a-z0-9-]{1,48}/v: Invalid character class"
+  ]
+}

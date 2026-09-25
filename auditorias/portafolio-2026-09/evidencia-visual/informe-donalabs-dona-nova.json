@@ -1,0 +1,532 @@
+[
+  {
+    "producto": "donalabs",
+    "ruta": "/",
+    "url": "http://127.0.0.1:3400/",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 900,
+          "h1": [
+            "The shared design platform for DonaLabs"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Design System The shared design platform for DonaLabs One design system, owned as source code, consumed by every DonaLabs project. Built on Tailwind CSS v4, shadcn/ui (on Radix UI primitives), Motion, "
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 0,
+          "byImpact": {},
+          "top": [],
+          "passes": 22
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__root__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=G17FyIgaGZAhkBL8idCqS' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=G17FyIgaGZAhkBL8idCqS' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=G17FyIgaGZAhkBL8idCqS' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 1436,
+          "h1": [
+            "The shared design platform for DonaLabs"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Design System The shared design platform for DonaLabs One design system, owned as source code, consumed by every DonaLabs project. Built on Tailwind CSS v4, shadcn/ui (on Radix UI primitives), Motion, Magic UI, and Lucide — unified rather than stitched together. Tailwind CSS v4 shadcn/ui Radix UI Motion Magic UI Lucide Icons Foundations Color, typography, spacing, radius, shadows, a"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__root__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=-WQoZuINwDLcBMsVtX0_J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=-WQoZuINwDLcBMsVtX0_J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/foundations",
+    "url": "http://127.0.0.1:3400/foundations",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Foundations · DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 2661,
+          "h1": [
+            "Foundations"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Foundations The design tokens every component in this system is built from — color, typography, spacing, radius, shadows, and icons. Defined once in packages/ui/src/styles/globals.css via Tailwind v4's"
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 1,
+          "byImpact": {
+            "serious": 1
+          },
+          "top": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "help": "Elements must meet minimum color contrast ratio thresholds",
+              "nodes": 1,
+              "example": "<span class=\"font-mono text-xs\">--<!-- -->muted</span>"
+            }
+          ],
+          "passes": 22
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__foundations__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=BLB3b7NtLpd_WhPjegDxL' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=BLB3b7NtLpd_WhPjegDxL' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=BLB3b7NtLpd_WhPjegDxL' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Foundations · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 3835,
+          "h1": [
+            "Foundations"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Foundations The design tokens every component in this system is built from — color, typography, spacing, radius, shadows, and icons. Defined once in packages/ui/src/styles/globals.css via Tailwind v4's @theme, consumed everywhere as CSS variables. Color system OKLCH semantic tokens with automatic light/dark pairing (toggle the theme in the header). Every component references these v"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__foundations__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=oqeAE4oeKZDJKiy98iCRP' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=oqeAE4oeKZDJKiy98iCRP' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/components",
+    "url": "http://127.0.0.1:3400/components",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Components · DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 2792,
+          "h1": [
+            "Components"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 4,
+          "inputsWithoutLabel": 3,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Components Every component below is an owned file in packages/ui/src/components — vendored via the shadcn CLI (Radix primitives, Nova preset), not an opaque npm dependency. Edit it directly when a proj"
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 1,
+          "byImpact": {
+            "serious": 1
+          },
+          "top": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "help": "Elements must meet minimum color contrast ratio thresholds",
+              "nodes": 12,
+              "example": "<button data-slot=\"button\" data-variant=\"destructive\" data-size=\"default\" class=\"group/button inline-...\">"
+            }
+          ],
+          "passes": 30
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__components__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=TOQxX3onR-Vcoi8uQSD-O' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=TOQxX3onR-Vcoi8uQSD-O' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=TOQxX3onR-Vcoi8uQSD-O' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Components · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 3669,
+          "h1": [
+            "Components"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 4,
+          "inputsWithoutLabel": 3,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Components Every component below is an owned file in packages/ui/src/components — vendored via the shadcn CLI (Radix primitives, Nova preset), not an opaque npm dependency. Edit it directly when a project needs something different. Buttons default secondary outline ghost destructive link Extra small Small Default Large Send email Continue Loading Inputs Input, input group, select, c"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__components__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=Xt5aemZ1oVx7FM2oLnaQG' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=Xt5aemZ1oVx7FM2oLnaQG' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/animations",
+    "url": "http://127.0.0.1:3400/animations",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Animations · DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 1688,
+          "h1": [
+            "Animations"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Animations Motion (motion.dev, the current name for Framer Motion) is the standard animation library for DonaLabs — import from motion/react, never the legacy framer-motion package. Fade / slide-in The"
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 0,
+          "byImpact": {},
+          "top": [],
+          "passes": 22
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__animations__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=qBgDXWzK4uDGk1IKlRVeh' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=qBgDXWzK4uDGk1IKlRVeh' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=qBgDXWzK4uDGk1IKlRVeh' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Animations · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 2166,
+          "h1": [
+            "Animations"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Animations Motion (motion.dev, the current name for Framer Motion) is the standard animation library for DonaLabs — import from motion/react, never the legacy framer-motion package. Fade / slide-in The default entrance for cards, panels, and anything appearing on mount. Animate transform (x/y/scale) and opacity only — both run on the compositor thread, so they stay smooth even durin"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__animations__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=hu7KzSnVEFSlwTDQJjDJd' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=hu7KzSnVEFSlwTDQJjDJd' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/marketing",
+    "url": "http://127.0.0.1:3400/marketing",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Marketing (Magic UI) · DonaLabs Design System",
+          "scrollWidth": 1696,
+          "clientWidth": 1440,
+          "bodyHeight": 2515,
+          "h1": [
+            "Marketing (Magic UI)"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Marketing (Magic UI) Magic UI is adopted selectively — pulled in per-component via the shadcn CLI for high-impact visual moments. It is an effects/polish layer, not a replacement for shadcn's form and "
+        },
+        "overflowHorizontal": true,
+        "axe": {
+          "violations": 0,
+          "byImpact": {},
+          "top": [],
+          "passes": 22
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__marketing__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=o5ODVAX2Pr-2BQIkwIXtP' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=o5ODVAX2Pr-2BQIkwIXtP' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=o5ODVAX2Pr-2BQIkwIXtP' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Marketing (Magic UI) · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 3347,
+          "h1": [
+            "Marketing (Magic UI)"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Marketing (Magic UI) Magic UI is adopted selectively — pulled in per-component via the shadcn CLI for high-impact visual moments. It is an effects/polish layer, not a replacement for shadcn's form and interaction primitives. Hero background (Particles) EXPLORE THE PLATFORM Marquee Infinite auto-scrolling row — logos, testimonials, feature callouts. Vaultwarden Cal.com Plausible Penp"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__marketing__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=YhF7lH3I0J4roHpjZ97JL' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=YhF7lH3I0J4roHpjZ97JL' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/dashboard",
+    "url": "http://127.0.0.1:3400/dashboard",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Dashboard example · DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 1108,
+          "h1": [
+            "Dashboard example"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Dashboard example A realistic composition of the primitives above — the sidebar shell, StatCard, Chart, and Table — assembled into the kind of screen most DonaLabs projects will actually ship. Active s"
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 1,
+          "byImpact": {
+            "serious": 1
+          },
+          "top": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "help": "Elements must meet minimum color contrast ratio thresholds",
+              "nodes": 1,
+              "example": "<span data-slot=\"badge\" data-variant=\"destructive\" class=\"group/badge inline-f...\">"
+            }
+          ],
+          "passes": 24
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__dashboard__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=FIR4Ei5IvVB5ejGTDDWP-' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=FIR4Ei5IvVB5ejGTDDWP-' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=FIR4Ei5IvVB5ejGTDDWP-' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Dashboard example · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 1448,
+          "h1": [
+            "Dashboard example"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Dashboard example A realistic composition of the primitives above — the sidebar shell, StatCard, Chart, and Table — assembled into the kind of screen most DonaLabs projects will actually ship. Active services 0 All services reporting healthy Requests today 0 +8.2% Storage used 0 GB -2.1% Team members 0 Requests & errors Last 7 days, across every service. Recent activity Latest event"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__dashboard__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=huJyCxtPB1veH9YG4hQm6' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=huJyCxtPB1veH9YG4hQm6' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  },
+  {
+    "producto": "donalabs",
+    "ruta": "/evaluated",
+    "url": "http://127.0.0.1:3400/evaluated",
+    "viewports": {
+      "desktop": {
+        "metrics": {
+          "title": "Evaluated libraries · DonaLabs Design System",
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "bodyHeight": 1488,
+          "h1": [
+            "Evaluated libraries"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "D DonaLabs Design System Design system Overview Foundations Components Dashboard example Animations Marketing (Magic UI) Evaluated libraries 3 Tailwind v4 · shadcn/ui · Radix · Motion Toggle Sidebar Evaluated libraries Three additional libraries were evaluated for compatibility with the core stack (Tailwind v4 + shadcn/ui + Radix + Motion + Lucide) before deciding whether to integrate them. Two ar"
+        },
+        "overflowHorizontal": false,
+        "axe": {
+          "violations": 1,
+          "byImpact": {
+            "serious": 1
+          },
+          "top": [
+            {
+              "id": "aria-prohibited-attr",
+              "impact": "serious",
+              "help": "Elements must only use permitted ARIA attributes",
+              "nodes": 1,
+              "example": "<div aria-label=\"Default user avatar\" class=\"relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border border-input\">"
+            }
+          ],
+          "passes": 25
+        },
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__evaluated__desktop.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=5x1F3TpkqdU4idw3j6N-9' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=5x1F3TpkqdU4idw3j6N-9' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=5x1F3TpkqdU4idw3j6N-9' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      "mobile": {
+        "metrics": {
+          "title": "Evaluated libraries · DonaLabs Design System",
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "bodyHeight": 2684,
+          "h1": [
+            "Evaluated libraries"
+          ],
+          "h1Count": 1,
+          "imgCount": 0,
+          "imgWithoutAlt": 0,
+          "buttonsWithoutName": 0,
+          "inputsWithoutLabel": 0,
+          "lang": "en",
+          "firstText": "Toggle Sidebar Evaluated libraries Three additional libraries were evaluated for compatibility with the core stack (Tailwind v4 + shadcn/ui + Radix + Motion + Lucide) before deciding whether to integrate them. Two are adopted selectively, with a live proof-of-concept below; one is documented and explicitly not adopted. Aceternity UI — adopted selectively Clean fit for decorative/marketing componen"
+        },
+        "overflowHorizontal": false,
+        "axe": null,
+        "screenshot": "/home/celestinojbm/h014-work/visual/out/donalabs__evaluated__mobile.png",
+        "status": 200,
+        "consoleErrors": [
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=YtxH5TdfqE1amv_uB9POE' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE",
+          "WebSocket connection to 'ws://127.0.0.1:3400/_next/webpack-hmr?id=YtxH5TdfqE1amv_uB9POE' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+        ],
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    "notas": []
+  }
+]

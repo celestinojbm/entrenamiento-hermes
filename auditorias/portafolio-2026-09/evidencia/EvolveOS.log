@@ -1,0 +1,103 @@
+### repo: EvolveOS
+### fecha: 2026-09-11T14:30:25-04:00
+### HEAD: 88103eee508ecc416ebd96356187b217ec7f4908  (88103ee Merge pull request #34 from celestinojbm/claude/phase0-issue-13-audit-trail-verification)
+### node: v22.23.0  pnpm: 10.33.0
+
+----- CMD: pnpm install --frozen-lockfile
+Scope: all 2 workspace projects
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +84
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 84, reused 61, downloaded 23, added 84, done
+.../esbuild@0.21.5/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.28.1/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.21.5/node_modules/esbuild postinstall: Done
+.../esbuild@0.28.1/node_modules/esbuild postinstall: Done
+
+devDependencies:
++ json-schema-to-typescript 15.0.4
++ pg 8.22.0
+
+Done in 1.3s using pnpm v10.33.0
+----- EXIT=0  DURACION=2s
+
+----- CMD: pnpm run build
+
+> evolveos@0.1.0 build /home/celestinojbm/h014-work/repos/EvolveOS
+> pnpm --filter @evolveos/app build
+
+
+> @evolveos/app@0.1.0 prebuild /home/celestinojbm/h014-work/repos/EvolveOS/app
+> node ../ops/typegen.mjs
+
+typegen: wrote 7 type module(s) to app/src/generated/
+
+> @evolveos/app@0.1.0 build /home/celestinojbm/h014-work/repos/EvolveOS/app
+> tsc -p tsconfig.json
+
+----- EXIT=0  DURACION=2s
+
+----- CMD: pnpm run test
+    [90m197| [39m  )[33m;[39m
+[90m [2m❯[22m readValidatedStopState src/lib/stop.ts:[2m240:15[22m[39m
+[90m [2m❯[22m Module.getSystemStopState src/lib/stop.ts:[2m308:11[22m[39m
+[90m [2m❯[22m ensureRunning test/stop.test.ts:[2m86:13[22m[39m
+[90m [2m❯[22m test/stop.test.ts:[2m624:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/53]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m test/stop.test.ts[2m > [22mG-00 stop — generation exhaustion & the safe-integer bound (isolated DB)
+[31m[1mError[22m: Connection terminated unexpectedly[39m
+[90m [2m❯[22m ../node_modules/.pnpm/pg@8.22.0/node_modules/pg/lib/client.js:[2m652:17[22m[39m
+[36m [2m❯[22m test/stop.test.ts:[2m667:5[22m[39m
+    [90m665| [39m  [34mafterAll[39m([35masync[39m () [33m=>[39m {
+    [90m666| [39m    [35mif[39m (gc) [35mawait[39m gc[33m.[39m[34mend[39m()[33m;[39m
+    [90m667| [39m    [35mawait[39m admin[33m.[39m[34mquery[39m([32m`DROP DATABASE IF EXISTS [39m[36m${[39mdbName[36m}[39m[32m`[39m)[33m;[39m
+    [90m   | [39m    [31m^[39m
+    [90m668| [39m    [35mawait[39m admin[33m.[39m[34mend[39m()[33m;[39m
+    [90m669| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/53]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m test/stop.test.ts[2m > [22mG-00 stop — 0007 migration is idempotent and upgrades an old table (isolated DB)
+[31m[1mError[22m: Connection terminated unexpectedly[39m
+[90m [2m❯[22m ../node_modules/.pnpm/pg@8.22.0/node_modules/pg/lib/client.js:[2m652:17[22m[39m
+[36m [2m❯[22m test/stop.test.ts:[2m757:5[22m[39m
+    [90m755| [39m  [34mafterAll[39m([35masync[39m () [33m=>[39m {
+    [90m756| [39m    [35mif[39m (gc) [35mawait[39m gc[33m.[39m[34mend[39m()[33m;[39m
+    [90m757| [39m    [35mawait[39m admin[33m.[39m[34mquery[39m([32m`DROP DATABASE IF EXISTS [39m[36m${[39mdbName[36m}[39m[32m`[39m)[33m;[39m
+    [90m   | [39m    [31m^[39m
+    [90m758| [39m    [35mawait[39m admin[33m.[39m[34mend[39m()[33m;[39m
+    [90m759| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/53]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m test/stop.test.ts[2m > [22mG-00 stop — deterministic concurrency & ordering (Postgres)
+[31m[1mError[22m: Connection terminated unexpectedly[39m
+[90m [2m❯[22m ../node_modules/.pnpm/pg@8.22.0/node_modules/pg/lib/client.js:[2m652:17[22m[39m
+[36m [2m❯[22m readStopRow src/lib/stop.ts:[2m195:20[22m[39m
+    [90m193| [39m[90m/** The raw singleton row; throws `StopStateCorruptError` if missing/d[39m…
+    [90m194| [39m[35masync[39m [35mfunction[39m [34mreadStopRow[39m(client[33m:[39m [33mQueryable[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mStopRow[39m[33m>[39m {
+    [90m195| [39m  [35mconst[39m { rows } [33m=[39m [35mawait[39m client[33m.[39mquery[33m<[39m[33mStopRow[39m[33m>[39m(
+    [90m   | [39m                   [31m^[39m
+    [90m196| [39m    [32m"SELECT is_stopped, generation, current_event_id, actor_id, reason[39m…
+    [90m197| [39m  )[33m;[39m
+[90m [2m❯[22m readValidatedStopState src/lib/stop.ts:[2m240:15[22m[39m
+[90m [2m❯[22m Module.getSystemStopState src/lib/stop.ts:[2m308:11[22m[39m
+[90m [2m❯[22m ensureRunning test/stop.test.ts:[2m86:13[22m[39m
+[90m [2m❯[22m test/stop.test.ts:[2m807:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/53]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m203 passed[39m[22m[2m | [22m[33m229 skipped[39m[90m (432)[39m
+[2m   Start at [22m 14:30:33
+[2m   Duration [22m 2.31s[2m (transform 221ms, setup 0ms, collect 875ms, tests 442ms, environment 1ms, prepare 299ms)[22m
+
+/home/celestinojbm/h014-work/repos/EvolveOS/app:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @evolveos/app@0.1.0 test: `vitest run`
+Exit status 1
+ ELIFECYCLE  Test failed. See above for more details.
+----- EXIT=1  DURACION=5s
+

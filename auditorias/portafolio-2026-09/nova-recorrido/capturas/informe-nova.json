@@ -1,0 +1,293 @@
+[
+  {
+    "paso": "acceso",
+    "usuario": "dev@nova.local",
+    "url_tras_login": "http://127.0.0.1:3000/",
+    "autenticado": true,
+    "errores_consola": []
+  },
+  {
+    "superficie": "inicio",
+    "ruta": "/",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Search 50 moments, newest first Screenshot dropped — media pipeline unavailable Pricing — Examplesave referenceskipped https://e",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 61
+      }
+    ]
+  },
+  {
+    "superficie": "inicio",
+    "ruta": "/",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Search 50 moments, newest first Screenshot dropped — media pipeline unavailable Pricing — Examplesave referenceskipped https://e",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 61
+      }
+    ]
+  },
+  {
+    "superficie": "tareas",
+    "ruta": "/tasks",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/tasks",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 18 tasks · created by the Action Engine (Tier 0) from your capture instructions Done create a task to file this no project · fro",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 4
+      }
+    ]
+  },
+  {
+    "superficie": "tareas",
+    "ruta": "/tasks",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/tasks",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 18 tasks · created by the Action Engine (Tier 0) from your capture instructions Done create a task to file this no project · fro",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 4
+      }
+    ]
+  },
+  {
+    "superficie": "proyectos",
+    "ruta": "/projects",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/projects",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 5 projects Inbox Default project for unsorted context moments 6 moments · 6 tasks Delete ExportScope 1 moment · 0 tasks Delete S",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 5
+      }
+    ]
+  },
+  {
+    "superficie": "proyectos",
+    "ruta": "/projects",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/projects",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 0,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out 5 projects Inbox Default project for unsorted context moments 6 moments · 6 tasks Delete ExportScope 1 moment · 0 tasks Delete S",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 5
+      }
+    ]
+  },
+  {
+    "superficie": "aprobaciones",
+    "ruta": "/approvals",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/approvals",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Action approvals Nova proposes; you decide. Nothing external executes without your explicit approval, and external writes run in",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 16
+      }
+    ]
+  },
+  {
+    "superficie": "aprobaciones",
+    "ruta": "/approvals",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/approvals",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Action approvals Nova proposes; you decide. Nothing external executes without your explicit approval, and external writes run in",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impacto": "serious",
+        "nodos": 16
+      }
+    ]
+  },
+  {
+    "superficie": "auditoria",
+    "ruta": "/audit",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/audit",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Audit log Everything Nova did, in the open: captures, live sessions, cloud calls, actions, deletions, exports. Entries record wh",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "select-name",
+        "impacto": "critical",
+        "nodos": 1
+      }
+    ]
+  },
+  {
+    "superficie": "auditoria",
+    "ruta": "/audit",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/audit",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Audit log Everything Nova did, in the open: captures, live sessions, cloud calls, actions, deletions, exports. Entries record wh",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": [
+      {
+        "id": "select-name",
+        "impacto": "critical",
+        "nodos": 1
+      }
+    ]
+  },
+  {
+    "superficie": "ajustes",
+    "ruta": "/settings",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/settings",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/14/2026, 10:27:08 PM. Chang",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": []
+  },
+  {
+    "superficie": "ajustes",
+    "ruta": "/settings",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/settings",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out Settings & data controls Account Signed in as dev@nova.local (Nova Dev User). This session expires 9/14/2026, 10:27:08 PM. Chang",
+    "scrollWidth": 391,
+    "clientWidth": 390,
+    "desbordeHorizontal": true,
+    "axe": []
+  },
+  {
+    "superficie": "estado",
+    "ruta": "/status",
+    "viewport": "desktop",
+    "http": 200,
+    "url": "/status",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out System status Operational view for the private alpha — component health, queues, and maintenance. Counts only; captured content ",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "desbordeHorizontal": false,
+    "axe": []
+  },
+  {
+    "superficie": "estado",
+    "ruta": "/status",
+    "viewport": "mobile",
+    "http": 200,
+    "url": "/status",
+    "title": "Nova Context — Timeline",
+    "lang": "en",
+    "h1": [],
+    "h2": 1,
+    "textos": "Nova Context Timeline Tasks Projects Approvals Audit Status Settings Nova Dev User Sign out System status Operational view for the private alpha — component health, queues, and maintenance. Counts only; captured content ",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desbordeHorizontal": false,
+    "axe": []
+  }
+]

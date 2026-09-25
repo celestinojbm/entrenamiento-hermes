@@ -1,0 +1,36 @@
+{
+  "etiqueta": "despues",
+  "viewport": "390x844",
+  "medicion": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desborde": false,
+    "tareas": 18,
+    "titulo_texto": "create a task to file this",
+    "titulo_ancho_px": 332,
+    "titulo_alto_px": 24,
+    "titulo_lineas": 1,
+    "titulo_caracteres": 26,
+    "caracteres_por_linea": 26
+  },
+  "tras_interaccion": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "desborde": false,
+    "tareas": 18,
+    "titulo_texto": "create a task to file this",
+    "titulo_ancho_px": 332,
+    "titulo_alto_px": 24,
+    "titulo_lineas": 1,
+    "titulo_caracteres": 26,
+    "caracteres_por_linea": 26,
+    "interaccion": {
+      "texto_boton_antes": "Done",
+      "texto_boton_despues": "Reopen",
+      "clase_fila_antes": "task-row ",
+      "clase_fila_despues": "task-row done",
+      "cambio": true
+    }
+  },
+  "errores_consola": []
+}

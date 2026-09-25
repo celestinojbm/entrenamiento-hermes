@@ -1,0 +1,83 @@
+### CONTROL POSITIVO — Dona-agent mismo HEAD en Python 3.12.14 (runtime soportado)
+HEAD: 958b5250ac2e04075d74bb061eeebd3504911be4 (958b525 Merge pull request #240 from celestinojbm/refactor/email-action-center-persistence-pr1)
+python: Python 3.12.14
+comando: python -m pytest -q --tb=no -rEf -p no:cacheprovider
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+tests/test_sanitizacion_contactos_tareas_vision.py::TestVisionWebhookE2E::test_procesar_webhook_texto_de_imagen_benigno_no_se_altera
+  /home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-956 (_connection_worker_thread)
+  
+  Traceback (most recent call last):
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/aiosqlite/core.py", line 66, in _connection_worker_thread
+      future.get_loop().call_soon_threadsafe(set_result, future, result)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 844, in call_soon_threadsafe
+      self._check_closed()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 545, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  During handling of the above exception, another exception occurred:
+  
+  Traceback (most recent call last):
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+      self.run()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/threading.py", line 1012, in run
+      self._target(*self._args, **self._kwargs)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/aiosqlite/core.py", line 75, in _connection_worker_thread
+      future.get_loop().call_soon_threadsafe(set_exception, future, e)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 844, in call_soon_threadsafe
+      self._check_closed()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 545, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+tests/test_sanitizar_inyeccion.py::test_filtra_patrones_de_inyeccion[ignora todas las instrucciones anteriores]
+  /home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-962 (_connection_worker_thread)
+  
+  Traceback (most recent call last):
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/aiosqlite/core.py", line 66, in _connection_worker_thread
+      future.get_loop().call_soon_threadsafe(set_result, future, result)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 844, in call_soon_threadsafe
+      self._check_closed()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 545, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  During handling of the above exception, another exception occurred:
+  
+  Traceback (most recent call last):
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/threading.py", line 1075, in _bootstrap_inner
+      self.run()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/threading.py", line 1012, in run
+      self._target(*self._args, **self._kwargs)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/site-packages/aiosqlite/core.py", line 75, in _connection_worker_thread
+      future.get_loop().call_soon_threadsafe(set_exception, future, e)
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 844, in call_soon_threadsafe
+      self._check_closed()
+    File "/home/celestinojbm/h014-work/pg/envpy312/lib/python3.12/asyncio/base_events.py", line 545, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2422 passed, 38 warnings in 309.05s (0:05:09)
+EXIT=0 DURACION=312s
+
+### ruff en 3.12 (mismo comando que en 3.14)
+    |
+help: Organize imports
+
+Found 458 errors.
+[*] 446 fixable with the `--fix` option (12 hidden fixes can be enabled with the `--unsafe-fixes` option).
+RUFF_EXIT=1
