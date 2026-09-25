@@ -28,6 +28,17 @@ Fuente de verdad operativa en revisión. Evidencia local aportada por el propiet
 5. No reiniciar Windows, WSL, Hermes o Telegram durante el Bloque A. Preparar y documentar el corte; solicitar autorización cuando la única verificación pendiente requiera reinicio o interrupción. Continuar mientras tanto con tareas independientes ya autorizadas.
 6. El PR #4 ya incluye S8 según confirmación del propietario; no volver a corregirlo ni auditarlo en el Bloque A. El estado del puente firmado permanece sujeto a su prueba end-to-end posterior.
 
+## Modo permanente: automatización del desarrollo
+
+El objetivo de H-015 es dejar el HomeLab operando como sistema continuo de trabajo para automatizar la construcción y mantenimiento de los desarrollos del propietario, incluidos DONA, Donalabs, Fluvia, Nova Context y los repositorios priorizados en sus backlogs.
+
+- No imponer límites artificiales de minutos ni parar al entregar un informe intermedio. Al cerrar una unidad, el coordinador toma el siguiente elemento priorizado de la cola y continúa; mantiene checkpoints con evidencia y registra bloqueos.
+- El trabajo es continuo y dirigido por cola/eventos: GitHub Issues y backlogs proveen tareas; n8n gestiona disparadores, cola, reintentos, aprobación y notificaciones; Hermes coordina contexto, asignación, ejecución y memoria; agentes de desarrollo disponibles trabajan en entornos aislados; GitHub conserva ramas, commits, PR, pruebas y trazas.
+- Automatizar desde análisis y plan hasta implementación, pruebas, revisión, documentación y creación/actualización de PR. Dejar cada tarea lista para revisión y tomar el siguiente trabajo sin esperar una nueva orden cuando la cola autorizada tenga tareas.
+- Si no hay trabajo pendiente y autorizado, esperar nuevos eventos sin ejecutar inferencias en bucle ni gastar tokens. Mantener Hermes en modelos gratuitos exclusivamente; cualquier workflow externo que implique coste debe respetar el presupuesto autorizado y mostrar su coste esperado.
+- Respetar límites de permisos por repositorio/agente. No hacer merge, despliegue, cambios destructivos, publicaciones, gastos adicionales ni acciones externas irreversibles sin aprobación específica. El sistema debe producir código y PR revisables de forma autónoma, con aprobaciones humanas en esos puntos de control.
+- No crear workflows duplicados. Antes de activar o modificar automatizaciones existentes, conservar configuración y datos y comprobar qué efectos producen; consolidar gradualmente los workflows ya configurados.
+
 ## Bloque A — trabajo continuo para Hermes Desktop (OptiPlex)
 
 No hay límite de tiempo global. Trabajar en pasos consecutivos, producir evidencia y continuar; si un paso está bloqueado, reportar el bloqueo concreto y avanzar en lo que no dependa de él.
