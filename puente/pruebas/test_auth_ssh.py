@@ -95,8 +95,20 @@ def main() -> int:
     registrar("S7 sin allowlist → fallo cerrado", not ok7, motivo7)
 
     # 8. la clave privada no se copia al repositorio
+    # Excluimos el directorio de salidas de prueba para evitar falsos positivos:
+    # los archivos de bateria-*.txt contienen literalmente "PRIVATE KEY"
+    # como parte de sus propios mensajes de reporte, no claves reales.
     repo = RAIZ / "puente"
-    filtrados = [p for p in repo.rglob("*") if p.is_file() and p.stat().st_size < 4096
+    salidas_dir = repo / "pruebas" / "salidas"
+    def _es_salida(p: Path) -> bool:
+        try:
+            p.relative_to(salidas_dir)
+            return True
+        except ValueError:
+            return False
+    filtrados = [p for p in repo.rglob("*") if p.is_file()
+                 and p.stat().st_size < 4096
+                 and not _es_salida(p)
                  and b"PRIVATE KEY" in p.read_bytes()]
     registrar("S8 ninguna clave privada en el repositorio", not filtrados,
               f"archivos con 'PRIVATE KEY': {[p.name for p in filtrados] or 'ninguno'}")
