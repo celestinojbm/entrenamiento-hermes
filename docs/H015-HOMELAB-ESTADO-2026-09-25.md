@@ -39,7 +39,7 @@ El objetivo de H-015 es dejar el HomeLab operando como sistema continuo de traba
 - La autonomía cubre tareas existentes y priorizadas en la cola autorizada. No inventar alcance ni interpretar la continuidad como permiso para cambios irreversibles. Cada informe debe separar evidencia comprobada, inferencias, cambios hechos y decisiones pendientes.
 - Si no hay trabajo pendiente y autorizado, esperar nuevos eventos sin ejecutar inferencias en bucle ni gastar tokens. Mantener Hermes en modelos gratuitos exclusivamente; cualquier workflow externo que implique coste debe respetar el presupuesto autorizado y mostrar su coste esperado.
 - Respetar límites de permisos por repositorio/agente. No hacer merge, despliegue, cambios destructivos, publicaciones, gastos adicionales ni acciones externas irreversibles sin aprobación específica. El sistema debe producir código y PR revisables de forma autónoma, con aprobaciones humanas en esos puntos de control.
-- No crear workflows duplicados. Antes de activar o modificar automatizaciones existentes, conservar configuración y datos y comprobar qué efectos producen; consolidar gradualmente los workflows ya configurados.
+- n8n es infraestructura activa y no se pausa mientras avanza Hermes. No matar procesos Node que formen parte del contenedor. No crear workflows duplicados. Activar los workflows existentes previstos para operar, verificando primero su trigger, efectos, credenciales (nombres solamente) y costes conocidos; conservar configuración y datos. Un riesgo concreto puede bloquear ese workflow particular, pero no debe detener los demás ni el avance independiente.
 
 ## Bloque A — trabajo continuo para Hermes Desktop (OptiPlex)
 
@@ -62,10 +62,10 @@ Informe de Hermes Desktop recibido por el propietario; la sesión reportada no h
 
 Siguiente avance seguro: verificar en solo lectura la precedencia y carga efectiva de auxiliares; comprobar la pertenencia del proceso Node al contenedor; inspeccionar la tarea de Windows desde el host Windows; y preparar el arranque persistente con plan de corte/rollback. Mantener los servicios actuales. La prueba que requiere reinicio del gateway queda pendiente de autorización expresa.
 
-## Continuación de H-015 después del Bloque A (no detenerse al cerrar A)
+## Continuación de H-015 (n8n avanza en paralelo con A)
 
 - **B.** Conservar S8 ya resuelto en PR #4. Completar prueba de orden Ed25519 firmada MSI→staging OptiPlex→GitHub→Telegram, con allowlist inocua, deduplicación y rechazo de firma inválida; no activar cron/producción ni fusionar fuera del alcance autorizado.
-- **C.** Inventario n8n y costes OpenRouter independientes; respaldo verificable y workflow aislado para bidireccionalidad local bajo aprobación.
+- **C — en paralelo con A.** Mantener n8n activo. Revisar nombre/estado/trigger/última ejecución de los workflows existentes, efectos y costes por proveedor sin leer secretos; activar los que ya estén configurados para operar, uno por vez, validar sus ejecuciones y registrar fallos. Preservar workflows y datos; no reabrir OAuth/MCP. No borrar ni detener procesos Node. Aislar cualquier flujo concreto con efecto externo o coste no aprobado y continuar los demás. Después preparar integración bidireccional Hermes↔n8n sobre workflow de prueba.
 - **D.** Inventario Jev/Jeff, OpenClaw, Claude Code y Codex; integrar gradualmente según permisos, aislamiento y registros, sin instalar duplicados.
 
 ## Incidencias abiertas
@@ -76,4 +76,4 @@ Siguiente avance seguro: verificar en solo lectura la precedencia y carga efecti
 | A2 | `openrouter/free` se intenta como auxiliar y `free_only` lo rechaza | Configuración efectiva y llamada auxiliar gratuita verificadas; sin fallback de pago |
 | A3 | Auth gate del dashboard y rotación previa no verificadas aquí | Acceso anónimo denegado y credencial anterior inválida desde MSI |
 | B2 | Circuito firmado no demostrado completo | Una orden inocua una vez, resultado GitHub, aviso Telegram y rechazo de suplantación |
-| C1 | Inventario y gasto n8n no actualizados | Conteo actual, proveedor/modelo/costo por workflow y respaldo documentados |
+| C1 | Estado y ejecución de workflows n8n por actualizar | Flujos existentes activados según diseño, ejecuciones verificadas y bloqueos específicos documentados |
