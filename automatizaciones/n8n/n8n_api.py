@@ -12,7 +12,7 @@ import subprocess
 import urllib.error
 import urllib.request
 
-BASE = "https://desktop-uu4cmub.tail4043e9.ts.net:8443"
+BASE = os.environ.get("N8N_BASE", "https://N8N_HOST:8443")
 
 
 def clave() -> tuple:

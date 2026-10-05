@@ -96,12 +96,12 @@ TAREAS_AUTORIZADAS = [
     dict(id="hl-salud-n8n", proyecto="homelab", titulo="Salud de n8n (8443/healthz)", tipo="salud_servicio",
          prioridad=80, depende_de=None, permisos="lectura_red",
          criterio="healthz devuelve status ok",
-         params={"url": "https://desktop-uu4cmub.tail4043e9.ts.net:8443/healthz", "codigos": [200],
+         params={"url": "https://N8N_HOST:8443/healthz", "codigos": [200],
                  "contiene": "ok", "nombre": "n8n"}),
     dict(id="hl-salud-hermes", proyecto="homelab", titulo="Salud del Hermes remoto (10000)", tipo="salud_servicio",
          prioridad=70, depende_de=None, permisos="lectura_red",
          criterio="api/health responde ok y auth_required",
-         params={"url": "https://desktop-uu4cmub.tail4043e9.ts.net:10000/api/health", "codigos": [200],
+         params={"url": "https://N8N_HOST:10000/api/health", "codigos": [200],
                  "contiene": '"ok":true', "nombre": "Hermes remoto"}),
     dict(id="hl-salud-demos", proyecto="fluvia", titulo="Demos locales responden (3302/3322/3332/3382)",
          tipo="salud_servicio", prioridad=60, depende_de=None, permisos="lectura_red",
@@ -295,10 +295,10 @@ def h_respaldo_config(params: dict) -> tuple:
 def h_inspeccionar_n8n(params: dict) -> tuple:
     if not N8N_KEY:
         return "bloqueada", {"accion_unica": "crear la clave de API en "
-                            "https://desktop-uu4cmub.tail4043e9.ts.net:8443/settings/api (Settings → n8n API) "
+                            "https://N8N_HOST:8443/settings/api (Settings → n8n API) "
                             "con solo-lectura de workflows y ejecuciones, y guardarla como variable de entorno del usuario",
                             "no_consumir_calls": True}
-    req = urllib.request.Request("https://desktop-uu4cmub.tail4043e9.ts.net:8443/api/v1/workflows?limit=50",
+    req = urllib.request.Request("https://N8N_HOST:8443/api/v1/workflows?limit=50",
                                  headers={"X-N8N-API-KEY": N8N_KEY, "User-Agent": "hermes-cola/1"})
     try:
         with urllib.request.urlopen(req, timeout=20, context=ssl._create_unverified_context()) as r:
