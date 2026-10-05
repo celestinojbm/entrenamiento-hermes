@@ -92,7 +92,7 @@ TAREAS_AUTORIZADAS = [
     dict(id="hl-salud-kuma", proyecto="homelab", titulo="Salud de Uptime Kuma (443)", tipo="salud_servicio",
          prioridad=80, depende_de=None, permisos="lectura_red",
          criterio="responde la página de Kuma sin error de red",
-         params={"url": "https://desktop-uu4cmub.tail4043e9.ts.net/", "codigos": [200, 302], "nombre": "Uptime Kuma"}),
+         params={"url": "https://N8N_HOST/", "codigos": [200, 302], "nombre": "Uptime Kuma"}),
     dict(id="hl-salud-n8n", proyecto="homelab", titulo="Salud de n8n (8443/healthz)", tipo="salud_servicio",
          prioridad=80, depende_de=None, permisos="lectura_red",
          criterio="healthz devuelve status ok",
