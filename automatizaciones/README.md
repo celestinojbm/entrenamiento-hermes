@@ -7,3 +7,15 @@
 - `cola/cola_tareas.py`: cola local con reclamación atómica (SQLite) y programador único.
 
 Datos personales y credenciales sustituidos por marcadores. Los identificadores de credenciales de n8n aparecen como marcadores.
+
+## Política del ejecutor (actualizada)
+Los tipos de solo lectura autorizados (`pull_request`, `issue`, `ci_run`, `verify_url`, `backlog_update`,
+`notify_owner`) se ejecutan sin aprobación individual. Conservan aprobación `merge`, `deploy`, `money`,
+`delete_data`, `third_party_message`, `config_change`. **Los commits y el push dentro del alcance de estos
+proyectos están autorizados**; el resto de modificaciones sigue reservado. La reclamación atómica la aporta
+el ejecutor local (SQLite); la concesión de las tablas de n8n es best-effort y no protege escrituras.
+
+## Jev
+`jev/jev_decide.py` conecta Jev a una decisión acotada (orden de ejecución entre opciones que entrega el
+código) con umbral de confianza, fallback determinista, registro de métricas y prohibición de alterar el
+conjunto de opciones. Los permisos siguen definidos por código, nunca por el modelo.

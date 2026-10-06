@@ -25,6 +25,8 @@ sys.path.insert(0, AQUI)
 import n8n_api as api  # noqa: E402
 
 TABLA = "93JVO9NHWwx4r68S"          # github_dispatch_queue (del Dispatcher existente)
+sys.path.insert(0, os.path.join(os.path.dirname(AQUI), 'jev'))
+import jev_decide  # recomendador acotado con fallback determinista
 TABLA_RES = "homelab_dispatch_results"   # tabla propia: concesión y resultado (no se toca su esquema)
 EJECUTOR = "msi-ejecutor-dispatch"
 LEASE_MIN = 10
@@ -209,6 +211,14 @@ def main() -> int:
     for m, n in motivos.items():
         print(f"  descartadas por {m}: {n}")
     print(f"  candidatas: {len(candidatas)}")
+    if candidatas:
+        rec = jev_decide.recomendar_orden(
+            [{"clave": c["dispatch_key"], "proyecto": c.get("project"), "ci": "n/a",
+              "prioridad": 100 - i, "titulo": c.get("title")} for i, c in enumerate(candidatas)],
+            [c["dispatch_key"] for c in candidatas])
+        print(f"  orden propuesto (Jev usado={rec['usado']}, motivo={rec['motivo']}): {rec['orden'][:5]}")
+        por_clave = {c["dispatch_key"]: c for c in candidatas}
+        candidatas = [por_clave[k] for k in rec["orden"] if k in por_clave]
     if not candidatas:
         anota("nada que ejecutar")
         return 0
